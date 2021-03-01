@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../assets/Singhealth-logo.png";
 import {
   Button,
@@ -6,8 +6,14 @@ import {
   Box,
   Typography,
   makeStyles,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
+  FormControl,
+  InputLabel,
 } from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
 
 const useStyles = makeStyles({
   login: {
@@ -35,39 +41,73 @@ const useStyles = makeStyles({
 });
 
 const LoginPage = (props) => {
+  let history = useHistory();
+
   // Create a style object
   const classes = useStyles();
-
   // Set the Navbar to not show using props
   props.setShowBarProps(false);
-  let history = useHistory();
+
+  // States to store username and password
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
   // Function to handle a login request
   const handleLogin = () => {
     console.log("attempt to login");
     // TODO: Add authencation here
-    props.setShowBarProps(true);
+    props.setShowBarProps(true); // Set bottom nav bar to show
     history.push("/tenants");
+  };
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   return (
     <div className={classes.login}>
       <img src={logo} alt="Logo" className={classes.logo}></img>
-      <form className={classes.form}>
+      <FormControl className={classes.form} autoComplete="true">
         <Box m={1} className={classes.marginMax}>
           <TextField
             id="userName"
             label="Username"
             variant="outlined"
             fullWidth="true"
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
           />
         </Box>
         <Box m={1} className={classes.marginMax}>
-          <TextField
-            id="passWord"
-            label="Password"
-            variant="outlined"
-            fullWidth="true"
-          />
+          <FormControl variant="outlined" fullWidth="true">
+            <InputLabel>Password</InputLabel>
+            <OutlinedInput
+              id="password"
+              type={showPassword ? "text" : "password"}
+              label="Password"
+              variant="outlined"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            ></OutlinedInput>
+          </FormControl>
         </Box>
         <Box m={1} className={classes.marginMax}>
           <Button
@@ -82,7 +122,7 @@ const LoginPage = (props) => {
         <Typography className={classes.marginMax} align="left">
           Dont have an account? <Link to="/register">Register</Link>
         </Typography>
-      </form>
+      </FormControl>
     </div>
   );
 };

@@ -6,8 +6,9 @@ import OutstandingPage from "./pages/OutstandingPage";
 import AccountPage from "./pages/AccountPage";
 import Navbar from "./components/Navbar";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-import { Route, Switch } from "react-router-dom";
+import { Route, BrowserRouter as Router } from "react-router-dom";
 import { useState } from "react";
+import TenantHeader from "./components/TenantHeader";
 
 // Creating a custom theme
 const theme = createMuiTheme({
@@ -21,14 +22,15 @@ const theme = createMuiTheme({
 // Main wrapper class for all other pages
 const App = () => {
   const [showBar, setShowBar] = useState(true);
-
   return (
-    <ThemeProvider theme={theme}>
-      <div className="App">
-        <Switch>
-          <Route path="/login">
-            <LoginPage setShowBarProps={setShowBar} />
-          </Route>
+    <div className="App">
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Route
+            exact
+            path="/"
+            render={(props) => <LoginPage setShowBarProps={setShowBar} />}
+          />
           <Route path="/register">
             <RegisterPage />
           </Route>
@@ -41,10 +43,10 @@ const App = () => {
           <Route path="/account">
             <AccountPage />
           </Route>
-        </Switch>
-        <Navbar showBarProps={showBar} />
-      </div>
-    </ThemeProvider>
+          <Route path="/test"></Route>
+        </Router>
+      </ThemeProvider>
+    </div>
   );
 };
 

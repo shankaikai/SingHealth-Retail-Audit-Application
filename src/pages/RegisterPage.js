@@ -12,14 +12,15 @@ const RegisterPage = () => {
   const classes = useStyle();
   let history = useHistory();
 
-  // Function to handle back press
-  const handleBack = () => {
-    history.push("/login");
-  };
-
   return (
     <div className={classes.root}>
-      <IconButton aria-label="back" size="medium" onClick={handleBack}>
+      <IconButton
+        aria-label="back"
+        size="medium"
+        onClick={() => {
+          history.goBack();
+        }}
+      >
         <ArrowBackIosIcon fontSize="inherit" />
       </IconButton>
       <h1>Register</h1>

@@ -1,12 +1,14 @@
 import React from "react";
 import { Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 const AccountPage = () => {
   let history = useHistory();
   // Function to handle logouts
   const handleLogout = () => {
-    history.push("/login");
+    // TODO: Release session
+    history.push("/");
   };
   return (
     <div>
@@ -14,6 +16,7 @@ const AccountPage = () => {
       <Button variant="contained" color="primary" onClick={handleLogout}>
         Logout
       </Button>
+      <Navbar />
     </div>
   );
 };

@@ -26,11 +26,6 @@ const Navbar = (props) => {
   const classes = useStyles();
   let history = useHistory();
 
-  // Check the showBar props
-  if (!props.showBarProps) {
-    return <div></div>;
-  }
-
   // Function to handle changing of tabs
   const handleChange = (event, newValue) => {
     setValue(newValue);
