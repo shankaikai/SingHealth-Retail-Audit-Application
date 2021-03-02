@@ -5,6 +5,7 @@ import {
   Divider,
   makeStyles,
 } from "@material-ui/core";
+import TenantItem from "./TenantItem";
 
 const useStyles = makeStyles({
   root: {
@@ -17,20 +18,13 @@ const TenantList = () => {
   const classes = useStyles();
   return (
     <List className={classes.root}>
-      <ListItem button>
-        <ListItemText primary="Tenant 1" />
-      </ListItem>
-      <Divider />
-      <ListItem button divider>
-        <ListItemText primary="Tenant 1" />
-      </ListItem>
-      <ListItem button>
-        <ListItemText primary="Tenant 1" />
-      </ListItem>
-      <Divider light />
-      <ListItem button>
-        <ListItemText primary="Tenant 1" />
-      </ListItem>
+      <TenantItem/>
+      <TenantItem/>
+      <TenantItem/>
+      <TenantItem/>
+      <TenantItem/>
+      <TenantItem/>
+      <TenantItem/>
     </List>
   );
 };
