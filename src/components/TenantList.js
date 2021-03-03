@@ -11,7 +11,6 @@ const useStyles = makeStyles({
   root: {
     width: "100%",
     margin: 0,
-    position: "fixed",
     marginTop: "136px",
     marginBottom: "56x",
     height: "calc(100vh - 192px)"
@@ -80,10 +79,12 @@ const TenantList = () => {
   ]
   const classes = useStyles();
   return (
-    <List className={classes.root}>
-      {itemDescriptions.map((item)=>
-      <TenantItem storeName = {item.name} completedDate = {item.date}/>)}
-    </List>
+    <div className={classes.root}>
+      <List className={classes.list}>
+        {itemDescriptions.map((item) =>
+          <TenantItem storeName={item.name} completedDate={item.date} key = {item.name}/>)}
+      </List>
+    </div>
   );
 };
 

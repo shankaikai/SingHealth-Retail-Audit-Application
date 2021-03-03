@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import TenantHeader from "../components/TenantHeader";
 import TenantList from "../components/TenantList";
 
-const TenantPage = () => {
+const TenantsPage = () => {
   return (
     <div>
       <TenantHeader />
@@ -13,4 +13,4 @@ const TenantPage = () => {
   );
 };
 
-export default TenantPage;
+export default TenantsPage;
