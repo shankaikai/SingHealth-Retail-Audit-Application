@@ -15,11 +15,13 @@ const useStyles = makeStyles({
     top: 0,
     width: "100%",
     display: "flex",
+    position: "fixed",
     flexDirection: "column",
   },
   header: {
     margin: 0,
     padding: "15px",
+    height: "100%"
   },
   searchbar: {
     width: "80%",
