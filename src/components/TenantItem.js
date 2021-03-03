@@ -9,6 +9,7 @@ import Box from "@material-ui/core/Box"
 import Avatar from '@material-ui/core/Avatar'
 import logo from '../assets/koufu.jpg'
 import tick from '../assets/tick.svg'
+import { Link, useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
     root: {
@@ -22,22 +23,31 @@ const useStyles = makeStyles({
     },
 });
 
+
 const TenantItem = (props) => {
+    let history = useHistory();
     const classes = useStyles();
     const storeName = props.storeName;
     const completedDate = props.completedDate;
+    
+    const handleOnClick=(name)=> {
+        console.log(name);
+        history.push({
+            pathname:"/tenant", 
+            state:{storeName:name}});
+    }
     return (
-        <Card classname={classes.root}>
+        <Card className={classes.root} onClick={()=>handleOnClick(storeName)}> 
             <CardContent style={{padding:"10px"}}>
                 <div style={{ width: '100%', display:"flex", alignItems:"center", justifyContent:"space-between"}}>
                     <Avatar alt="Koufu" src={logo} display="inline" style={{ float: 'left', paddingRight: '5px' }} />
                     <div display="inline" style={{float: 'left',flexGrow:4}}>
-                        <Typography style={{marginBottom:"0"}} classname={classes.title} color="textPrimary" display="inline" gutterBottom>
+                        <Typography style={{marginBottom:"0"}} className={classes.title} color="textPrimary" display="inline" gutterBottom>
                             <Box fontWeight="fontWeightBold" m={1}>
                                 {storeName}
                             </Box>
                         </Typography>
-                        <Typography classname={classes.subTitle} color="textSecondary" gutterBottom>
+                        <Typography className={classes.subTitle} color="textSecondary" gutterBottom>
                             <Box fontWeight="fontWeightRegular" fontSize={12} color="textSecondary" m={1}>
                                 Last Audit: {completedDate}
                             </Box>
@@ -45,7 +55,7 @@ const TenantItem = (props) => {
                     </div>
                     <div display="inline">
                         <img src={tick} style={{display:"block", marginLeft:"auto", marginRight:"auto"}}/>
-                        <Typography classname={classes.subTitle} color="textSecondary" gutterBottom>
+                        <Typography className={classes.subTitle} color="textSecondary" gutterBottom>
                             <Box fontWeight="fontWeightRegular" fontSize={12} color="textSecondary" m={1} style={{textAlign:"center"}}>
                                 95%
                             </Box>

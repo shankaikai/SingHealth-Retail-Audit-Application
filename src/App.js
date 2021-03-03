@@ -1,6 +1,7 @@
 import "./App.css";
 import RegisterPage from "./pages/RegisterPage";
 import TenantsPage from "./pages/TenantsPage";
+import TenantPage from "./pages/TenantPage";
 import LoginPage from "./pages/LoginPage";
 import OutstandingPage from "./pages/OutstandingPage";
 import AccountPage from "./pages/AccountPage";
@@ -32,7 +33,7 @@ const App = () => {
           <Route path="/register">
             <RegisterPage />
           </Route>
-          <Route path="/tenants">
+          <Route exact path="/tenants">
             <TenantsPage />
           </Route>
           <Route path="/outstanding">
@@ -40,6 +41,9 @@ const App = () => {
           </Route>
           <Route path="/account">
             <AccountPage />
+          </Route>
+          <Route exact path="/tenant">
+            <TenantPage/>
           </Route>
           <Route path="/test"></Route>
         </Router>

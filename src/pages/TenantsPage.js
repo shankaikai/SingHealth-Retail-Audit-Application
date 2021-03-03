@@ -3,8 +3,7 @@ import Navbar from "../components/Navbar";
 import Header from "../components/Header";
 import TenantList from "../components/TenantList";
 
-
-const TenantPage = () => {
+const TenantsPage = () => {
   return (
     <div>
       <Header searchbar title = "Tenants" />
@@ -14,4 +13,4 @@ const TenantPage = () => {
   );
 };
 
-export default TenantPage;
+export default TenantsPage;
