@@ -22,8 +22,10 @@ const useStyles = makeStyles({
     },
 });
 
-const TenantItem = () => {
+const TenantItem = (props) => {
     const classes = useStyles();
+    const storeName = props.storeName;
+    const completedDate = props.completedDate;
     return (
         <Card classname={classes.root}>
             <CardContent style={{padding:"10px"}}>
@@ -32,12 +34,12 @@ const TenantItem = () => {
                     <div display="inline" style={{float: 'left',flexGrow:4}}>
                         <Typography style={{marginBottom:"0"}} classname={classes.title} color="textPrimary" display="inline" gutterBottom>
                             <Box fontWeight="fontWeightBold" m={1}>
-                                Name of store
+                                {storeName}
                             </Box>
                         </Typography>
                         <Typography classname={classes.subTitle} color="textSecondary" gutterBottom>
                             <Box fontWeight="fontWeightRegular" fontSize={12} color="textSecondary" m={1}>
-                                Date Completed: 01 Dec 2020
+                                Last Audit: {completedDate}
                             </Box>
                         </Typography>
                     </div>
