@@ -1,8 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import TenantHeader from "../components/TenantHeader";
-import TenantList from "../components/TenantList";
 
 const TenantPage = () => {
   const location= useLocation();
