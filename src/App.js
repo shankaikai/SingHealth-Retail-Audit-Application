@@ -4,11 +4,9 @@ import TenantsPage from "./pages/TenantsPage";
 import LoginPage from "./pages/LoginPage";
 import OutstandingPage from "./pages/OutstandingPage";
 import AccountPage from "./pages/AccountPage";
-import Navbar from "./components/Navbar";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import { useState } from "react";
-import TenantHeader from "./components/TenantHeader";
 
 // Creating a custom theme
 const theme = createMuiTheme({

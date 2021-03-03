@@ -16,7 +16,7 @@ const AccountPage = () => {
       <Button variant="contained" color="primary" onClick={handleLogout}>
         Logout
       </Button>
-      <Navbar />
+      <Navbar route = "account"/>
     </div>
   );
 };

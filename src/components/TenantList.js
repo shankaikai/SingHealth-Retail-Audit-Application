@@ -1,8 +1,5 @@
 import {
-  ListItem,
   List,
-  ListItemText,
-  Divider,
   makeStyles,
 } from "@material-ui/core";
 import TenantItem from "./TenantItem";

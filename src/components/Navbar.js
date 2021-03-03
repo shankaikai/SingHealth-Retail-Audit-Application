@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 
 const Navbar = (props) => {
   // Use State
-  const [value, setValue] = useState("tenants");
+  const [value, setValue] = useState(props.route);
   const classes = useStyles();
   let history = useHistory();
 

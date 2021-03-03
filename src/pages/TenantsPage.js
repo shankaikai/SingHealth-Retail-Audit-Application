@@ -1,14 +1,15 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import TenantHeader from "../components/TenantHeader";
+import Header from "../components/Header";
 import TenantList from "../components/TenantList";
+
 
 const TenantPage = () => {
   return (
     <div>
-      <TenantHeader />
+      <Header searchbar title = "Tenants" />
       <TenantList />
-      <Navbar />
+      <Navbar route = "tenants"/>
     </div>
   );
 };
