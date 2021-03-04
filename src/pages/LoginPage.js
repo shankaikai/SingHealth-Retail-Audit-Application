@@ -45,8 +45,6 @@ const LoginPage = (props) => {
 
   // Create a style object
   const classes = useStyles();
-  // Set the Navbar to not show using props
-  props.setShowBarProps(false);
 
   // States to store username and password
   const [username, setUsername] = useState("");
@@ -57,7 +55,6 @@ const LoginPage = (props) => {
   const handleLogin = () => {
     console.log("attempt to login");
     // TODO: Add authencation here
-    props.setShowBarProps(true); // Set bottom nav bar to show
     history.push("/tenants");
   };
 

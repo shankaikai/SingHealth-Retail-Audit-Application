@@ -1,7 +1,4 @@
-import {
-  Divider,
-  makeStyles,
-} from "@material-ui/core";
+import { Divider, makeStyles, Typography } from "@material-ui/core";
 
 import React from "react";
 import Searchbar from "./Searchbar";
@@ -18,19 +15,20 @@ const useStyles = makeStyles({
     margin: 0,
     padding: "15px",
     height: "100%",
-    marginLeft: "26.1px"
+    marginLeft: "26.1px",
+    fontWeight: 500,
   },
-  
 });
 
 const Header = (props) => {
   const classes = useStyles();
 
-
   return (
     <div className={classes.root}>
-      <h2 className={classes.header}>{props.title}</h2>
-      {props.searchbar ? <Searchbar/> : null}
+      <Typography variant="h5" className={classes.header}>
+        {props.title}
+      </Typography>
+      {props.searchbar ? <Searchbar /> : null}
       <Divider />
     </div>
   );

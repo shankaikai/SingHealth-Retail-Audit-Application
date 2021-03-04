@@ -20,16 +20,13 @@ const theme = createMuiTheme({
 
 // Main wrapper class for all other pages
 const App = () => {
-  const [showBar, setShowBar] = useState(true);
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
         <Router>
-          <Route
-            exact
-            path="/"
-            render={(props) => <LoginPage setShowBarProps={setShowBar} />}
-          />
+          <Route exact path="/">
+            <LoginPage />
+          </Route>
           <Route path="/register">
             <RegisterPage />
           </Route>
@@ -43,7 +40,7 @@ const App = () => {
             <AccountPage />
           </Route>
           <Route exact path="/tenant">
-            <TenantPage/>
+            <TenantPage />
           </Route>
           <Route path="/test"></Route>
         </Router>
