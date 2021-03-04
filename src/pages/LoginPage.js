@@ -54,7 +54,7 @@ const LoginPage = (props) => {
   // Function to handle a login request
   const handleLogin = () => {
     console.log("attempt to login");
-    // TODO: Add authencation here
+    // TODO: Add proper authencation here
     history.push("/tenants");
   };
 

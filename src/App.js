@@ -5,6 +5,7 @@ import TenantPage from "./pages/TenantPage";
 import LoginPage from "./pages/LoginPage";
 import OutstandingPage from "./pages/OutstandingPage";
 import AccountPage from "./pages/AccountPage";
+import AddTenantPage from "./pages/AddTenantPage";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import { useState } from "react";
@@ -42,7 +43,9 @@ const App = () => {
           <Route exact path="/tenant">
             <TenantPage />
           </Route>
-          <Route path="/test"></Route>
+          <Route path="/addtenant">
+            <AddTenantPage />
+          </Route>
         </Router>
       </ThemeProvider>
     </div>

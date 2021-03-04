@@ -1,6 +1,7 @@
-import { Divider, makeStyles, Typography } from "@material-ui/core";
-
+import { Divider, makeStyles, Typography, IconButton } from "@material-ui/core";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import React from "react";
+import { useHistory } from "react-router-dom";
 import Searchbar from "./Searchbar";
 
 const useStyles = makeStyles({
@@ -18,16 +19,34 @@ const useStyles = makeStyles({
     marginLeft: "26.1px",
     fontWeight: 500,
   },
+  title: {
+    display: "flex",
+    flexDirection: "row",
+  },
 });
 
 const Header = (props) => {
   const classes = useStyles();
+  let history = useHistory();
 
   return (
     <div className={classes.root}>
-      <Typography variant="h5" className={classes.header}>
-        {props.title}
-      </Typography>
+      <div className={classes.title}>
+        {props.back ? (
+          <IconButton
+            onClick={() => {
+              history.goBack();
+            }}
+          >
+            <ArrowBackIcon />
+          </IconButton>
+        ) : (
+          <div></div>
+        )}
+        <Typography variant="h5" className={classes.header}>
+          {props.title}
+        </Typography>
+      </div>
       {props.searchbar ? <Searchbar /> : null}
       <Divider />
     </div>

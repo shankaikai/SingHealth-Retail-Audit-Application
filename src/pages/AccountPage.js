@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     marginBottom: "50px",
   },
   logout: {
-    width: "80%",
+    width: "70%",
   },
 });
 

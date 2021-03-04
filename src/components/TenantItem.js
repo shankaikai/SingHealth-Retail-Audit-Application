@@ -81,15 +81,8 @@ const TenantItem = (props) => {
               </Typography>
             </div>
             <div display="inline">
-              {/* <CheckCircleOutlineIcon
-                style={{
-                  display: "block",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                }}
-              /> */}
               <img
-                alt
+                alt="check"
                 src={tick}
                 style={{
                   display: "block",
