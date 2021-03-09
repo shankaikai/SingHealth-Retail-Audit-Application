@@ -5,8 +5,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Avatar from "@material-ui/core/Avatar";
-import logo from "../assets/koufu.jpg";
-import tick from "../assets/tick.svg";
+import logo from "../../../assets/koufu.jpg";
+import tick from "../../../assets/tick.svg";
 import { useHistory } from "react-router-dom";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 

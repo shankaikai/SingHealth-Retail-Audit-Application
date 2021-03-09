@@ -1,7 +1,7 @@
 import React from "react";
 import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/common/Navbar";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 const useStyles = makeStyles({

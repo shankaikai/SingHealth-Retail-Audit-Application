@@ -1,5 +1,5 @@
 import { TextField, makeStyles, Button } from "@material-ui/core";
-import Header from "../components/Header";
+import Header from "../components/common/Header";
 
 const useStyles = makeStyles({
   root: {

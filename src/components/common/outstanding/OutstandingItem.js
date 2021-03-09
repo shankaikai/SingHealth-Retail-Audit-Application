@@ -8,7 +8,7 @@ import {
   Divider,
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
-import logo from "../assets/koufu.jpg";
+import logo from "../../../assets/koufu.jpg";
 
 var placeHolderIssues = [
   {

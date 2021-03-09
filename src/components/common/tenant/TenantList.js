@@ -17,9 +17,6 @@ const useStyles = makeStyles({
 });
 
 const TenantList = () => {
-  // const names = ["koufu1", "koufu2", "koufu3"]
-  // const dates = ["01 Dec", "02 Dec", "03 Dec"]
-  // const itemDescriptions = [["koufu1", "01 Dec"], ["koufu2", "02 Dec"], ["koufu3", "03 Dec"]];
   var itemDescriptions = [
     {
       name: "Store 1",
