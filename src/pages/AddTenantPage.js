@@ -33,10 +33,9 @@ const AddTenantPage = () => {
       <Header back title="Add New Tenant" />
       <form className={classes.form}>
         <TextField fullWidth variant="filled" label="Tenant Name" />
-        <TextField fullWidth variant="filled" label="Tenant Name" />
-        <TextField fullWidth variant="filled" label="Tenant Name" />
-        <TextField fullWidth variant="filled" label="Tenant Name" />
-        <TextField fullWidth variant="filled" label="Tenant Name" />
+        <TextField fullWidth variant="filled" label="Location" />
+        <TextField fullWidth variant="filled" label="Type" />
+        <TextField fullWidth variant="filled" label="Email Address" />
       </form>
       <Button
         variant="contained"
