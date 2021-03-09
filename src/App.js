@@ -1,14 +1,14 @@
 import "./App.css";
 import RegisterPage from "./pages/RegisterPage";
 import TenantsPage from "./pages/TenantsPage";
+import TenantPage from "./pages/TenantPage";
 import LoginPage from "./pages/LoginPage";
 import OutstandingPage from "./pages/OutstandingPage";
 import AccountPage from "./pages/AccountPage";
-import Navbar from "./components/Navbar";
+import AddTenantPage from "./pages/AddTenantPage";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import { useState } from "react";
-import TenantHeader from "./components/TenantHeader";
 
 // Creating a custom theme
 const theme = createMuiTheme({
@@ -21,20 +21,19 @@ const theme = createMuiTheme({
 
 // Main wrapper class for all other pages
 const App = () => {
-  const [showBar, setShowBar] = useState(true);
   return (
     <div className="App">
+      <meta name="mobile-web-app-capable" content="yes"/>
+      <meta name="apple-mobile-web-app-capable" content="yes"/>
       <ThemeProvider theme={theme}>
         <Router>
-          <Route
-            exact
-            path="/"
-            render={(props) => <LoginPage setShowBarProps={setShowBar} />}
-          />
+          <Route exact path="/">
+            <LoginPage />
+          </Route>
           <Route path="/register">
             <RegisterPage />
           </Route>
-          <Route path="/tenants">
+          <Route exact path="/tenants">
             <TenantsPage />
           </Route>
           <Route path="/outstanding">
@@ -43,7 +42,12 @@ const App = () => {
           <Route path="/account">
             <AccountPage />
           </Route>
-          <Route path="/test"></Route>
+          <Route exact path="/tenant">
+            <TenantPage />
+          </Route>
+          <Route path="/addtenant">
+            <AddTenantPage />
+          </Route>
         </Router>
       </ThemeProvider>
     </div>

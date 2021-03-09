@@ -11,6 +11,7 @@ const useStyles = makeStyles({
     position: "fixed",
     bottom: 0,
     backgroundColor: "#F15A22",
+    zIndex: 1,
   },
   icons: {
     color: "rgba(255, 255, 255, .74)",
@@ -22,7 +23,7 @@ const useStyles = makeStyles({
 
 const Navbar = (props) => {
   // Use State
-  const [value, setValue] = useState("tenants");
+  const [value, setValue] = useState(props.route);
   const classes = useStyles();
   let history = useHistory();
 
