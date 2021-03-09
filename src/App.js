@@ -23,6 +23,8 @@ const theme = createMuiTheme({
 const App = () => {
   return (
     <div className="App">
+      <meta name="mobile-web-app-capable" content="yes"/>
+      <meta name="apple-mobile-web-app-capable" content="yes"/>
       <ThemeProvider theme={theme}>
         <Router>
           <Route exact path="/">
