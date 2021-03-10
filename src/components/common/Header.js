@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 import Searchbar from "./Searchbar";
 import Avatar from "@material-ui/core/Avatar";
 import HeaderDetails from "./HeaderDetails";
-import ViewTenant from "../tenantView/HeaderViewTenant"
 
 const useStyles = makeStyles({
   root: {
@@ -28,13 +27,13 @@ const useStyles = makeStyles({
     marginLeft: "26.1px",
     marginTop: "15px",
     marginBottom: "7px",
-    width:"20px",
-    height:"20px",
+    width: "20px",
+    height: "20px",
   },
   title: {
     display: "flex",
     flexDirection: "row",
-    alignItems:"center",
+    alignItems: "center",
   },
 });
 
@@ -54,16 +53,32 @@ const Header = (props) => {
             <ArrowBackIcon />
           </IconButton>
         ) : (
-            <div></div>
-          )}
-        {props.avatar ? <Avatar src={props.avatar} className={classes.avatar} /> : null}
-        {props.avatar ? 
-        <Typography variant="h5" className={classes.header} style={{marginLeft: "7px"}}>{props.title}</Typography> : 
-        <Typography variant="h5" className={classes.header} style={{marginLeft: "26.1px"}}>{props.title}</Typography>}
+          <div></div>
+        )}
+        {props.avatar ? (
+          <Avatar src={props.avatar} className={classes.avatar} />
+        ) : null}
+        {props.avatar ? (
+          <Typography
+            variant="h5"
+            className={classes.header}
+            style={{ marginLeft: "7px" }}
+          >
+            {props.title}
+          </Typography>
+        ) : (
+          <Typography
+            variant="h5"
+            className={classes.header}
+            style={{ marginLeft: "26.1px" }}
+          >
+            {props.title}
+          </Typography>
+        )}
       </div>
-      {props.details ? <HeaderDetails details = {props.details} /> : null}
+      {props.details ? <HeaderDetails details={props.details} /> : null}
       {props.searchbar ? <Searchbar /> : null}
-      <Divider />
+      {props.noDivider ? null : <Divider />}
     </div>
   );
 };
