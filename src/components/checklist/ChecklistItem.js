@@ -30,9 +30,7 @@ export default function ChecklistItem(props) {
 
   // Handle change in select value
   const handleChange = (e) => {
-    console.log(score);
     // Call the update handler in Checklist.js
-    // props.updateSectionScores(props.data, score)
     props.updateHandler(
       props.data.questionIndex,
       props.data.sectionIndex,
@@ -60,6 +58,7 @@ export default function ChecklistItem(props) {
               className={classes.select}
               value={score}
               onChange={handleChange}
+              color="primary"
             >
               <MenuItem value={0}>0</MenuItem>
               <MenuItem value={1}>1</MenuItem>

@@ -34,7 +34,7 @@ const AuditChecklistPage = (props) => {
 
   useEffect(() => {
     // Grab from database to change audit checklist
-    setAuditCheckList(checklist[tempProps.type]);
+    // setAuditCheckList(checklist[tempProps.type]);
   }, []);
 
   // Handle next press
@@ -42,10 +42,11 @@ const AuditChecklistPage = (props) => {
     // Save the current scores of the current question index
     updateTotalScores(currentIndex, currentScores);
     // Increase index by 1 if not last
-    if (index < checklist[tempProps.type].length - 1) {
+    if (index < auditChecklist.length - 1) {
       setIndex(index + 1);
     } else {
       // TODO: Push to the end page with the tabulated scores
+      console.log(auditChecklist);
     }
   };
 
@@ -69,11 +70,11 @@ const AuditChecklistPage = (props) => {
       <Header back title="Audit Name" noDivider />
       <ChecklistHeader newIssueHandler={handleNewIssue} />
       <Checklist
-        data={auditChecklist[tempProps.type][index]}
+        checklist={auditChecklist[index]}
         nextHandler={handleNext}
         backHandler={handleBack}
         index={index}
-        length={auditChecklist[tempProps.type].length}
+        length={auditChecklist.length}
       />
     </div>
   );

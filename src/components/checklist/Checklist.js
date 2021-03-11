@@ -68,18 +68,18 @@ export default function Checklist(props) {
   // Handler for updating the value of the checklist item
   const handleUpdate = (questionIndex, sectionIndex, value) => {
     // Copy the data
-    var temp = JSON.parse(JSON.stringify(props.data));
+    var temp = JSON.parse(JSON.stringify(data));
     temp.sections[sectionIndex].questions[questionIndex].score = value;
     // Set the data state
     setData(temp);
     // setCurrentSectionScores(...currentSectionScores)
   };
 
-  const [data, setData] = useState(props.data);
+  const [data, setData] = useState(props.checklist);
 
   useEffect(() => {
     // Or set from database if ongoing audit
-    setData(props.data);
+    setData(props.checklist);
 
     // Update the score values to the current one from db or from json file
   }, [props]);
@@ -89,7 +89,7 @@ export default function Checklist(props) {
       <Paper square className={classes.bar}>
         <div className={classes.barContent}>
           <Typography color="secondary" className={classes.section}>
-            {props.data.title}
+            {data.title}
           </Typography>
           <Typography color="secondary" className={classes.part}>
             Part {props.index + 1} out of {props.length}
