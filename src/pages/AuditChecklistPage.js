@@ -15,7 +15,7 @@ const tempProps = {
   type: "F&B",
 };
 
-var data = require("../assets/checklist.json");
+const checklist = require("../assets/checklist_with_scores.json");
 
 // TODO: Implement real props from the tenant page
 const AuditChecklistPage = (props) => {
@@ -27,15 +27,22 @@ const AuditChecklistPage = (props) => {
   // Index counter
   const [index, setIndex] = useState(0);
 
-  // Overall data saving
-  const [auditData, setAuditData] = useState([]);
+  // Overall score saving
+  const [auditChecklist, setAuditCheckList] = useState(
+    checklist[tempProps.type]
+  );
+
+  useEffect(() => {
+    // Grab from database to change audit checklist
+    setAuditCheckList(checklist[tempProps.type]);
+  }, []);
 
   // Handle next press
-  const handleNext = (currentScores) => {
+  const handleNext = (currentIndex, currentScores) => {
     // Save the current scores of the current question index
-
+    updateTotalScores(currentIndex, currentScores);
     // Increase index by 1 if not last
-    if (index < data[tempProps.type].length - 1) {
+    if (index < checklist[tempProps.type].length - 1) {
       setIndex(index + 1);
     } else {
       // TODO: Push to the end page with the tabulated scores
@@ -43,12 +50,18 @@ const AuditChecklistPage = (props) => {
   };
 
   // Handle back press
-  const handleBack = (currentScores) => {
+  const handleBack = (currentIndex, currentScores) => {
     // Save the current scores of the current question index
-
+    updateTotalScores(currentIndex, currentScores);
     // Decrease index by 1
     setIndex(index - 1);
-    console.log(index);
+  };
+
+  // Handle update score
+  const updateTotalScores = (index, currentSectionScore) => {
+    var temp = JSON.parse(JSON.stringify(auditChecklist));
+    temp[index] = currentSectionScore;
+    setAuditCheckList(temp);
   };
 
   return (
@@ -56,11 +69,11 @@ const AuditChecklistPage = (props) => {
       <Header back title="Audit Name" noDivider />
       <ChecklistHeader newIssueHandler={handleNewIssue} />
       <Checklist
-        data={data[tempProps.type][index]}
+        data={auditChecklist[tempProps.type][index]}
         nextHandler={handleNext}
         backHandler={handleBack}
-        index={index + 1}
-        length={data[tempProps.type].length}
+        index={index}
+        length={auditChecklist[tempProps.type].length}
       />
     </div>
   );

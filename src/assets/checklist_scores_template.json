@@ -1,0 +1,141 @@
+{
+  "F&B": [
+    {
+      "title": "Professionalism & Staff Hygiene (10%)",
+      "sections": [
+        {
+          "subtitle": "Professionalism",
+          "scores": [0, 0, 0]
+        },
+        {
+          "subtitle": "Staff Hygiene",
+          "scores": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        }
+      ]
+    },
+    {
+      "title": "Housekeeping & General Cleanliness (20%)",
+      "sections": [
+        {
+          "subtitle": "General Environment Cleanliness",
+          "scores": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        },
+        {
+          "subtitle": "Hand Hygiene Facilities",
+          "questions": [0, 0]
+        }
+      ]
+    },
+    {
+      "title": "Food Hygiene (35%)",
+      "sections": [
+        {
+          "subtitle": "Storage & Preparation of Food",
+          "score": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "subtitle": "Storage of Food in Refrigerator/ Warmer",
+          "scores": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        }
+      ]
+    },
+    {
+      "title": "Healthier Choice in line with HPB’s Healthy Eating’s Initiative (15%)",
+      "sections": [
+        {
+          "subtitle": "Food",
+          "scores": [0, 0, 0, 0, 0, 0, 0]
+        },
+        {
+          "subtitle": "Beverage",
+          "questions": [0, 0, 0, 0]
+        }
+      ]
+    },
+    {
+      "title": "Workplace Safety & Health (20%)",
+      "sections": [
+        {
+          "subtitle": "General Safety",
+          "scores": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        },
+        {
+          "subtitle": "Fire & Emergency Safety",
+          "scores": [0, 0, 0]
+        },
+        {
+          "subtitle": "Electrical Safety",
+          "scores": [0, 0, 0, 0]
+        }
+      ]
+    }
+  ],
+  "Non-F&B": [
+    {
+      "title": "Professionalism & Staff Hygiene (20%)",
+      "sections": [
+        {
+          "subtitle": "Professionalism",
+          "scores": [0, 0, 0]
+        },
+        {
+          "subtitle": "Staff Hygiene",
+          "questions": [0, 0, 0]
+        }
+      ]
+    },
+    {
+      "title": "Housekeeping & General Cleanliness (40%)",
+      "sections": [
+        {
+          "subtitle": "General Environment Cleanliness",
+          "questions": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        }
+      ]
+    },
+    {
+      "title": "Workplace Safety & Health (40%)",
+      "sections": [
+        {
+          "subtitle": "General Safety",
+          "questions": [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        },
+        {
+          "subtitle": "Fire & Emergency Safety",
+          "questions": [0, 0, 0]
+        },
+        {
+          "subtitle": "Electrical Safety",
+          "questions": [0, 0, 0, 0]
+        }
+      ]
+    }
+  ]
+}
