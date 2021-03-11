@@ -53,7 +53,7 @@ const AuditChecklistPage = (props) => {
 
   return (
     <div className={classes.root}>
-      <Header title="Audit Name" noDivider />
+      <Header back title="Audit Name" noDivider />
       <ChecklistHeader newIssueHandler={handleNewIssue} />
       <Checklist
         data={data[tempProps.type][index]}

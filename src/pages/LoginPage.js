@@ -58,14 +58,6 @@ const LoginPage = (props) => {
     history.push("/tenants");
   };
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
   return (
     <div className={classes.login}>
       <img src={logo} alt="Logo" className={classes.logo}></img>
@@ -95,8 +87,7 @@ const LoginPage = (props) => {
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
+                    onClick={() => setShowPassword(!showPassword)}
                     edge="end"
                   >
                     {showPassword ? <Visibility /> : <VisibilityOff />}

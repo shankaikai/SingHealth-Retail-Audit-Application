@@ -34,7 +34,7 @@ const App = () => {
           <Route exact path="/">
             <LoginPage />
           </Route>
-          <Route path="/register">
+          <Route exact path="/register">
             <RegisterPage />
           </Route>
           <Route exact path="/tenants">

@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     margin: 0,
     padding: "15px",
     height: "100%",
-    // marginLeft: "26.1px",
+    marginLeft: "7px",
     fontWeight: 500,
   },
   avatar: {
@@ -52,18 +52,12 @@ const Header = (props) => {
           >
             <ArrowBackIcon />
           </IconButton>
-        ) : (
-          <div></div>
-        )}
+        ) : null}
         {props.avatar ? (
           <Avatar src={props.avatar} className={classes.avatar} />
         ) : null}
-        {props.avatar ? (
-          <Typography
-            variant="h5"
-            className={classes.header}
-            style={{ marginLeft: "7px" }}
-          >
+        {props.avatar || props.back ? (
+          <Typography variant="h5" className={classes.header}>
             {props.title}
           </Typography>
         ) : (
