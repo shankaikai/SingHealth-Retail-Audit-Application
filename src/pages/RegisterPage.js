@@ -58,7 +58,7 @@ const RegisterPage = () => {
   return (
     <div className={classes.root}>
       <Header back title="Register" />
-      <FormControl className={classes.form} autoComplete="true">
+      <FormControl className={classes.form}>
         <Box m={1} className={classes.marginMax}>
           <TextField
             id="userName"
