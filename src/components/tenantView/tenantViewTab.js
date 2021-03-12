@@ -20,7 +20,7 @@ function TabPanel(props) {
         >
             {value === index && (
                 <Box p={3}>
-                    <Typography>{children}</Typography>
+                    <div>{children}</div>
                 </Box>
             )}
         </div>
@@ -70,7 +70,7 @@ export default function SimpleTabs() {
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
-                Audits
+                audit
       </TabPanel>
             <TabPanel value={value} index={1}>
                 Outstanding

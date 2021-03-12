@@ -4,7 +4,6 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import Avatar from "@material-ui/core/Avatar";
 import logo from "../../../assets/koufu.jpg";
 import tick from "../../../assets/tick.svg";
 import { useHistory } from "react-router-dom";
@@ -17,19 +16,8 @@ const useStyles = makeStyles({
   title: {
     fontSize: 14,
   },
-  content: {
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
   pos: {
     marginBottom: 0,
-  },
-  avatar: {
-    display: "inline",
-    float: "left",
-    paddingRight: "5px",
   },
 });
 
@@ -50,13 +38,14 @@ const TenantItem = (props) => {
     <div className={classes.root}>
       <Card square onClick={() => handleOnClick(storeName)}>
         <CardContent>
-          <div className={classes.content}>
-            <Avatar
-              alt="Koufu"
-              src={logo}
-              display="inline"
-              style={{ float: "left", paddingRight: "5px" }}
-            />
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
             <div display="inline" style={{ float: "left", flexGrow: 4 }}>
               <Typography
                 style={{ marginBottom: "0" }}
