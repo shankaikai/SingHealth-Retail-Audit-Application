@@ -17,6 +17,9 @@ const useStyles = makeStyles({
     width: "80%",
     marginTop: "30px",
   },
+  field: {
+    marginTop: "10px",
+  },
 });
 
 const AddTenantPage = () => {
@@ -32,10 +35,30 @@ const AddTenantPage = () => {
     <div className={classes.root}>
       <Header back title="Add New Tenant" />
       <form className={classes.form}>
-        <TextField fullWidth variant="filled" label="Tenant Name" />
-        <TextField fullWidth variant="filled" label="Location" />
-        <TextField fullWidth variant="filled" label="Type" />
-        <TextField fullWidth variant="filled" label="Email Address" />
+        <TextField
+          className={classes.field}
+          fullWidth
+          variant="filled"
+          label="Tenant Name"
+        />
+        <TextField
+          className={classes.field}
+          fullWidth
+          variant="filled"
+          label="Location"
+        />
+        <TextField
+          className={classes.field}
+          fullWidth
+          variant="filled"
+          label="Type"
+        />
+        <TextField
+          className={classes.field}
+          fullWidth
+          variant="filled"
+          label="Email Address"
+        />
       </form>
       <Button
         variant="contained"
