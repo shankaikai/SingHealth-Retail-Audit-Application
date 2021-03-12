@@ -1,86 +1,76 @@
 import { List, makeStyles } from "@material-ui/core";
-import TenantItem from "./TenantItem";
+import AuditItem from "./AuditItem";
+import Divider from "@material-ui/core/Divider";
 
 const useStyles = makeStyles({
   root: {
     width: "100%",
     margin: 0,
-    marginTop: "139px",
-    marginBottom: "56x",
-    height: "calc(100vh - 195px)",
+    height: "calc(100vh - 272.4px)",
+    overflow:"auto",
   },
   list: {
     padding: 0,
     overflow: "auto",
-    height: "100%",
   },
 });
 
-const TenantList = () => {
-  var itemDescriptions = [
+const AuditList = () => {
+
+  var audits = [
     {
-      name: "Store 1",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
+      completedDate: "21/12/21",
+      auditNumber: "1",
+      score: "90",
     },
     {
-      name: "Store 2",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
+      completedDate: "22/12/21",
+      auditNumber: "2",
+      score: "96",
     },
     {
-      name: "Store 3",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
+      completedDate: "23/12/21",
+      auditNumber: "3",
+      score: "99",
     },
     {
-      name: "Store 4",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
+      completedDate: "24/12/21",
+      auditNumber: "4",
+      score: "100",
     },
     {
-      name: "Store 5",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
+      completedDate: "25/12/21",
+      auditNumber: "5",
+      score: "70",
     },
     {
-      name: "Store 6",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
+      completedDate: "26/12/21",
+      auditNumber: "6",
+      score: "98",
     },
     {
-      name: "Store 7",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
-    },
-    {
-      name: "Store 8",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
+      completedDate: "27/12/21",
+      auditNumber: "7",
+      score: "92",
     },
   ];
+
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <List className={classes.list}>
-        {itemDescriptions.map((item) => (
-          <TenantItem
-            storeName={item.name}
-            completedDate={item.date}
-            key={item.name}
-          />
+        {audits.map((audit) => (
+          <List className={classes.list}>
+            <AuditItem
+              completedDate={audit.completedDate}
+              score={audit.score}
+              auditNumber={audit.auditNumber} />
+            <Divider light />
+          </List>
         ))}
       </List>
     </div>
   );
 };
 
-export default TenantList;
+export default AuditList;

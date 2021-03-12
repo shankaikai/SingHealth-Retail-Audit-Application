@@ -4,28 +4,47 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import logo from "../../../assets/koufu.jpg";
-import tick from "../../../assets/tick.svg";
+import logo from "../../assets/koufu.jpg";
+import tick from "../../assets/tick.svg";
 import { useHistory } from "react-router-dom";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import { IconButton, Paper } from "@material-ui/core";
+import ExportIcon from "@material-ui/icons/GetApp"
+
 
 const useStyles = makeStyles({
   root: {
+    display: "flex",
     minWidth: 275,
+    padding: "15px",
+    paddingLeft: "26px",
+    paddingRight: "26px",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
-  title: {
-    fontSize: 14,
+  text: {
+    display: "flex",
+    flexDirection: "column"
   },
-  pos: {
-    marginBottom: 0,
+  left: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
   },
+  icon: {
+    // width: "30px",
+    color:"#5F5F5F",
+    padding:"0",
+    paddingLeft:"20px",
+  }
 });
 
 const TenantItem = (props) => {
   let history = useHistory();
   const classes = useStyles();
-  const storeName = props.storeName;
   const completedDate = props.completedDate;
+  const auditNumber = props.auditNumber;
+  const score = props.score;
 
   const handleOnClick = (name) => {
     console.log(name);
@@ -36,72 +55,34 @@ const TenantItem = (props) => {
   };
   return (
     <div className={classes.root}>
-      <Card square onClick={() => handleOnClick(storeName)}>
-        <CardContent>
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <div display="inline" style={{ float: "left", flexGrow: 4 }}>
-              <Typography
-                style={{ marginBottom: "0" }}
-                className={classes.title}
-                color="textPrimary"
-                display="inline"
-                gutterBottom
-              >
-                <Box fontWeight="fontWeightBold" m={1}>
-                  {storeName}
-                </Box>
-              </Typography>
-              <Typography
-                className={classes.subTitle}
-                color="textSecondary"
-                gutterBottom
-              >
-                <Box
-                  fontWeight="fontWeightRegular"
-                  fontSize={12}
-                  color="textSecondary"
-                  m={1}
-                >
-                  Last Audit: {completedDate}
-                </Box>
-              </Typography>
-            </div>
-            <div display="inline">
-              <img
-                alt="check"
-                src={tick}
-                style={{
-                  display: "block",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                }}
-              />
-              <Typography
-                className={classes.subTitle}
-                color="textSecondary"
-                gutterBottom
-              >
-                <Box
-                  fontWeight="fontWeightRegular"
-                  fontSize={12}
-                  color="textSecondary"
-                  m={1}
-                  style={{ textAlign: "center" }}
-                >
-                  95%
-                </Box>
-              </Typography>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <div className={classes.text}>
+        <Typography color="textPrimary">
+          <Box fontWeight="fontWeightBold" fontSize={20}>
+            Audit {auditNumber}
+          </Box>
+        </Typography>
+        <Typography color="textSecondary">
+          <Box fontSize={14}>
+            Date Completed: {completedDate}
+          </Box>
+        </Typography>
+      </div>
+      <div className={classes.left}>
+        {parseInt(score) >= 95 ?
+          <Typography>
+            <Box fontSize={20} fontWeight="fontWeightBold" color="#6FCF97">
+              {score}%
+            </Box>
+          </Typography> :
+          <Typography>
+            <Box fontSize={20} fontWeight="fontWeightBold" color="#EB5757">
+              {score}%
+            </Box>
+          </Typography>}
+        <IconButton className={classes.icon}>
+          <ExportIcon/>
+        </IconButton>
+      </div>
     </div>
   );
 };
