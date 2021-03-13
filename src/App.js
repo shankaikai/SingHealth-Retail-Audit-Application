@@ -10,6 +10,7 @@ import AuditChecklistPage from "./pages/AuditChecklistPage";
 import AuditEndPage from "./pages/AuditEndPage";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { Route, BrowserRouter as Router } from "react-router-dom";
+import AddIssuePage from "./pages/AddIssuePage";
 
 // Creating a custom theme
 const theme = createMuiTheme({
@@ -57,6 +58,9 @@ const App = () => {
           </Route>
           <Route exact path="/auditend">
             <AuditEndPage />
+          </Route>
+          <Route exact path="/addissue">
+            <AddIssuePage/>
           </Route>
         </Router>
       </ThemeProvider>

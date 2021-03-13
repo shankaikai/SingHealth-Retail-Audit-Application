@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, makeStyles, Typography } from "@material-ui/core";
+import {useHistory} from 'react-router-dom';
 
 const temp = {
   name: "Tenant Name Here",
@@ -32,6 +33,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ChecklistHeader(props) {
   const classes = useStyles();
+  let history = useHistory();
+
+  const handleNewIssue = ()=> {
+    history.push({
+      pathname: "/addissue"
+    });
+  }
+
   return (
     <div className={classes.root}>
       <div className={classes.details}>
@@ -47,7 +56,7 @@ export default function ChecklistHeader(props) {
       <Button
         variant="outlined"
         color="primary"
-        onClick={props.newIssueHandler}
+        onClick={handleNewIssue}
       >
         New Issue
       </Button>
