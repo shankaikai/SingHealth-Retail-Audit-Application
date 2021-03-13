@@ -40,7 +40,7 @@ const HeaderDetails = (props) => {
           ))}
         </List>
       </div>
-      <ViewTenant />
+      {/* <ViewTenant /> */}
     </div>
   );
 };

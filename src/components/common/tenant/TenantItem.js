@@ -17,8 +17,19 @@ const useStyles = makeStyles({
   title: {
     fontSize: 14,
   },
+  content: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
   pos: {
     marginBottom: 0,
+  },
+  avatar: {
+    display: "inline",
+    float: "left",
+    paddingRight: "5px",
   },
 });
 
@@ -39,14 +50,7 @@ const TenantItem = (props) => {
     <div className={classes.root}>
       <Card square onClick={() => handleOnClick(storeName)}>
         <CardContent>
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
+          <div className={classes.content}>
             <Avatar
               alt="Koufu"
               src={logo}

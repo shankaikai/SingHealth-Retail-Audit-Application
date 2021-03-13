@@ -4,11 +4,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
+import List from "@material-ui/core/List"
 import Box from "@material-ui/core/Box";
+import AuditList from "./AuditList";
+import OutstandingList from "../tenantView/OutstandingList"
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+  const classes = useStyles();
 
   return (
     <div
@@ -19,8 +23,8 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
+        <Box p={3} className={classes.tabpanel}>
+          <div>{children}</div>
         </Box>
       )}
     </div>
@@ -42,16 +46,22 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: "159.4px",
+    marginTop: "10px",
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
   },
+  tabpanel: {
+    padding: "0px",
+  },
+  list: {
+    
+  }
 }));
 
 export default function SimpleTabs() {
   const classes = useStyles({
     root: {
-      marginTop: "159.4px",
+      marginTop: "10px",
       height: "calc(100vh-215.4px)",
     },
   });
@@ -64,21 +74,16 @@ export default function SimpleTabs() {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="simple tabs example"
-          variant="fullWidth"
-        >
+        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" variant="fullWidth">
           <Tab label="Audits" {...a11yProps(0)} />
           <Tab label="Outstanding" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
-        Audits
+      <TabPanel value={value} index={0} className={classes.list}>
+        <AuditList/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Outstanding
+        <OutstandingList/>
       </TabPanel>
     </div>
   );
