@@ -7,6 +7,7 @@ import Tab from "@material-ui/core/Tab";
 import List from "@material-ui/core/List"
 import Box from "@material-ui/core/Box";
 import AuditList from "./AuditList";
+import OutstandingList from "../tenantView/OutstandingList"
 
 
 function TabPanel(props) {
@@ -82,7 +83,7 @@ export default function SimpleTabs() {
         <AuditList/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Outstanding
+        <OutstandingList/>
       </TabPanel>
     </div>
   );
