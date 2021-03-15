@@ -55,49 +55,34 @@ export default function Checklist(props) {
 
   const handleNext = () => {
     listRef.current.scrollTop = 0;
-    // TODO: Pass data of current section to the parent handler
-    props.nextHandler(props.index, data);
+    props.nextHandler();
   };
 
   const handleBack = () => {
     listRef.current.scrollTop = 0;
-    // TODO: Pass data of current section to the parent handler
-    props.backHandler(props.index, data);
+    props.backHandler();
   };
 
   // Handler for updating the value of the checklist item
   const handleUpdate = (questionIndex, sectionIndex, value) => {
-    // Copy the data
-    var temp = JSON.parse(JSON.stringify(data));
-    temp.sections[sectionIndex].questions[questionIndex].score = value;
-    // Set the data state
-    setData(temp);
-    // setCurrentSectionScores(...currentSectionScores)
+    // Send data to parent
+    props.updateTotalScores(sectionIndex, questionIndex, value);
   };
-
-  const [data, setData] = useState(props.checklist);
-
-  useEffect(() => {
-    // Or set from database if ongoing audit
-    setData(props.checklist);
-
-    // Update the score values to the current one from db or from json file
-  }, [props]);
 
   return (
     <div className={classes.root}>
       <Paper square className={classes.bar}>
         <div className={classes.barContent}>
           <Typography color="secondary" className={classes.section}>
-            {data.title}
+            {props.checklist.title}
           </Typography>
           <Typography color="secondary" className={classes.part}>
             Part {props.index + 1} out of {props.length}
           </Typography>
         </div>
       </Paper>
-      <List ref={listRef} className={classes.questions}>
-        {data.sections.map((subsection, sectionIndex) => {
+      <div ref={listRef} className={classes.questions}>
+        {props.checklist.sections.map((subsection, sectionIndex) => {
           return (
             <div key={sectionIndex}>
               <Typography variant="h6" className={classes.subtitle}>
@@ -131,7 +116,7 @@ export default function Checklist(props) {
             Next
           </Button>
         </div>
-      </List>
+      </div>
     </div>
   );
 }
