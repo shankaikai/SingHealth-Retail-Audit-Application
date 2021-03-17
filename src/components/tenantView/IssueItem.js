@@ -50,11 +50,12 @@ const TenantItem = (props) => {
     console.log(issueID);
     history.push({
       pathname: "/issue",
-      state: { issueID: issueID },
+      // state: { issueID: issueID },
+      state: { issueName: issueName }, //change this later
     });
   };
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onClick={handleOnClick}>
       <div className={classes.text}>
         <Typography color="textPrimary">
           <Box fontWeight="fontWeightBold" fontSize={20}>

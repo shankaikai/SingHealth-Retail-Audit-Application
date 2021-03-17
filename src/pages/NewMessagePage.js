@@ -1,5 +1,7 @@
 import { TextField, makeStyles, Button} from "@material-ui/core";
 import Header from "../components/common/Header";
+import Typography from "@material-ui/core/Typography"
+import Box from "@material-ui/core/Box"
 
 const useStyles = makeStyles({
   root: {
@@ -33,12 +35,14 @@ const AddIssuePage = () => {
 
   return (
     <div className={classes.root}>
-      <Header back title="Add New Issue" />
+      <Header back title="Reply" />
+      {/* <Typography>
+        <Box>
+          Your Reply
+        </Box>
+      </Typography> */}
       <form className={classes.form}>
-        <TextField fullWidth variant="filled" label="Issue Name" className={classes.field} />
-        <TextField fullWidth variant="filled" label="Location" className={classes.field}/>
-        <TextField fullWidth variant="filled" label="Description" className={classes.field} multiline rows={6}/>
-        <TextField fullWidth variant="filled" label="Date" className={classes.field}/>
+        <TextField fullWidth variant="filled" label="Enter reply here" className={classes.field} multiline rows={20}/>
       </form>
       <Button
         variant="outlined"

@@ -11,6 +11,8 @@ import AuditEndPage from "./pages/AuditEndPage";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import AddIssuePage from "./pages/AddIssuePage";
+import NewMessagePage from "./pages/NewMessagePage";
+import AuditIssuePage from "./pages/AuditIssuePage";
 
 // Creating a custom theme
 const theme = createMuiTheme({
@@ -61,6 +63,12 @@ const App = () => {
           </Route>
           <Route exact path="/addissue">
             <AddIssuePage/>
+          </Route>
+          <Route exact path="/newmessage">
+            <NewMessagePage/>
+          </Route>
+          <Route exact path="/issue">
+            <AuditIssuePage/>
           </Route>
         </Router>
       </ThemeProvider>
