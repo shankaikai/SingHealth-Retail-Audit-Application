@@ -41,15 +41,20 @@ const Header = (props) => {
   const classes = useStyles();
   let history = useHistory();
 
+  // Handler for back button
+  const handleBack = () => {
+    if (props.backHandler) {
+      props.backHandler();
+    } else {
+      history.goBack();
+    }
+  };
+
   return (
     <div className={classes.root}>
       <div className={classes.title}>
         {props.back ? (
-          <IconButton
-            onClick={() => {
-              history.goBack();
-            }}
-          >
+          <IconButton onClick={handleBack}>
             <ArrowBackIcon />
           </IconButton>
         ) : null}

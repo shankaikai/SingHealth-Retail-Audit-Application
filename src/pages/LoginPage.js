@@ -67,14 +67,14 @@ const LoginPage = (props) => {
             id="userName"
             label="Username"
             variant="outlined"
-            fullWidth="true"
+            fullWidth
             onChange={(e) => {
               setUsername(e.target.value);
             }}
           />
         </Box>
         <Box m={1} className={classes.marginMax}>
-          <FormControl variant="outlined" fullWidth="true">
+          <FormControl variant="outlined" fullWidth>
             <InputLabel>Password</InputLabel>
             <OutlinedInput
               id="password"
@@ -101,7 +101,7 @@ const LoginPage = (props) => {
           <Button
             variant="contained"
             color="primary"
-            fullWidth="true"
+            fullWidth
             onClick={handleLogin}
           >
             Login
