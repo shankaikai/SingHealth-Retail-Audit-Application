@@ -92,6 +92,7 @@ const NewIssuePage = (props) => {
           variant="filled"
           label="Description"
           multiline
+          rows={4}
           value={values.description}
           onChange={handleChange}
         />
@@ -120,6 +121,7 @@ const NewIssuePage = (props) => {
         onClick={handlePhoto}
       >
         Upload Photo
+        <input type="file" hidden />
       </Button>
       <Button
         variant="contained"
