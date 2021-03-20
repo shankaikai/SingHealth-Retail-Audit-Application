@@ -15,6 +15,8 @@ import {
 import { Link, useHistory } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 
+require("dotenv/config");
+
 const useStyles = makeStyles({
   login: {
     display: "flex",
@@ -52,10 +54,40 @@ const LoginPage = (props) => {
   const [showPassword, setShowPassword] = useState(false);
 
   // Function to handle a login request
-  const handleLogin = () => {
+  const INVALID_USERNAME = "INVALID_USERNAME"; // check on login && register
+  const INVALID_PASSWORD = "INVALID_PASSWORD"; // check on valid username
+
+  const handleLogin = (e) => {
+    e.preventDefault();
     console.log("attempt to login");
-    // TODO: Add proper authencation here
-    history.push("/tenants");
+
+    // TODO: POST request to '/login'
+    const user = { username, password };
+    fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.login_status) {
+          alert("LOGIN_SUCCESS");
+          history.push("/tenants");
+        } else {
+          if (data.reason === INVALID_PASSWORD) {
+            alert(INVALID_PASSWORD);
+          } else if (data.reason === INVALID_USERNAME) {
+            alert(INVALID_USERNAME);
+            history.push("/register");
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -67,14 +99,15 @@ const LoginPage = (props) => {
             id="userName"
             label="Username"
             variant="outlined"
-            fullWidth
+            fullWidth="true"
             onChange={(e) => {
               setUsername(e.target.value);
             }}
           />
         </Box>
+
         <Box m={1} className={classes.marginMax}>
-          <FormControl variant="outlined" fullWidth>
+          <FormControl variant="outlined" fullWidth="true">
             <InputLabel>Password</InputLabel>
             <OutlinedInput
               id="password"
@@ -101,7 +134,7 @@ const LoginPage = (props) => {
           <Button
             variant="contained"
             color="primary"
-            fullWidth
+            fullWidth="true"
             onClick={handleLogin}
           >
             Login
