@@ -79,13 +79,13 @@ const LoginPage = (props) => {
       .then((data) => {
         if (data.login_status) {
           alert("LOGIN_SUCCESS");
-          history.push("/tenants");
+          history.push("/");
         } else {
           if (data.reason === INVALID_PASSWORD) {
             alert(INVALID_PASSWORD);
           } else if (data.reason === INVALID_USERNAME) {
             alert(INVALID_USERNAME);
-            history.push("/register");
+            history.push("/login");
           }
         }
       })

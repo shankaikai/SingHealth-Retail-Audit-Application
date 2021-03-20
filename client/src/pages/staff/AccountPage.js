@@ -30,7 +30,7 @@ const AccountPage = () => {
   // Function to handle logouts
   const handleLogout = () => {
     // TODO: Release session
-    history.push("/");
+    history.push("/login");
   };
 
   const classes = useStyles();

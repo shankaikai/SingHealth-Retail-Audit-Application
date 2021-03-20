@@ -10,6 +10,7 @@ import { useHistory, Route, BrowserRouter as Router } from "react-router-dom";
 import AddIssuePage from "./staff/AddIssuePage";
 import NewMessagePage from "./staff/NewMessagePage";
 import AuditIssuePage from "./staff/AuditIssuePage";
+import App from "../App";
 
 export default function StaffMain() {
   return (
@@ -44,6 +45,9 @@ export default function StaffMain() {
         </Route>
         <Route exact path="/issue">
           <AuditIssuePage />
+        </Route>
+        <Route path = "*">
+          <App />
         </Route>
       </Router>
     </div>
