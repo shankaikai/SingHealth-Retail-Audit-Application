@@ -1,7 +1,7 @@
-import Header from "../components/common/Header";
-import ChecklistHeader from "../components/checklist/ChecklistHeader";
+import Header from "../../components/common/Header";
+import ChecklistHeader from "../../components/checklist/ChecklistHeader";
 import { makeStyles } from "@material-ui/core";
-import Checklist from "../components/checklist/Checklist";
+import Checklist from "../../components/checklist/Checklist";
 import { useState, useEffect } from "react";
 import NewIssuePage from "./NewIssuePage";
 
@@ -17,7 +17,7 @@ const tempProps = {
 };
 
 // Importing the template json file
-const checklist = require("../assets/checklist_with_scores.json");
+const checklist = require("../../assets/checklist_with_scores.json");
 
 // TODO: Implement real props from the tenant page
 const AuditChecklistPage = (props) => {

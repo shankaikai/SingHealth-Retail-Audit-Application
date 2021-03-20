@@ -1,7 +1,7 @@
 import React from "react";
-import Navbar from "../components/common/Navbar";
-import Header from "../components/common/Header";
-import TenantList from "../components/common/tenant/TenantList";
+import Navbar from "../../components/common/Navbar";
+import Header from "../../components/common/Header";
+import TenantList from "../../components/common/tenant/TenantList";
 import AddIcon from "@material-ui/icons/Add";
 import { Fab, makeStyles } from "@material-ui/core";
 import { useHistory } from "react-router-dom";

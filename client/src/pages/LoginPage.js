@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import logo from "../assets/Singhealth-logo.png";
 import {
   Button,
@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
+import { LoginContext } from "../context/LoginContext";
 
 const useStyles = makeStyles({
   login: {
@@ -51,11 +52,18 @@ const LoginPage = (props) => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
+  // Grab setContext from LoginContext
+  const { setContext } = useContext(LoginContext);
+
   // Function to handle a login request
   const handleLogin = () => {
     console.log("attempt to login");
     // TODO: Add proper authencation here
-    history.push("/tenants");
+    setContext({
+      id: 123, // Dummy data
+      type: "staff", // Change to tenant if want to go to tenant main
+    });
+    history.push("/");
   };
 
   return (

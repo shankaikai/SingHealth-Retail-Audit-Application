@@ -1,11 +1,10 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import Navbar from "../components/common/Navbar";
-import Header from "../components/common/Header";
-import Tabs from "../components/tenantView/tenantViewTab"
+import Navbar from "../../components/common/Navbar";
+import Header from "../../components/common/Header";
+import Tabs from "../../components/tenantView/tenantViewTab";
 import { makeStyles } from "@material-ui/core";
-import HeaderViewTenant from "../components/tenantView/HeaderViewTenant"
-import HeaderDetails from "../components/common/HeaderDetails"
+import HeaderViewTenant from "../../components/tenantView/HeaderViewTenant";
 
 const useStyles = makeStyles({
   root: {

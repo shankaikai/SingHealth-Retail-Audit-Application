@@ -1,8 +1,8 @@
 import React from "react";
-import Navbar from "../components/common/Navbar";
-import Header from "../components/common/Header";
+import Navbar from "../../components/common/Navbar";
+import Header from "../../components/common/Header";
 import { makeStyles } from "@material-ui/core";
-import OutstandingList from "../components/common/outstanding/OutstandingList";
+import OutstandingList from "../../components/outstanding/OutstandingList";
 
 const useStyles = makeStyles({
   root: {

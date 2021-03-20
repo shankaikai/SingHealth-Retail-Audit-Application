@@ -43,7 +43,7 @@ const Navbar = (props) => {
     >
       <BottomNavigationAction
         label="Tenants"
-        value="tenants"
+        value=""
         icon={<Store />}
         className={classes.icons}
       />
