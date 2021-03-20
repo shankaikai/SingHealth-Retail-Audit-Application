@@ -1,5 +1,5 @@
-import { TextField, makeStyles, Button} from "@material-ui/core";
-import Header from "../components/common/Header";
+import { TextField, makeStyles, Button } from "@material-ui/core";
+import Header from "../../components/common/Header";
 
 const useStyles = makeStyles({
   root: {
@@ -18,8 +18,8 @@ const useStyles = makeStyles({
     marginBottom: "30px",
   },
   field: {
-    marginBottom: "30px"
-  }
+    marginBottom: "30px",
+  },
 });
 
 const AddIssuePage = () => {
@@ -35,10 +35,32 @@ const AddIssuePage = () => {
     <div className={classes.root}>
       <Header back title="Add New Issue" />
       <form className={classes.form}>
-        <TextField fullWidth variant="filled" label="Issue Name" className={classes.field} />
-        <TextField fullWidth variant="filled" label="Location" className={classes.field}/>
-        <TextField fullWidth variant="filled" label="Description" className={classes.field} multiline rows={6}/>
-        <TextField fullWidth variant="filled" label="Date" className={classes.field}/>
+        <TextField
+          fullWidth
+          variant="filled"
+          label="Issue Name"
+          className={classes.field}
+        />
+        <TextField
+          fullWidth
+          variant="filled"
+          label="Location"
+          className={classes.field}
+        />
+        <TextField
+          fullWidth
+          variant="filled"
+          label="Description"
+          className={classes.field}
+          multiline
+          rows={6}
+        />
+        <TextField
+          fullWidth
+          variant="filled"
+          label="Date"
+          className={classes.field}
+        />
       </form>
       <Button
         variant="outlined"

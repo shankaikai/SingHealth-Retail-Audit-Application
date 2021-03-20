@@ -1,9 +1,7 @@
-import { TextField, makeStyles, Button} from "@material-ui/core";
-import Header from "../components/common/Header";
-import Typography from "@material-ui/core/Typography"
-import Box from "@material-ui/core/Box"
+import { makeStyles } from "@material-ui/core";
+import Header from "../../components/common/Header";
 import { useLocation } from "react-router-dom";
-import IssueItem from "../components/tenantView/IssueItem"
+import IssueItem from "../../components/tenantView/IssueItem";
 
 const useStyles = makeStyles({
   root: {
@@ -22,8 +20,8 @@ const useStyles = makeStyles({
     marginBottom: "30px",
   },
   field: {
-    marginBottom: "30px"
-  }
+    marginBottom: "30px",
+  },
 });
 
 const AddIssuePage = () => {
@@ -45,8 +43,7 @@ const AddIssuePage = () => {
           Your Reply
         </Box>
       </Typography> */}
-      <IssueItem/>
-      
+      <IssueItem />
     </div>
   );
 };

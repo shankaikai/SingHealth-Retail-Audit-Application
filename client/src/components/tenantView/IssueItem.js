@@ -1,16 +1,10 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import logo from "../../assets/koufu.jpg";
-import tick from "../../assets/tick.svg";
 import { useHistory } from "react-router-dom";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
-import { IconButton, Paper } from "@material-ui/core";
-import BellIcon from "@material-ui/icons/NotificationsActive"
-
+import { IconButton } from "@material-ui/core";
+import BellIcon from "@material-ui/icons/NotificationsActive";
 
 const useStyles = makeStyles({
   root: {
@@ -24,7 +18,7 @@ const useStyles = makeStyles({
   },
   text: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   left: {
     display: "flex",
@@ -33,10 +27,10 @@ const useStyles = makeStyles({
   },
   icon: {
     // width: "30px",
-    color:"#EB5757",
-    padding:"0",
-    paddingLeft:"20px",
-  }
+    color: "#EB5757",
+    padding: "0",
+    paddingLeft: "20px",
+  },
 });
 
 const TenantItem = (props) => {
@@ -63,14 +57,12 @@ const TenantItem = (props) => {
           </Box>
         </Typography>
         <Typography color="textSecondary">
-          <Box fontSize={14}>
-            Due Date: {dueDate}
-          </Box>
+          <Box fontSize={14}>Due Date: {dueDate}</Box>
         </Typography>
       </div>
       <div className={classes.left}>
         <IconButton className={classes.icon}>
-          <BellIcon/>
+          <BellIcon />
         </IconButton>
       </div>
     </div>

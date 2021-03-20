@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import logo from "../assets/Singhealth-logo.png";
 import {
   Button,
@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
+import { LoginContext } from "../context/LoginContext";
 
 require("dotenv/config");
 
@@ -53,6 +54,9 @@ const LoginPage = (props) => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
+  // Grab setContext from LoginContext
+  const { setContext } = useContext(LoginContext);
+
   // Function to handle a login request
   const INVALID_USERNAME = "INVALID_USERNAME"; // check on login && register
   const INVALID_PASSWORD = "INVALID_PASSWORD"; // check on valid username
@@ -88,6 +92,12 @@ const LoginPage = (props) => {
       .catch((err) => {
         console.log(err);
       });
+    // TODO: Add proper authencation here
+    setContext({
+      id: 123, // Dummy data
+      type: "staff", // Change to tenant if want to go to tenant main
+    });
+    //history.push("/");
   };
 
   return (
