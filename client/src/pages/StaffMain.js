@@ -6,6 +6,7 @@ import AccountPage from "./staff/AccountPage";
 import AddTenantPage from "./staff/AddTenantPage";
 import AuditChecklistPage from "./staff/AuditChecklistPage";
 import AuditEndPage from "./staff/AuditEndPage";
+import EditTenantPage from "./staff/EditTenantPage";
 import { useHistory, Route, BrowserRouter as Router } from "react-router-dom";
 import AddIssuePage from "./staff/AddIssuePage";
 import NewMessagePage from "./staff/NewMessagePage";
