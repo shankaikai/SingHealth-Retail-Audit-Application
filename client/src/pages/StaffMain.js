@@ -34,6 +34,9 @@ export default function StaffMain() {
         <Route exact path="/auditchecklist">
           <AuditChecklistPage />
         </Route>
+        <Route exact path="/edittenant">
+          <EditTenantPage />
+        </Route>
         <Route exact path="/auditend">
           <AuditEndPage />
         </Route>
