@@ -29,7 +29,7 @@ export default function StaffMain() {
           <Route exact path="/account">
             <AccountPage />
           </Route>
-          <Route exact path="/tenant">
+          <Route exact path="/tenant/:id">
             <TenantPage />
           </Route>
           <Route exact path="/addtenant">
