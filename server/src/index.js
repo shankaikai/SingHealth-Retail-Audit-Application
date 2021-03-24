@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const session = require("express-session");
+const db = require("./config/DatabaseConfig");
 require("dotenv/config");
 
 // Create express server
@@ -35,11 +36,17 @@ app.use(
   })
 );
 
+// Connect to db
+db.connect(function (err) {
+  if (err) throw err;
+  console.log("Connected to Azure MySQL!");
+});
+
 // Routes
 const users = require("./routes/User");
 const crud = require("./routes/TenantCRUD");
 
-app.use("/users", users);
+app.use("/auth", users);
 app.use("/crud", crud);
 
 app.listen(3001, () => {

@@ -60,8 +60,8 @@ const LoginPage = (props) => {
     console.log("attempt to login");
     // TODO: Add proper authencation here
     setContext({
-      id: 123, // Dummy data
-      type: "staff", // Change to tenant if want to go to tenant main
+      id: null, // Dummy data
+      type: null, // Change to tenant if want to go to tenant main
     });
     history.push("/");
   };

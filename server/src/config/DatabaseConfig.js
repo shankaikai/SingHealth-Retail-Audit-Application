@@ -6,6 +6,8 @@ const db = mysql.createConnection({
   host: process.env.SERVER_HOST,
   password: process.env.SERVER_PASSWORD,
   database: process.env.SERVER_DATABASE,
+  port: process.env.SERVER_PORT,
+  ssl: true,
 });
 
 module.exports = db;

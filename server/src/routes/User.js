@@ -6,47 +6,42 @@ const saltRounds = 10;
 const jwt = require("jsonwebtoken");
 require("dotenv/config");
 
-const verifyJWT = require("../helpers/VerifyJWT");
-const { route } = require("./TenantCRUD");
-
 // Register POST Request
 router.post("/register", (req, res) => {
-  const username = req.body.username;
+  const email = req.body.email;
   const password = req.body.password;
+  const cluster = req.body.cluster;
   const type = req.body.type;
+  const name = req.body.name;
 
   bcrypt.hash(password, saltRounds, (err, hash) => {
     if (err) {
       console.log(err);
     }
-    db.query(
-      "SELECT * from users where username = ?",
-      [username],
-      (err, result) => {
-        if (err) {
-          res.send({ err: err });
-        }
-
-        // If user doesn not exists
-        if (result.length <= 0) {
-          db.query(
-            "INSERT INTO users (username, password, type) VALUES (?,?,?)",
-            [username, hash, type],
-            (err, result) => {
-              if (err) {
-                console.log(err);
-              } else {
-                console.log("User inserted");
-                res.send({ message: "Success!" });
-              }
-            }
-          );
-        } else {
-          console.log("User already exists");
-          res.send({ messageExists: "User already exists" });
-        }
+    db.query("SELECT * from staff where email = ?", [email], (err, result) => {
+      if (err) {
+        res.send({ err: err });
       }
-    );
+      console.log(result);
+      // If user doesn not exists
+      if (result.length <= 0) {
+        db.query(
+          "INSERT INTO staff (email, password, type, name, cluster) VALUES (?,?,?,?,?)",
+          [email, hash, type, name, cluster],
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log("User inserted");
+              res.send({ message: "Success!" });
+            }
+          }
+        );
+      } else {
+        console.log("User already exists");
+        res.send({ messageExists: "User already exists" });
+      }
+    });
   });
 });
 
@@ -61,10 +56,10 @@ router.get("/login", (req, res) => {
   }
 });
 
-// GET to check if user is authenticated
-router.get("/isUserAuth", verifyJWT, (req, res) => {
-  res.send("You are authenticated, congratz");
-});
+// // GET to check if user is authenticated
+// router.get("/isUserAuth", verifyJWT, (req, res) => {
+//   res.send("You are authenticated, congratz");
+// });
 
 // Check if user exists
 router.post("/login", (req, res) => {

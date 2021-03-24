@@ -13,6 +13,7 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Header from "../components/common/Header";
+import Axios from "axios";
 
 const useStyle = makeStyles({
   root: {
@@ -39,8 +40,10 @@ const RegisterPage = () => {
   let history = useHistory();
 
   // States to store username and password
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [cluster, setCluster] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
@@ -48,8 +51,28 @@ const RegisterPage = () => {
   // Function to handle a register request
   const handleRegister = () => {
     // TODO: Add proper authencation here
+    if (email === "" || password === "") {
+      alert("Email/Password cannot be blank!");
+    }
+
     if (password === repeatPassword) {
-      history.push("/tenants");
+      Axios.post("http://localhost:3001/auth/register", {
+        email: email,
+        password: password,
+        name: name,
+        cluster: "SGH",
+        type: "staff",
+      }).then((response) => {
+        console.log(response);
+        if (response.data.messageExists) {
+          alert("Username is taken!");
+        } else if (response.data.message) {
+          alert("Registration successful!");
+        } else {
+          alert("Server error!");
+        }
+      });
+      // history.push("/login");
     } else {
       alert("Passwords do not match!");
     }
@@ -61,12 +84,23 @@ const RegisterPage = () => {
       <FormControl className={classes.form}>
         <Box m={1} className={classes.marginMax}>
           <TextField
-            id="userName"
-            label="Username"
+            id="name"
+            label="Name"
             variant="outlined"
             fullWidth="true"
             onChange={(e) => {
-              setUsername(e.target.value);
+              setName(e.target.value);
+            }}
+          />
+        </Box>
+        <Box m={1} className={classes.marginMax}>
+          <TextField
+            id="email"
+            label="Email"
+            variant="outlined"
+            fullWidth="true"
+            onChange={(e) => {
+              setEmail(e.target.value);
             }}
           />
         </Box>

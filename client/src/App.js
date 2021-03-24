@@ -24,8 +24,8 @@ const theme = createMuiTheme({
 const App = () => {
   // Create states to store context variables
   const [context, setContext] = useState({
-    id: 123, // Dummy data
-    type: "staff", // Change to tenant if want to access tenant main
+    id: null, // Dummy data
+    type: null, // Change to tenant if want to access tenant main
   });
 
   return (
