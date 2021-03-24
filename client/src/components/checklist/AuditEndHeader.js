@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, makeStyles, Typography } from "@material-ui/core";
+import { makeStyles, Typography, Box } from "@material-ui/core";
 
 const temp = {
   name: "Tenant Name Here",
@@ -28,9 +28,20 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "12px",
     fontWeight: "fontWeightRegular",
   },
+  goodScore: {
+    color: "#6FCF97",
+  },
+  badScore: {
+    color: "#EB5757",
+  },
+  score: {
+    display: "flex",
+    flexDirection: "column",
+    marginRight: "20px",
+  },
 }));
 
-export default function ChecklistHeader(props) {
+export default function AuditEndHeader(props) {
   const classes = useStyles();
 
   return (
@@ -45,13 +56,18 @@ export default function ChecklistHeader(props) {
           Audit Date: {temp.dateStarted}
         </Typography>
       </div>
-      <Button
-        variant="outlined"
-        color="primary"
-        onClick={props.newIssueHandler}
-      >
-        New Issue
-      </Button>
+      <div className={classes.score}>
+        <Typography>Score:</Typography>
+
+        <Typography
+          variant="h5"
+          className={props.score >= 95 ? classes.goodScore : classes.badScore}
+        >
+          <Box fontSize={30} fontWeight="fontWeightBold">
+            {props.score}%
+          </Box>
+        </Typography>
+      </div>
     </div>
   );
 }

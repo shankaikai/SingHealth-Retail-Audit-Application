@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core";
 import Checklist from "../../components/checklist/Checklist";
 import { useState, useEffect } from "react";
 import NewIssuePage from "./NewIssuePage";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -21,6 +22,8 @@ const checklist = require("../../assets/checklist_with_scores.json");
 
 // TODO: Implement real props from the tenant page
 const AuditChecklistPage = (props) => {
+  let history = useHistory();
+
   const classes = useStyles();
 
   // Index counter
@@ -47,6 +50,7 @@ const AuditChecklistPage = (props) => {
     } else {
       // TODO: Push to the end page with the tabulated scores
       console.log(auditChecklist);
+      history.push("/auditend");
     }
   };
 
