@@ -72,7 +72,7 @@ const RegisterPage = () => {
           alert("Server error!");
         }
       });
-      // history.push("/login");
+      history.push("/login");
     } else {
       alert("Passwords do not match!");
     }

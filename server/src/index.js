@@ -45,9 +45,17 @@ db.connect(function (err) {
 // Routes
 const users = require("./routes/User");
 const crud = require("./routes/TenantCRUD");
+const tenantsAll = require("./routes/TenantsAll");
+const outstandingAll = require("./routes/TenantsAlloutstanding");
+const tenant = require("./routes/Tenant");
+const audit = require("./routes/Audit");
 
 app.use("/auth", users);
 app.use("/crud", crud);
+app.use("/tenants", tenantsAll);
+app.use("/tenants", outstandingAll);
+app.use("/tenant", tenant);
+app.use("/audit", audit);
 
 app.listen(3001, () => {
   console.log("Server is running on 3001 yay!");

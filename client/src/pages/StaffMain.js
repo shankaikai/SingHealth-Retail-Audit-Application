@@ -9,6 +9,7 @@ import AuditEndPage from "./staff/AuditEndPage";
 import { Redirect, Route, BrowserRouter as Router } from "react-router-dom";
 import NewMessagePage from "./staff/NewMessagePage";
 import AuditIssuePage from "./staff/AuditIssuePage";
+import AuditViewPage from "./staff/AuditViewPage";
 import { LoginContext } from "../context/LoginContext";
 
 export default function StaffMain() {
@@ -40,6 +41,9 @@ export default function StaffMain() {
           </Route>
           <Route exact path="/auditend">
             <AuditEndPage />
+          </Route>
+          <Route exact path="/audit/:id">
+            <AuditViewPage />
           </Route>
           <Route exact path="/newmessage">
             <NewMessagePage />

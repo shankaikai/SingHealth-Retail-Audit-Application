@@ -7,7 +7,7 @@ const useStyles = makeStyles({
     width: "100%",
     margin: 0,
     height: "calc(100vh - 272.4px)",
-    overflow:"auto",
+    overflow: "auto",
   },
   list: {
     padding: 0,
@@ -16,42 +16,48 @@ const useStyles = makeStyles({
 });
 
 const AuditList = () => {
-
   var audits = [
     {
       completedDate: "21/12/21",
       auditNumber: "1",
       score: "90",
+      id: "1",
     },
     {
       completedDate: "22/12/21",
       auditNumber: "2",
       score: "96",
+      id: "2",
     },
     {
       completedDate: "23/12/21",
       auditNumber: "3",
       score: "99",
+      id: "3",
     },
     {
       completedDate: "24/12/21",
       auditNumber: "4",
       score: "100",
+      id: "4",
     },
     {
       completedDate: "25/12/21",
       auditNumber: "5",
       score: "70",
+      id: "5",
     },
     {
       completedDate: "26/12/21",
       auditNumber: "6",
       score: "98",
+      id: "6",
     },
     {
       completedDate: "27/12/21",
       auditNumber: "7",
       score: "92",
+      id: "7",
     },
   ];
 
@@ -64,7 +70,9 @@ const AuditList = () => {
             <AuditItem
               completedDate={audit.completedDate}
               score={audit.score}
-              auditNumber={audit.auditNumber} />
+              auditNumber={audit.auditNumber}
+              id={audit.id}
+            />
             <Divider light />
           </List>
         ))}

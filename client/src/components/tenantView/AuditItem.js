@@ -45,17 +45,18 @@ const TenantItem = (props) => {
   const completedDate = props.completedDate;
   const auditNumber = props.auditNumber;
   const score = props.score;
+  const auditID = props.id;
 
   const handleOnClick = (name) => {
     console.log(name);
     history.push({
-      pathname: "/tenant",
+      pathname: `/audit/${auditID}`,
       state: { storeName: name },
     });
   };
   return (
     <div className={classes.root}>
-      <div className={classes.text}>
+      <div className={classes.text} onClick={()=>handleOnClick(auditID)}>
         <Typography color="textPrimary">
           <Box fontWeight="fontWeightBold" fontSize={20}>
             Audit {auditNumber}
