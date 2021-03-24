@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Navbar from "../../components/common/Navbar";
 import Header from "../../components/common/Header";
 import Tabs from "../../components/tenantView/tenantViewTab";
@@ -21,11 +21,14 @@ const useStyles = makeStyles({
 const TenantPage = () => {
   const classes = useStyles();
   const location = useLocation();
-  const tenantName = location.state.storeName;
+  // const tenantName = location.state.storeName;
+  let {id} = useParams();
+  
+  // add axios function to get the tenant details using the id
 
   return (
     <div className={classes.root}>
-      <Header title={tenantName} avatar=" ../assets/koufu.jpg" noDivider />
+      <Header title={id} avatar=" ../assets/koufu.jpg" noDivider /> {/*change title to tenantName later */}
       <HeaderViewTenant />
       <Tabs />
       <Navbar route="tenants" />

@@ -73,6 +73,12 @@ const ViewTenant = (props) => {
         });
     }
 
+    const handleEditTenant = () => {
+        history.push({
+            pathname: "/edittenant"
+        });
+    }
+
     return (
         <div className={classes.root}>
             <HeaderDetails details = {lines}/>
@@ -81,7 +87,7 @@ const ViewTenant = (props) => {
                     <IconButton ariaLabel="delete" className={classes.icon}>
                         <DeleteIcon />
                     </IconButton>
-                    <IconButton ariaLabel="edit" className={classes.icon}>
+                    <IconButton ariaLabel="edit" className={classes.icon} onClick={()=> handleEditTenant()}>
                         <EditIcon />
                     </IconButton>
                 </div>

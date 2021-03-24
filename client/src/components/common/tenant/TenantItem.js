@@ -38,12 +38,13 @@ const TenantItem = (props) => {
   const classes = useStyles();
   const storeName = props.storeName;
   const completedDate = props.completedDate;
+  const tenantID = props.id;
 
   const handleOnClick = (name) => {
-    console.log(name);
+    console.log(tenantID);
     history.push({
-      pathname: "/tenant",
-      state: { storeName: name },
+      pathname: `/tenant/${tenantID}`,
+      // state: { storeName: name },
     });
   };
   return (

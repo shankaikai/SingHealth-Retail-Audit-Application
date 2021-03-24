@@ -41,7 +41,7 @@ const App = () => {
             <Route exact path="/register">
               <RegisterPage />
             </Route>
-            <Route exact path="/">
+            <Route path="/">
               {context.id === null ? (
                 <Redirect to="/login" />
               ) : context.type === "staff" ? (
