@@ -68,6 +68,7 @@ const AuditList = () => {
         {audits.map((audit) => (
           <List className={classes.list}>
             <AuditItem
+              key={audit.id}
               completedDate={audit.completedDate}
               score={audit.score}
               auditNumber={audit.auditNumber}

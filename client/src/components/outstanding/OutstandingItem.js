@@ -83,23 +83,25 @@ const OutstandingItem = (props) => {
           <div className={classes.container}>
             <Avatar alt="Koufu" src={logo} className={classes.avatar} />
             <div className={classes.description}>
-              <Typography className={classes.title}>{props.name}</Typography>
+              <Typography className={classes.title}>
+                {props.data.storeName}
+              </Typography>
               <Typography className={classes.details}>
-                {props.type} • {props.location}
+                {props.data.type} • {props.data.location}
               </Typography>
             </div>
           </div>
         </AccordionSummary>
         <AccordionDetails>
           <div className={classes.issuesContainer}>
-            {placeHolderIssues.map((issue) => (
-              <div className={classes.issue}>
+            {props.data.issues.map((issue) => (
+              <div key={issue.issueID} className={classes.issue}>
                 <Divider orientation="vertical" />
                 <Typography
                   className={classes.issueDescription}
-                  onClick={() => handleIssueClick(issue.name)}
+                  onClick={() => handleIssueClick(issue.issueID)}
                 >
-                  {issue.name} • {issue.dueDate}
+                  {issue.title} • {issue.date}
                 </Typography>
               </div>
             ))}

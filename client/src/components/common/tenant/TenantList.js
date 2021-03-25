@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   },
 });
 
-const TenantList = () => {
+const TenantList = (props) => {
   var itemDescriptions = [
     {
       name: "Store 1",
@@ -76,15 +76,17 @@ const TenantList = () => {
     },
   ];
   const classes = useStyles();
+
   return (
     <div className={classes.root}>
       <List className={classes.list}>
-        {itemDescriptions.map((item) => (
+        {props.data.map((tenant) => (
           <TenantItem
-            storeName={item.name}
-            completedDate={item.date}
-            key={item.name}
-            id ={item.id}
+            storeName={tenant.name}
+            completedDate={tenant.lastAudit}
+            imageUrl={tenant.imageUrl}
+            key={tenant.id}
+            id={tenant.id}
           />
         ))}
       </List>

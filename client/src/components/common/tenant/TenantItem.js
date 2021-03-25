@@ -39,6 +39,7 @@ const TenantItem = (props) => {
   const storeName = props.storeName;
   const completedDate = props.completedDate;
   const tenantID = props.id;
+  const imageUrl = props.imageUrl;
 
   const handleOnClick = (name) => {
     console.log(tenantID);
@@ -52,12 +53,7 @@ const TenantItem = (props) => {
       <Card square onClick={() => handleOnClick(storeName)}>
         <CardContent>
           <div className={classes.content}>
-            <Avatar
-              alt="Koufu"
-              src={logo}
-              display="inline"
-              style={{ float: "left", paddingRight: "5px" }}
-            />
+            <Avatar alt="logo" src={imageUrl} style={{ paddingRight: "5px" }} />
             <div display="inline" style={{ float: "left", flexGrow: 4 }}>
               <Typography
                 style={{ marginBottom: "0" }}

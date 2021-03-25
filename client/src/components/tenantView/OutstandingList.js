@@ -7,7 +7,7 @@ const useStyles = makeStyles({
     width: "100%",
     margin: 0,
     height: "calc(100vh - 272.4px)",
-    overflow:"auto",
+    overflow: "auto",
   },
   list: {
     padding: 0,
@@ -16,7 +16,6 @@ const useStyles = makeStyles({
 });
 
 const OutstandingList = () => {
-
   var issues = [
     {
       dueDate: "21/12/21",
@@ -62,9 +61,11 @@ const OutstandingList = () => {
         {issues.map((issue) => (
           <List className={classes.list}>
             <IssueItem
+              key={issue.issuseName}
               dueDate={issue.dueDate}
               issueID={issue.issueID}
-              issueName={issue.issueName} />
+              issueName={issue.issueName}
+            />
             <Divider light />
           </List>
         ))}
