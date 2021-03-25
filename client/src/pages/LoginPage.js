@@ -50,7 +50,7 @@ const LoginPage = (props) => {
   const classes = useStyles();
 
   // States to store username and password
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -94,8 +94,8 @@ const LoginPage = (props) => {
       });
     // TODO: Add proper authencation here
     setContext({
-      id: 123, // Dummy data
-      type: "staff", // Change to tenant if want to go to tenant main
+      id: null, // Dummy data
+      type: null, // Change to tenant if want to go to tenant main
     });
     //history.push("/");
   };
@@ -106,12 +106,12 @@ const LoginPage = (props) => {
       <FormControl className={classes.form} autoComplete="true">
         <Box m={1} className={classes.marginMax}>
           <TextField
-            id="userName"
-            label="Username"
+            id="email"
+            label="Email"
             variant="outlined"
             fullWidth="true"
             onChange={(e) => {
-              setUsername(e.target.value);
+              setEmail(e.target.value);
             }}
           />
         </Box>

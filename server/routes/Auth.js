@@ -98,10 +98,10 @@ const getStaff = (staffName) => {
     
 };
 
-const insertStaff = (staffName, staffPassword) => {
+const insertStaff = (password, cluster, email, name, type) => {
   return new Promise((resolve, reject) => {
-    var query_string = "INSERT INTO staffs (StaffName, StaffPassword) VALUES (?,?)";
-    var query_var = [staffName, staffPassword];
+    var query_string = "INSERT INTO staff (password, cluster, email, name, type) VALUES (?,?,?,?,?)";
+    var query_var = [password, cluster, email, name, imageUrl, type];
 
     db.query(
       query_string,
@@ -119,19 +119,22 @@ const insertStaff = (staffName, staffPassword) => {
 
 
 // Register POST Request
-router.post("/register", (req, res) => {
-  const username = req.body.username;
+router.post("auth/register", (req, res) => {
+  const email = req.body.email;
   const password = req.body.password;
+  const name = req.body.name;
+  const cluster = req.body.cluster;
+  const type = req.body.type;
 
-  getStaff(username)
+  getStaff(email)
   .then((result) => {
     console.log(result)
     if(result.length == 0) {
-      console.log("No staff with StaffName: " + username + " found")
+      console.log("No staff with email: " + email + " found")
       hashPassword(password)
       .then((hash) => {
         console.log(hash)
-        insertStaff(username, hash)
+        insertStaff(hash, cluster, email, name, type)
         .then((result) => {
           res.send({register_status : true});
           console.log("Register Success")

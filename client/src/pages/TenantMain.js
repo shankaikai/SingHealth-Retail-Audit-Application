@@ -1,7 +1,17 @@
-import React from "react";
-
-import { Route, BrowserRouter as Router } from "react-router-dom";
+import React, { useContext } from "react";
+import { LoginContext } from "../context/LoginContext";
+import { Redirect, Route, BrowserRouter as Router } from "react-router-dom";
 
 export default function TenantMain(props) {
-  return <div>Staff Main</div>;
+  const { context } = useContext(LoginContext);
+
+  return (
+    <div>
+      {context.id === null ? (
+        <Redirect to="/login" />
+      ) : (
+        <h1>Tenant Main not done</h1>
+      )}
+    </div>
+  );
 }
