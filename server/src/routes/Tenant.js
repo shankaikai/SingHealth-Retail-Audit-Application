@@ -29,7 +29,7 @@ router.get("/:tenantID", (req, res) => {
                   } else {
                     audits = result;
                     res.send({
-                      details: details,
+                      ...details[0],
                       issues: issues,
                       audits: audits,
                     });
