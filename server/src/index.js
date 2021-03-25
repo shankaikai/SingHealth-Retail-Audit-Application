@@ -36,12 +36,6 @@ app.use(
   })
 );
 
-// Connect to db
-db.connect(function (err) {
-  if (err) throw err;
-  console.log("Connected to Azure MySQL!");
-});
-
 // Routes
 const users = require("./routes/User");
 const tenantsGets = require("./routes/TenantsGets");
