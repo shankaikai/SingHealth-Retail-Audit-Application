@@ -60,10 +60,14 @@ const LoginPage = (props) => {
     console.log("attempt to login");
     // TODO: Add proper authencation here
     setContext({
-      id: null, // Dummy data
-      type: null, // Change to tenant if want to go to tenant main
+      id: 123, // Dummy data
+      type: "staff", // Change to tenant if want to go to tenant main
     });
     history.push("/");
+  };
+
+  const handleForgetPassword = () => {
+    console.log("Handle forget");
   };
 
   return (
@@ -117,6 +121,9 @@ const LoginPage = (props) => {
         </Box>
         <Typography className={classes.marginMax} align="left">
           Dont have an account? <Link to="/register">Register</Link>
+        </Typography>
+        <Typography className={classes.marginMax} align="left">
+          <Link onClick={handleForgetPassword}>Forgot Password?</Link>
         </Typography>
       </FormControl>
     </div>
