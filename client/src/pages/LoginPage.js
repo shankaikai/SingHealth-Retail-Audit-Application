@@ -62,6 +62,7 @@ const LoginPage = (props) => {
   const INVALID_PASSWORD = "INVALID_PASSWORD"; // check on valid username
 
   const handleLogin = (e) => {
+    /*
     e.preventDefault();
     console.log("attempt to login");
 
@@ -98,7 +99,9 @@ const LoginPage = (props) => {
       type: null, // Change to tenant if want to go to tenant main
     });
     //history.push("/");
+    */
   };
+
 
   return (
     <div className={classes.login}>

@@ -13,8 +13,9 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Header from "../components/common/Header";
-require("dotenv/config")
 import Axios from "axios";
+require("dotenv/config")
+
 
 const useStyle = makeStyles({
   root: {
@@ -101,13 +102,15 @@ const RegisterPage = () => {
         console.log(response);
         if (response.data.register_status === true) {
           alert(REGISTER_SUCCESS);
+          history.push("/login");
         } else {
           alert(response.data.reason);
+          console.log("register status: ", response.data.register_status)
         }
       });
-      history.push("/login");
+      
     } else {
-      alert("Passwords do not match!");
+      alert("PASSWORD_NOT_MATCHED");
     }
   };
 

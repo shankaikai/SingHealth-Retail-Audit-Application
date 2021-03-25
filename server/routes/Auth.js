@@ -14,10 +14,10 @@ const redirectToLogin = (req, res, next) =>  {
   }
 }
 
-const INVALID_USERNAME = "INVALID_USERNAME" // check on login && register
+const INVALID_USERNAME = "INVALID_EMAIL" // check on login && register
 const INVALID_PASSWORD = "INVALID_PASSWORD" // check on valid username
 
-const DUPLICATED_USERNAME = "DUPLICATED_USERNAME"
+const DUPLICATED_USERNAME = "DUPLICATED_EMAIL"
 const DATABASE_ERROR = ["QUERY_ERROR", "INSERTION_ERROR"]
 const HASH_ERROR = "HASH_ERROR"
 
@@ -80,7 +80,7 @@ const hashPassword = (password) => {
 
 const getStaff = (staffName) => {
   return new Promise((resolve, reject) => {
-    var query_string = "SELECT * from staffs where StaffName = ?";
+    var query_string = "SELECT * from staff where email = ?";
     var query_var = [staffName];
 
     db.query(
@@ -101,7 +101,7 @@ const getStaff = (staffName) => {
 const insertStaff = (password, cluster, email, name, type) => {
   return new Promise((resolve, reject) => {
     var query_string = "INSERT INTO staff (password, cluster, email, name, type) VALUES (?,?,?,?,?)";
-    var query_var = [password, cluster, email, name, imageUrl, type];
+    var query_var = [password, cluster, email, name, type];
 
     db.query(
       query_string,
@@ -119,7 +119,7 @@ const insertStaff = (password, cluster, email, name, type) => {
 
 
 // Register POST Request
-router.post("auth/register", (req, res) => {
+router.post("/auth/register", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   const name = req.body.name;
@@ -129,7 +129,8 @@ router.post("auth/register", (req, res) => {
   getStaff(email)
   .then((result) => {
     console.log(result)
-    if(result.length == 0) {
+    console.log(result.length)
+    if(result.length === 0) {
       console.log("No staff with email: " + email + " found")
       hashPassword(password)
       .then((hash) => {
