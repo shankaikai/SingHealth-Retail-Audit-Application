@@ -48,7 +48,7 @@ const LoginPage = (props) => {
   const classes = useStyles();
 
   // States to store username and password
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -60,10 +60,14 @@ const LoginPage = (props) => {
     console.log("attempt to login");
     // TODO: Add proper authencation here
     setContext({
-      id: 3, // Dummy data
+      id: 123, // Dummy data
       type: "staff", // Change to tenant if want to go to tenant main
     });
     history.push("/");
+  };
+
+  const handleForgetPassword = () => {
+    console.log("Handle forget");
   };
 
   return (
@@ -72,12 +76,12 @@ const LoginPage = (props) => {
       <FormControl className={classes.form} autoComplete="true">
         <Box m={1} className={classes.marginMax}>
           <TextField
-            id="userName"
-            label="Username"
+            id="email"
+            label="Email"
             variant="outlined"
             fullWidth
             onChange={(e) => {
-              setUsername(e.target.value);
+              setEmail(e.target.value);
             }}
           />
         </Box>
@@ -117,6 +121,9 @@ const LoginPage = (props) => {
         </Box>
         <Typography className={classes.marginMax} align="left">
           Dont have an account? <Link to="/register">Register</Link>
+        </Typography>
+        <Typography className={classes.marginMax} align="left">
+          <Link onClick={handleForgetPassword}>Forgot Password?</Link>
         </Typography>
       </FormControl>
     </div>
