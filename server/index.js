@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const cors = require("cors");
-const path = require('path');
+const path = require("path");
 require("dotenv/config");
 
 // Create express server
@@ -10,7 +10,7 @@ const app = express();
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
-// IMPORTANT!! parse application/json 
+// IMPORTANT!! parse application/json
 app.use(express.json());
 
 // Enable cross platform information transfer
@@ -22,19 +22,20 @@ app.use(express.json());
 //   })
 // );
 
-const TWO_HOURS = 1000 * 60 * 60 * 2
+const TWO_HOURS = 1000 * 60 * 60 * 2;
 
 const {
   PORT = 3000,
   NODE_ENV = "development",
   SESS_NAME = "SID",
   SESS_SECRET = "sutdsux",
-  SESS_LIFETIME = TWO_HOURS
-} = process.env
+  SESS_LIFETIME = TWO_HOURS,
+} = process.env;
 
-const IN_PROD = NODE_ENV === "production"
+const IN_PROD = NODE_ENV === "production";
 // Enable session
-app.use(session({
+app.use(
+  session({
     name: SESS_NAME,
     resave: false,
     saveUninitialized: false,
@@ -42,7 +43,7 @@ app.use(session({
     cookie: {
       maxAge: SESS_LIFETIME,
       sameSite: true,
-      secure: IN_PROD
+      secure: IN_PROD,
     },
   })
 );
@@ -55,42 +56,38 @@ app.use(
     credentials: true,
   })
 );
-console.log(process.env.SERVER_HOST)
+console.log(process.env.SERVER_HOST);
 // Routes
 const auth = require("./routes/Auth");
 
 app.use("/", auth);
 
-var rootDir = path.dirname(__dirname) ;
-console.log("Root Directory: " + rootDir)
+var rootDir = path.dirname(__dirname);
+console.log("Root Directory: " + rootDir);
 
-
-app.use(express.static(path.join(rootDir, '/client/build')));
-app.use(express.static(path.join(rootDir, '/client/build/static/media')));
-
+app.use(express.static(path.join(rootDir, "/client/build")));
+app.use(express.static(path.join(rootDir, "/client/build/static/media")));
 
 // only get request from react component through #fetch or redirect by node server
-app.get('/', (req,res) =>{
-  res.sendFile(path.join(rootDir+'/client/build/index.html'));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(rootDir + "/client/build/index.html"));
 });
 
 app.get("*", (req, res) => {
   res.send(` <h2> Oops! 404 Not Found </h2> `);
-})
+});
 
 app.listen(PORT, () => {
   console.log(`Server starting on port ${PORT}`);
 });
 
-/*
 const db = require("./config/DatabaseConfig");
 db.connect((err) => {
-  if(err) {
-    console.log(err)
+  if (err) {
+    console.log(err);
     return;
   }
-  console.log("Connecting to MySQL Database ..")
-})
-*/
+  console.log("Connecting to MySQL Database ..");
+});
 
-const db = require("./config/SQLiteConfig");
+//const db = require("./config/SQLiteConfig");

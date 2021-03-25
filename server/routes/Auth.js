@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-//const db = require("../config/DatabaseConfig");
-const db = require("../config/SQLiteConfig");
+const db = require("../config/DatabaseConfig");
+//const db = require("../config/SQLiteConfig");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
@@ -28,7 +28,7 @@ router.post("/login", (req, res, next) => {
   console.log(username)
   console.log(password)
   
-  db.all(
+  db.query(
     `SELECT * from Staffs where StaffName = ?`,
     [username],
     (err, result) => {
@@ -83,7 +83,7 @@ const getStaff = (staffName) => {
     var query_string = "SELECT * from staffs where StaffName = ?";
     var query_var = [staffName];
 
-    db.all(
+    db.query(
       query_string,
       query_var,
       (err, result) => {
@@ -103,14 +103,14 @@ const insertStaff = (staffName, staffPassword) => {
     var query_string = "INSERT INTO staffs (StaffName, StaffPassword) VALUES (?,?)";
     var query_var = [staffName, staffPassword];
 
-    db.run(
+    db.query(
       query_string,
       query_var,
       (err) => {
         if (err) {
           reject(err);
         } else {
-          resolve(this.changes);
+          resolve(true);
         }
       }
     );
@@ -135,7 +135,7 @@ router.post("/register", (req, res) => {
         .then((result) => {
           res.send({register_status : true});
           console.log("Register Success")
-          console.log("Row changes " + result)
+          //console.log("Row changes " + result)
         })
         .catch((err) => {
           console.log(err)
