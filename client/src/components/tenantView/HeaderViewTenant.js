@@ -48,15 +48,15 @@ const ViewTenant = (props) => {
   var lines = [
     {
       header: "Type",
-      text: "F&B",
+      text: props.data.type,
     },
     {
       header: "Location",
-      text: "#01-25",
+      text: props.data.location,
     },
     {
       header: "Last Audit Date",
-      text: "01 August 2020",
+      text: props.data.lastAudit,
     },
     {
       header: "Demerit Points",
@@ -74,7 +74,7 @@ const ViewTenant = (props) => {
 
   const handleEditTenant = () => {
     history.push({
-      pathname: "/edittenant",
+      pathname: `/edittenant/${props.data.id}`,
     });
   };
 

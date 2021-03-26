@@ -23,12 +23,11 @@ const useStyles = makeStyles({
   },
   avatar: {
     margin: 0,
-    padding: "15px",
     marginLeft: "26.1px",
     marginTop: "15px",
     marginBottom: "7px",
-    width: "20px",
-    height: "20px",
+    width: "40px",
+    height: "40px",
   },
   title: {
     display: "flex",

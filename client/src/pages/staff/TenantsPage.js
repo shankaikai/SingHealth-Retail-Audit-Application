@@ -15,12 +15,9 @@ const useStyles = makeStyles({
     bottom: 70,
     right: 20,
   },
-  skele: {
+  skeletons: {
     marginLeft: "20px",
     marginRight: "20px",
-    height: "90px",
-  },
-  skeletons: {
     marginTop: "139px",
     marginBottom: "56x",
     height: "calc(100vh - 195px)",
@@ -53,9 +50,9 @@ const TenantsPage = () => {
         <TenantList data={data} />
       ) : (
         <div className={classes.skeletons}>
-          <Skeleton className={classes.skele} />
-          <Skeleton className={classes.skele} />
-          <Skeleton className={classes.skele} />
+          <Skeleton height={90} />
+          <Skeleton height={90} />
+          <Skeleton height={90} />
         </div>
       )}
 

@@ -34,7 +34,7 @@ const HeaderDetails = (props) => {
       <div className={classes.text}>
         <List className={classes.list}>
           {props.details.map((line) => (
-            <Typography className={classes.text}>
+            <Typography className={classes.text} key={line.header}>
               {line.header} : {line.text}
             </Typography>
           ))}

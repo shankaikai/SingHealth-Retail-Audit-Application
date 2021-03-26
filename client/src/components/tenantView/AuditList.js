@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   },
 });
 
-const AuditList = () => {
+const AuditList = (props) => {
   var audits = [
     {
       completedDate: "21/12/21",
@@ -65,13 +65,13 @@ const AuditList = () => {
   return (
     <div className={classes.root}>
       <List className={classes.list}>
-        {audits.map((audit) => (
+        {props.audits.map((audit) => (
           <List className={classes.list}>
             <AuditItem
               key={audit.id}
-              completedDate={audit.completedDate}
+              completedDate={audit.dateCompleted}
               score={audit.score}
-              auditNumber={audit.auditNumber}
+              auditNumber={audit.id}
               id={audit.id}
             />
             <Divider light />
