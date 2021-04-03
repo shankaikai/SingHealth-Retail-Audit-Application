@@ -10,21 +10,6 @@ import {
 import { ExpandMore } from "@material-ui/icons";
 import logo from "../../assets/koufu.jpg";
 
-var placeHolderIssues = [
-  {
-    name: "Issue 1",
-    dueDate: "05 August 2021",
-  },
-  {
-    name: "Issue 2",
-    dueDate: "05 August 2021",
-  },
-  {
-    name: "Issue 3",
-    dueDate: "05 August 2021",
-  },
-];
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -101,7 +86,8 @@ const OutstandingItem = (props) => {
                   className={classes.issueDescription}
                   onClick={() => handleIssueClick(issue.issueID)}
                 >
-                  {issue.title} • {issue.date}
+                  {issue.title} •{" "}
+                  {new Date(issue.date.slice(0, 10)).toDateString()}
                 </Typography>
               </div>
             ))}

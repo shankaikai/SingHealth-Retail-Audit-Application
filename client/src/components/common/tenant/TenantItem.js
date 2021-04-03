@@ -77,7 +77,10 @@ const TenantItem = (props) => {
                   color="textSecondary"
                   m={1}
                 >
-                  Last Audit: {completedDate}
+                  {completedDate
+                    ? "Last Audit: " +
+                      new Date(completedDate.slice(0, 10)).toDateString()
+                    : "No audits done yet"}
                 </Box>
               </Typography>
             </div>
