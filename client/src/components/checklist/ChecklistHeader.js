@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button, makeStyles, Typography } from "@material-ui/core";
 
 const temp = {
@@ -28,6 +28,16 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "12px",
     fontWeight: "fontWeightRegular",
   },
+  goodScore: {
+    fontSize: "16px",
+    color: "#6FCF97",
+    fontWeight: "500",
+  },
+  badScore: {
+    fontSize: "16px",
+    color: "#EB5757",
+    fontWeight: "500",
+  },
 }));
 
 export default function ChecklistHeader(props) {
@@ -36,19 +46,33 @@ export default function ChecklistHeader(props) {
   return (
     <div className={classes.root}>
       <div className={classes.details}>
-        <Typography className={classes.text}>Tenant: {temp.name}</Typography>
-        <Typography className={classes.text}>Type: {temp.type}</Typography>
         <Typography className={classes.text}>
-          Location: {temp.location}
+          Tenant: {props.details.name}
         </Typography>
         <Typography className={classes.text}>
-          Audit Date: {temp.dateStarted}
+          Type: {props.details.type}
+        </Typography>
+        <Typography className={classes.text}>
+          Location: {props.details.location}
+        </Typography>
+        <Typography className={classes.text}></Typography>
+        <Typography className={classes.text}>
+          Current Score:{" "}
+          <span
+            className={
+              props.currentScore >= 95 ? classes.goodScore : classes.badScore
+            }
+          >
+            {Math.round(props.currentScore * 10) / 10}
+          </span>
         </Typography>
       </div>
+
       <Button
         variant="outlined"
         color="primary"
         onClick={props.newIssueHandler}
+        className={classes.button}
       >
         New Issue
       </Button>

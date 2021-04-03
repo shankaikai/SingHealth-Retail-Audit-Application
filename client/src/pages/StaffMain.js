@@ -36,7 +36,7 @@ export default function StaffMain() {
           <Route exact path="/addtenant">
             <AddTenantPage />
           </Route>
-          <Route exact path="/auditchecklist">
+          <Route exact path="/auditchecklist/:type/:tenantID">
             <AuditChecklistPage />
           </Route>
           <Route exact path="/auditend">

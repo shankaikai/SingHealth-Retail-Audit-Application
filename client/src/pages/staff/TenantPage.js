@@ -27,7 +27,6 @@ const useStyles = makeStyles({
 
 const TenantPage = () => {
   const classes = useStyles();
-  const location = useLocation();
 
   const [data, setData] = useState({});
   const [loaded, setLoaded] = useState(false);

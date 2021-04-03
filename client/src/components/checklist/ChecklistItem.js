@@ -26,16 +26,17 @@ const useStyles = makeStyles({
   },
 });
 export default function ChecklistItem(props) {
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState("");
 
   // Handle change in select value
   const handleChange = (e) => {
     // Call the update handler in Checklist.js
     props.updateHandler(
-      props.data.questionIndex,
       props.data.sectionIndex,
+      props.data.questionIndex,
       e.target.value
     );
+    console.log(e.target.value);
   };
 
   useEffect(() => {
@@ -60,6 +61,8 @@ export default function ChecklistItem(props) {
               onChange={handleChange}
               color="primary"
             >
+              <MenuItem value={null}></MenuItem>
+              <MenuItem value={-1}>N.A.</MenuItem>
               <MenuItem value={0}>0</MenuItem>
               <MenuItem value={1}>1</MenuItem>
             </Select>

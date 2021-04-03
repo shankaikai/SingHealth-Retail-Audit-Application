@@ -58,16 +58,12 @@ const ViewTenant = (props) => {
       header: "Last Audit Date",
       text: props.data.lastAudit,
     },
-    {
-      header: "Demerit Points",
-      text: "1",
-    },
   ];
 
   const handleNewAudit = () => {
     // console.log(tenantID);
     history.push({
-      pathname: "/auditchecklist",
+      pathname: `/auditchecklist/${props.data.type}/${props.data.id}`,
       // state: { tenantID: tenantID},
     });
   };
