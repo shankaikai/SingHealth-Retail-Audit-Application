@@ -55,6 +55,10 @@ const ViewTenant = (props) => {
       text: props.data.location,
     },
     {
+      header: "Cluster",
+      text: props.data.cluster,
+    },
+    {
       header: "Last Audit Date",
       text: props.data.lastAudit,
     },

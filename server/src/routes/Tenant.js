@@ -22,7 +22,7 @@ router.get("/:tenantID", (req, res) => {
             } else {
               issues = result;
               db.query(
-                `SELECT * FROM escdb.scratch_audits WHERE tenantID = ${tenantID} and completed = 0`,
+                `SELECT * FROM escdb.scratch_audits WHERE tenantID = ${tenantID} and completed = 1`,
                 (err, result) => {
                   if (err) {
                     console.log(err);

@@ -17,64 +17,6 @@ const useStyles = makeStyles({
 });
 
 const TenantList = (props) => {
-  var itemDescriptions = [
-    {
-      name: "Store 1",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
-      id: 1,
-    },
-    {
-      name: "Store 2",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
-      id: 2,
-    },
-    {
-      name: "Store 3",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
-      id: 3,
-    },
-    {
-      name: "Store 4",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
-      id: 4,
-    },
-    {
-      name: "Store 5",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
-      id: 5,
-    },
-    {
-      name: "Store 6",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
-      id: 6,
-    },
-    {
-      name: "Store 7",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
-      id: 7,
-    },
-    {
-      name: "Store 8",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
-      id: 8,
-    },
-  ];
   const classes = useStyles();
 
   return (

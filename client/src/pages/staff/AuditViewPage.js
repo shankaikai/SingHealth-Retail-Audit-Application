@@ -86,7 +86,7 @@ export default function AuditEndPage() {
     <div className={classes.root}>
       {loaded ? (
         <div>
-          <Header title="Audit Report" noDivider />
+          <Header back title="Audit Report" noDivider />
           <AuditEndHeader score="95" />
           <AuditResults data={tempData} className={classes.results} />
         </div>

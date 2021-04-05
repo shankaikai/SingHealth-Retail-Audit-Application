@@ -1,5 +1,5 @@
-import Reac, { useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Navbar from "../../components/common/Navbar";
 import Header from "../../components/common/Header";
 import Tabs from "../../components/tenantView/tenantViewTab";

@@ -70,7 +70,7 @@ const AuditList = (props) => {
             <AuditItem
               key={audit.id}
               completedDate={audit.dateCompleted}
-              score={audit.score}
+              score={Math.round(audit.score * 10) / 10}
               auditNumber={audit.id}
               id={audit.id}
             />

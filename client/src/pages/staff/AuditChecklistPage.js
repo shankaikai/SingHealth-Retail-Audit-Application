@@ -7,11 +7,17 @@ import NewIssuePage from "./NewIssuePage";
 import { useHistory, useParams } from "react-router-dom";
 import Axios from "axios";
 import { LoginContext } from "../../context/LoginContext";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
+  },
+  skeletons: {
+    padding: "10px",
+    marginLeft: "20px",
+    marginRight: "20px",
   },
 });
 
@@ -25,6 +31,8 @@ const scoresTemplate = require("../../assets/scores_template.json");
 const AuditChecklistPage = (props) => {
   const classes = useStyles();
 
+  const [loaded, setLoaded] = useState(false);
+
   const { type, tenantID } = useParams();
 
   // Grab context
@@ -33,6 +41,7 @@ const AuditChecklistPage = (props) => {
   // Index counter
   const [index, setIndex] = useState(0);
 
+  // Holder for the scores per section
   const [scores, setScores] = useState(scoresTemplate[type]);
 
   // Overall score saving state!
@@ -41,18 +50,24 @@ const AuditChecklistPage = (props) => {
   // New Issue State which will replace the UI with the new issue page
   const [newIssue, setNewIssue] = useState(false);
 
+  // Holder for the tenants details in the header
   const [tenantData, setTenantData] = useState({});
 
-  const auditDetails = {
+  // Holder for the total weighted audit score
+  const [currentScore, setCurrentScore] = useState(0);
+
+  // Holder for all the issues during this audit
+  const [issues, setIssues] = useState([]);
+
+  // Holder for the audit details, default will be used if first time
+  const [auditDetails, setAuditDetails] = useState({
     tenantID: tenantID,
     staffID: context.id,
     completed: 0,
-    dateStarted: new Date(Date.now()).toDateString(),
-  };
+    dateStarted: new Date(Date.now()),
+  });
 
-  // Hold the totalAuditScore
-  const [currentScore, setCurrentScore] = useState(0);
-
+  // Function to calculate the weighted total score
   const calculateWeightedTotal = (scores) => {
     if (scores) {
       let total = 0;
@@ -65,10 +80,13 @@ const AuditChecklistPage = (props) => {
     return 0;
   };
 
-  const [loaded, setLoaded] = useState(false);
+  // Function to handle addition of new issues
+  const handleIssues = (issue) => {
+    setIssues([...issues, issue]);
+  };
 
+  // Grab tenant data from database to update UI
   useEffect(() => {
-    // Grab from database to change audit checklist
     Axios.get(`http://localhost:3001/tenant/${tenantID}`).then((response) => {
       setTenantData(response.data);
       setLoaded(true);
@@ -86,9 +104,6 @@ const AuditChecklistPage = (props) => {
     if (index < auditChecklist.length - 1) {
       setIndex(index + 1);
     } else {
-      // TODO: Push to the end page with the tabulated scores
-      console.log(auditChecklist);
-      // history.push("/auditend");
       // Check if any unanswered questions
       let complete = true;
       for (let i = 0; i < scores.length; i++) {
@@ -98,10 +113,31 @@ const AuditChecklistPage = (props) => {
           break;
         }
       }
+
       if (complete) {
         console.log("Moving to end page... uploading the checklist data");
+        // Call the upload data function and wait for the audit id response
+        uploadDataComplete();
       }
     }
+  };
+
+  // POST req to push a completed set
+  const uploadDataComplete = () => {
+    let toUpload = {
+      ...auditDetails,
+      completed: 1,
+      data: auditChecklist,
+      dateCompleted: new Date(Date.now()),
+      scores: scores,
+      score: currentScore,
+      issues: issues,
+    };
+
+    Axios.post(
+      "http://localhost:3001/audit/complete",
+      toUpload
+    ).then((response) => {});
   };
 
   // Handle back press
@@ -110,14 +146,15 @@ const AuditChecklistPage = (props) => {
     setIndex(index - 1);
   };
 
-  // Handle update score for UI
-  const updateTotalScores = (questionIndex, sectionIndex, score) => {
+  // Handle update score for the individual audit checklist items on the UI
+  const updateTotalScores = (sectionIndex, questionIndex, score) => {
     var temp = JSON.parse(JSON.stringify(auditChecklist));
     temp[index].sections[sectionIndex].questions[questionIndex].score = score;
     setAuditCheckList(temp);
     updateScores(temp);
   };
 
+  // Update the UI for the total scores
   const updateScores = (newAuditChecklist) => {
     var temp = JSON.parse(JSON.stringify(scores));
     var section = newAuditChecklist[index];
@@ -151,10 +188,14 @@ const AuditChecklistPage = (props) => {
   return (
     <div className={classes.root}>
       {newIssue ? (
-        <NewIssuePage handleBack={setNewIssue} />
+        <NewIssuePage handleIssues={handleIssues} handleBack={setNewIssue} />
       ) : loaded ? (
         <div className={classes.root}>
-          <Header back title="Audit Name" noDivider />
+          <Header
+            back
+            title={"Audit - " + auditDetails.dateStarted.toDateString()}
+            noDivider
+          />
           <ChecklistHeader
             currentScore={currentScore}
             details={tenantData}
@@ -171,7 +212,18 @@ const AuditChecklistPage = (props) => {
             updateTotalScores={updateTotalScores}
           />
         </div>
-      ) : null}
+      ) : (
+        <div className={classes.skeletons}>
+          <Skeleton height={50} />
+          <Skeleton height={80} />
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+        </div>
+      )}
     </div>
   );
 };

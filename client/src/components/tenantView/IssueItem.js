@@ -57,7 +57,10 @@ const TenantItem = (props) => {
           </Box>
         </Typography>
         <Typography color="textSecondary">
-          <Box fontSize={14}>Due Date: {dueDate}</Box>
+          <Box fontSize={14}>
+            Due Date:{" "}
+            {dueDate ? new Date(dueDate.slice(0, 10)).toDateString() : null}
+          </Box>
         </Typography>
       </div>
       <div className={classes.left}>
