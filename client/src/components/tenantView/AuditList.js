@@ -68,6 +68,7 @@ const AuditList = (props) => {
         {props.audits.map((audit) => (
           <List className={classes.list}>
             <AuditItem
+              data = {audit}
               key={audit.id}
               completedDate={audit.dateCompleted}
               score={Math.round(audit.score * 10) / 10}

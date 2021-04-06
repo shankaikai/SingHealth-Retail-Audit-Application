@@ -40,10 +40,10 @@ const TenantItem = (props) => {
   const issueName = props.issueName;
   const issueID = props.issueID;
 
-  const handleOnClick = (issueID) => {
+  const handleOnClick = () => {
     console.log(issueID);
     history.push({
-      pathname: "/issue",
+      pathname: `/issue/${issueID}`,
       // state: { issueID: issueID },
       state: { issueName: issueName }, //change this later
     });

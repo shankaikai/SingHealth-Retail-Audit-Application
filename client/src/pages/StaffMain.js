@@ -48,7 +48,7 @@ export default function StaffMain() {
           <Route exact path="/newmessage">
             <NewMessagePage />
           </Route>
-          <Route exact path="/issue">
+          <Route exact path="/issue/:id">
             <AuditIssuePage />
           </Route>
         </Router>

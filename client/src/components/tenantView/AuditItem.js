@@ -45,6 +45,8 @@ const TenantItem = (props) => {
   const auditNumber = props.auditNumber;
   const score = props.score;
   const auditID = props.id;
+  const startDate = props.startDate;
+  const data = props.data;
 
   const handleOnClick = (name) => {
     console.log(name);
@@ -58,14 +60,14 @@ const TenantItem = (props) => {
       <div className={classes.text} onClick={() => handleOnClick(auditID)}>
         <Typography color="textPrimary">
           <Box fontWeight="fontWeightBold" fontSize={20}>
-            Audit {auditNumber}
+            Audit: {new Date(data.dateStarted.slice(0, 10)).toDateString().slice(4)}
           </Box>
         </Typography>
         <Typography color="textSecondary">
           <Box fontSize={14}>
             Date Completed:{" "}
-            {completedDate
-              ? new Date(completedDate.slice(0, 10)).toDateString()
+            {data.dateCompleted
+              ? new Date(data.dateCompleted.slice(0, 10)).toDateString()
               : null}
           </Box>
         </Typography>
