@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../../components/common/Navbar";
 import Header from "../../components/common/Header";
 import { makeStyles } from "@material-ui/core";
-import OutstandingList from "../../components/outstanding/OutstandingList";
+import OutstandingList from "../../components/tenantView/OutstandingList";
 import Axios from "axios";
 import Skeleton from "@material-ui/lab/Skeleton";
 
