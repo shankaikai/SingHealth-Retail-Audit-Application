@@ -33,7 +33,7 @@ const TenantsPage = () => {
 
   const [data, setData] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  const [search, setSearch] = useState();
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     Axios.get("http://localhost:3001/api/tenants/all").then((response) => {
