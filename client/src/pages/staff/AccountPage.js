@@ -3,8 +3,6 @@ import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import Navbar from "../../components/common/Navbar";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import { LoginContext } from "../../context/LoginContext";
-import { useState, useContext } from "react";
 
 const useStyles = makeStyles({
   root: {
@@ -30,15 +28,9 @@ const useStyles = makeStyles({
 const AccountPage = () => {
   let history = useHistory();
   // Function to handle logouts
-
-  const { setContext } = useContext(LoginContext);
   const handleLogout = () => {
     // TODO: Release session
-    setContext({
-      id: null,
-      type: null
-    })
-    // history.push("/logout")
+    history.push("/");
   };
 
   const classes = useStyles();

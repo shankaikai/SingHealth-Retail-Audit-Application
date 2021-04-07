@@ -4,8 +4,6 @@ import { Store, PlaylistAddCheck, AccountCircle } from "@material-ui/icons/";
 import { BottomNavigationAction } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
-import { useContext } from "react";
-import { LoginContext } from "../../context/LoginContext";
 
 const useStyles = makeStyles({
   bar: {
@@ -29,23 +27,11 @@ const Navbar = (props) => {
   const classes = useStyles();
   let history = useHistory();
 
-  // Grab setContext from LoginContext
-  const { context, setContext } = useContext(LoginContext);
-
   // Function to handle changing of tabs
   const handleChange = (event, newValue) => {
     setValue(newValue);
     // Push the value to the parent container through props
-    setContext({
-      id: context.id,
-      type: context.type,
-      showTenants: false
-    })
     history.push(`/${newValue}`);
-    // history.push({
-    //   path: `/${newValue}`,
-    //   state: "Not shown"
-    // })
   };
 
   return (
@@ -60,7 +46,6 @@ const Navbar = (props) => {
         value=""
         icon={<Store />}
         className={classes.icons}
-        
       />
       <BottomNavigationAction
         label="Outstanding"

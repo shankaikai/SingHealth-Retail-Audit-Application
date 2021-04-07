@@ -13,7 +13,6 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Header from "../components/common/Header";
-require("dotenv/config");
 import Axios from "axios";
 
 const useStyle = makeStyles({
@@ -50,67 +49,32 @@ const RegisterPage = () => {
   const [showPassword2, setShowPassword2] = useState(false);
 
   // Function to handle a register request
-
-  const REGISTER_SUCCESS = "REGISTER_SUCCESS"
   const handleRegister = () => {
-/*
-    // TODO: POST request to '/register'
-    if (password === repeatPassword) {
-      console.log("react: password: " + password);
-      const user = { username, password };
-
-      fetch("http://localhost:3000/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.register_status) {
-            alert("REGISTER_SUCCESS");
-            history.push("/");
-          } else {
-            if (data.reason === DUPLICATED_USERNAME) {
-              alert(DUPLICATED_USERNAME);
-            } else if (data.reason === DATABASE_ERROR) {
-              alert(DATABASE_ERROR);
-            }
-          }
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      });
-
-    } 
-    
-    else {
-      alert("PASSWORD_NOT_MATCHING");
     // TODO: Add proper authencation here
     if (email === "" || password === "") {
       alert("Email/Password cannot be blank!");
     }
-*/
+
     if (password === repeatPassword) {
-      Axios.post("http://localhost:3000/auth/register", {
+      Axios.post("http://localhost:3001/auth/register", {
         email: email,
         password: password,
         name: name,
         cluster: "SGH",
-        type: "staff"
+        type: "staff",
       }).then((response) => {
         console.log(response);
-        if (response.data.register_status === true) {
-          alert(REGISTER_SUCCESS);
-          history.push("/login");
+        if (response.data.messageExists) {
+          alert("Username is taken!");
+        } else if (response.data.message) {
+          alert("Registration successful!");
         } else {
-          alert(response.data.reason);
-          console.log("register status: ", response.data.register_status)
+          alert("Server error!");
         }
       });
-      
+      history.push("/login");
     } else {
-      alert("PASSWORD_NOT_MATCHED");
+      alert("Passwords do not match!");
     }
   };
 
@@ -168,7 +132,7 @@ const RegisterPage = () => {
           <FormControl variant="outlined" fullWidth="true">
             <InputLabel> Repeat Password</InputLabel>
             <OutlinedInput
-              id="repeatpassword"
+              id="password"
               type={showPassword2 ? "text" : "password"}
               label="Repeat Password"
               variant="outlined"
