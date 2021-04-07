@@ -28,17 +28,10 @@ const useStyles = makeStyles({
 });
 
 const AccountPage = () => {
-  let history = useHistory();
-  // Function to handle logouts
-
   const { setContext } = useContext(LoginContext);
   const handleLogout = () => {
-    // TODO: Release session
-    setContext({
-      id: null,
-      type: null
-    })
-    // history.push("/logout")
+    // TODO: Release session from node
+    setContext({});
   };
 
   const classes = useStyles();

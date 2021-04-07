@@ -6,7 +6,7 @@ import AccountPage from "./staff/AccountPage";
 import AddTenantPage from "./staff/AddTenantPage";
 import AuditChecklistPage from "./staff/AuditChecklistPage";
 import AuditEndPage from "./staff/AuditEndPage";
-import { Redirect, Route, BrowserRouter as Router } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import NewMessagePage from "./staff/NewMessagePage";
 import AuditIssuePage from "./staff/AuditIssuePage";
 import AuditViewPage from "./staff/AuditViewPage";
@@ -14,13 +14,13 @@ import { LoginContext } from "../context/LoginContext";
 
 export default function StaffMain(props) {
   const { context } = useContext(LoginContext);
-  console.log("StaffMain")
+  console.log("StaffMain");
   return (
     <div>
-      {context.id === null ? (
+      {!context.id ? (
         <Redirect to="/login" />
       ) : (
-        <Router>
+        <Switch>
           <Route exact path="/">
             <TenantsPage />
           </Route>
@@ -51,7 +51,7 @@ export default function StaffMain(props) {
           <Route exact path="/issue/:id">
             <AuditIssuePage />
           </Route>
-        </Router>
+        </Switch>
       )}
     </div>
   );

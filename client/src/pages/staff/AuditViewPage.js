@@ -76,7 +76,7 @@ export default function AuditEndPage() {
 
   useEffect(() => {
     // TODO: Grab data from server
-    Axios.get("http://localhost:3001/audit/" + id).then((response) => {
+    Axios.get("http://localhost:3001/api/audit/" + id).then((response) => {
       setData(response.data);
       setLoaded(true);
     });

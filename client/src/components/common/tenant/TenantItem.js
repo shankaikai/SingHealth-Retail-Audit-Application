@@ -36,10 +36,11 @@ const useStyles = makeStyles({
 const TenantItem = (props) => {
   let history = useHistory();
   const classes = useStyles();
-  const storeName = props.storeName;
-  const completedDate = props.completedDate;
-  const tenantID = props.id;
-  const imageUrl = props.imageUrl;
+  const storeName = props.data.name;
+  const completedDate = props.data.lastAudit;
+  const tenantID = props.data.id;
+  const imageUrl = props.data.imageUrl;
+  const cluster = props.data.cluster;
 
   const handleOnClick = (name) => {
     console.log(tenantID);
@@ -53,7 +54,7 @@ const TenantItem = (props) => {
       <Card square onClick={() => handleOnClick(storeName)}>
         <CardContent>
           <div className={classes.content}>
-            <Avatar alt="logo" src={imageUrl} style={{ paddingRight: "5px" }} />
+            <Avatar alt="logo" src={imageUrl} style={{ marginRight: "10px" }} />
             <div display="inline" style={{ float: "left", flexGrow: 4 }}>
               <Typography
                 style={{ marginBottom: "0" }}
@@ -63,7 +64,7 @@ const TenantItem = (props) => {
                 gutterBottom
               >
                 <Box fontWeight="fontWeightBold" m={1}>
-                  {storeName}
+                  {storeName} • {cluster}
                 </Box>
               </Typography>
               <Typography

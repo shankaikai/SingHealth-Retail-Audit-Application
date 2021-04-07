@@ -25,7 +25,7 @@ app.use(express.json());
 const TWO_HOURS = 1000 * 60 * 60 * 2;
 
 const {
-  PORT = 3000,
+  PORT = 3001,
   NODE_ENV = "development",
   SESS_NAME = "SID",
   SESS_SECRET = "sutdsux",
@@ -59,8 +59,14 @@ app.use(
 console.log(process.env.SERVER_HOST);
 // Routes
 const auth = require("./routes/Auth");
+const tenant = require("./routes/Tenant");
+const tenants = require("./routes/TenantsGets");
+const audit = require("./routes/Audit");
 
-app.use("/", auth);
+app.use("/api/auth", auth);
+app.use("/api/tenants", tenants);
+app.use("/api/tenant", tenant);
+app.use("/api/audit", audit);
 
 var rootDir = path.dirname(__dirname);
 console.log("Root Directory: " + rootDir);

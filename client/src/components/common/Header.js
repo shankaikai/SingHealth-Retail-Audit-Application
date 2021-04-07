@@ -75,7 +75,12 @@ const Header = (props) => {
         )}
       </div>
       {props.details ? <HeaderDetails details={props.details} /> : null}
-      {props.searchbar ? <Searchbar /> : null}
+      {props.searchbar ? (
+        <Searchbar
+          setSearch={props.setSearch}
+          searchValue={props.searchValue}
+        />
+      ) : null}
       {props.noDivider ? null : <Divider />}
     </div>
   );

@@ -33,9 +33,10 @@ const TenantsPage = () => {
 
   const [data, setData] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const [search, setSearch] = useState();
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/tenants/all").then((response) => {
+    Axios.get("http://localhost:3001/api/tenants/all").then((response) => {
       setData(response.data);
       setLoaded(true);
     });
@@ -45,9 +46,14 @@ const TenantsPage = () => {
 
   return (
     <div>
-      <Header searchbar title="Tenants" />
+      <Header
+        searchbar
+        searchValue={search}
+        setSearch={setSearch}
+        title="Tenants"
+      />
       {loaded ? (
-        <TenantList data={data} />
+        <TenantList data={data} searchValue={search} />
       ) : (
         <div className={classes.skeletons}>
           <Skeleton height={90} />

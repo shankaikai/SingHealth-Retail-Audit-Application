@@ -58,92 +58,45 @@ const LoginPage = (props) => {
   const { setContext } = useContext(LoginContext);
 
   // Function to handle a login request
-  const INVALID_USERNAME = "INVALID_USERNAME"; // check on login && register
-  const INVALID_PASSWORD = "INVALID_PASSWORD"; // check on valid username
+  const INVALID_USERNAME = "Username does not exist!"; // check on login && register
+  const INVALID_PASSWORD = "Incorrect password!"; // check on valid username
 
   const handleLogin = (e) => {
-    /*
-    e.preventDefault();
-    console.log("attempt to login");
-
-    // TODO: POST request to '/login'
-    const user = { username, password };
-    fetch("http://localhost:3000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.login_status) {
-          alert("LOGIN_SUCCESS");
-          history.push("/");
-        } else {
-          if (data.reason === INVALID_PASSWORD) {
-            alert(INVALID_PASSWORD);
-          } else if (data.reason === INVALID_USERNAME) {
-            alert(INVALID_USERNAME);
-            history.push("/login");
-          }
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    // TODO: Add proper authencation here
-    setContext({
-      id: 123, // Dummy data
-      type: "staff", // Change to tenant if want to go to tenant main
-    });
-    //history.push("/");
-    */
-
-    Axios.post("http://localhost:3000/auth/login", {
+    Axios.post("http://localhost:3001/api/auth/login", {
       email,
-      password
+      password,
     }).then((res) => {
-      if(res.data.login_status) {
-        alert("LOGIN_SUCCESS")
+      if (res.data.login_status) {
+        // alert("LOGIN_SUCCESS");
         setContext({
           id: res.data.result,
           type: "staff",
-          showTenants: true
-        })
-        //console.log(context.id)
-        history.push("/")
-        //history.push("/")
+          name: "name",
+        });
       } else {
-        alert(res.data.reason)
+        alert(res.data.reason);
       }
-    })
-
+    });
   };
-
-
 
   const handleForgetPassword = () => {
     Axios.post("http://localhost:3000/auth/login", {
       email,
-      password
+      password,
     }).then((res) => {
-      if(res.data.reason !== "INVALID_EMAIL") {
-        
-        Axios.post("http://localhost:3000/auth/resetpassword", {email})
-        .then((res) => {
-          alert("PLEASE_CHECK_YOUR_EMAIL")
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-        
+      if (res.data.reason !== "INVALID_EMAIL") {
+        Axios.post("http://localhost:3000/auth/resetpassword", { email })
+          .then((res) => {
+            alert("PLEASE_CHECK_YOUR_EMAIL");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       } else {
-        alert(res.data.reason)
+        alert(res.data.reason);
       }
-    })
-    
+    });
+
     console.log("Handle forget");
   };
 

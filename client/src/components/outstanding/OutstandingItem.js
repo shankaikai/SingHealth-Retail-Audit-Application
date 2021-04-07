@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     alignSelf: "center",
-    paddingRight: "5px",
+    marginRight: "10px",
   },
   issuesContainer: {
     display: "flex",
@@ -66,7 +66,11 @@ const OutstandingItem = (props) => {
       <Accordion square>
         <AccordionSummary expandIcon={<ExpandMore />}>
           <div className={classes.container}>
-            <Avatar alt="Koufu" src={logo} className={classes.avatar} />
+            <Avatar
+              alt="logo"
+              src={props.data.imageUrl}
+              className={classes.avatar}
+            />
             <div className={classes.description}>
               <Typography className={classes.title}>
                 {props.data.storeName}

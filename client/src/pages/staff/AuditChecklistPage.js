@@ -146,13 +146,13 @@ const AuditChecklistPage = (props) => {
     };
 
     if (complete) {
-      Axios.post("http://localhost:3001/audit/complete", toUpload).then(
+      Axios.post("http://localhost:3001/api/audit/complete", toUpload).then(
         (response) => {
           console.log(response.data);
         }
       );
     } else {
-      Axios.post("http://localhost:3001/audit/partial", toUpload).then(
+      Axios.post("http://localhost:3001/api/audit/partial", toUpload).then(
         (response) => {
           console.log(response.data);
         }

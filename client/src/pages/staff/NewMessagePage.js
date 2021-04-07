@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   root: {
     position: "fixed",
     height: "100vh",
-    width: "100%"
+    width: "100%",
   },
   form: {
     width: "80%",
@@ -52,13 +52,11 @@ const useStyles = makeStyles({
   },
 });
 
-
-
 const AddIssuePage = () => {
   const classes = useStyles();
   const { issueid } = useParams();
   let history = useHistory();
-  
+
   // State to store values
   const [values, setValues] = useState({
     reply: "",
@@ -70,15 +68,15 @@ const AddIssuePage = () => {
   // Set identifying values in the post request data
   values.issueID = issueid;
   const { context } = useContext(LoginContext);
-  if(context.type == "staff"){
+  if (context.type == "staff") {
     values.isStaff = "1";
   } else {
     values.isStaff = "0";
   }
 
   const handleTyping = (e) => {
-    setValues({...values, reply: e.target.value});
-  }
+    setValues({ ...values, reply: e.target.value });
+  };
 
   // Upload Photo Handler
   const handlePhoto = (e) => {
@@ -103,14 +101,14 @@ const AddIssuePage = () => {
 
   // Submit handler
   const handleSubmit = () => {
-    Axios.post("http://localhost:3001/tenant/issue/reply", values).then((response)=>{
-      console.log(response);
-      history.goBack();
-    })
+    Axios.post("http://localhost:3001/api/tenant/issue/reply", values).then(
+      (response) => {
+        console.log(response);
+        history.goBack();
+      }
+    );
     console.log(values);
   };
-
-
 
   return (
     <div className={classes.root}>
@@ -134,7 +132,7 @@ const AddIssuePage = () => {
           className={classes.submit}
         >
           Upload Photo
-        <input type="file" hidden onChange={handlePhoto} accept="image/*" />
+          <input type="file" hidden onChange={handlePhoto} accept="image/*" />
         </Button>
         <div className={classes.imageHolder}>
           {imageSelected ? (
@@ -156,7 +154,7 @@ const AddIssuePage = () => {
           onClick={handleSubmit}
         >
           Submit
-      </Button>
+        </Button>
       </div>
     </div>
   );
