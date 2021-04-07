@@ -16,7 +16,7 @@ const redirectToLogin = (req, res, next) => {
   }
 };
 
-router.get("/auth/login", (req, res) => {
+router.get("/login", (req, res) => {
   if (req.session.userID) {
     var user = {
       userID: req.session.userID,

@@ -80,12 +80,12 @@ const LoginPage = (props) => {
   };
 
   const handleForgetPassword = () => {
-    Axios.post("http://localhost:3000/auth/login", {
+    Axios.post("http://localhost:3001/api/auth/login", {
       email,
       password,
     }).then((res) => {
       if (res.data.reason !== "INVALID_EMAIL") {
-        Axios.post("http://localhost:3000/auth/resetpassword", { email })
+        Axios.post("http://localhost:3001/api/auth/resetpassword", { email })
           .then((res) => {
             alert("PLEASE_CHECK_YOUR_EMAIL");
           })
