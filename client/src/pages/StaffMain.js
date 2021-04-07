@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import TenantsPage from "./staff/TenantsPage";
 import TenantPage from "./staff/TenantPage";
 import OutstandingPage from "./staff/OutstandingPage";
@@ -12,9 +12,9 @@ import AuditIssuePage from "./staff/AuditIssuePage";
 import AuditViewPage from "./staff/AuditViewPage";
 import { LoginContext } from "../context/LoginContext";
 
-export default function StaffMain() {
+export default function StaffMain(props) {
   const { context } = useContext(LoginContext);
-
+  console.log("StaffMain")
   return (
     <div>
       {context.id === null ? (

@@ -15,6 +15,8 @@ import {
 import { Link, useHistory } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { LoginContext } from "../context/LoginContext";
+import Axios from "axios";
+require("dotenv/config");
 
 const useStyles = makeStyles({
   login: {
@@ -56,17 +58,92 @@ const LoginPage = (props) => {
   const { setContext } = useContext(LoginContext);
 
   // Function to handle a login request
-  const handleLogin = () => {
+  const INVALID_USERNAME = "INVALID_USERNAME"; // check on login && register
+  const INVALID_PASSWORD = "INVALID_PASSWORD"; // check on valid username
+
+  const handleLogin = (e) => {
+    /*
+    e.preventDefault();
     console.log("attempt to login");
+
+    // TODO: POST request to '/login'
+    const user = { username, password };
+    fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.login_status) {
+          alert("LOGIN_SUCCESS");
+          history.push("/");
+        } else {
+          if (data.reason === INVALID_PASSWORD) {
+            alert(INVALID_PASSWORD);
+          } else if (data.reason === INVALID_USERNAME) {
+            alert(INVALID_USERNAME);
+            history.push("/login");
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     // TODO: Add proper authencation here
     setContext({
       id: 123, // Dummy data
       type: "staff", // Change to tenant if want to go to tenant main
     });
-    history.push("/");
+    //history.push("/");
+    */
+
+    Axios.post("http://localhost:3000/auth/login", {
+      email,
+      password
+    }).then((res) => {
+      if(res.data.login_status) {
+        alert("LOGIN_SUCCESS")
+        setContext({
+          id: res.data.result,
+          type: "staff",
+          showTenants: true
+        })
+        //console.log(context.id)
+        history.push("/")
+        //history.push("/")
+      } else {
+        alert(res.data.reason)
+      }
+    })
+
   };
 
+
+
   const handleForgetPassword = () => {
+    Axios.post("http://localhost:3000/auth/login", {
+      email,
+      password
+    }).then((res) => {
+      if(res.data.reason !== "INVALID_EMAIL") {
+        
+        Axios.post("http://localhost:3000/auth/resetpassword", {email})
+        .then((res) => {
+          alert("PLEASE_CHECK_YOUR_EMAIL")
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+        
+      } else {
+        alert(res.data.reason)
+      }
+    })
+    
     console.log("Handle forget");
   };
 
@@ -79,14 +156,15 @@ const LoginPage = (props) => {
             id="email"
             label="Email"
             variant="outlined"
-            fullWidth
+            fullWidth="true"
             onChange={(e) => {
               setEmail(e.target.value);
             }}
           />
         </Box>
+
         <Box m={1} className={classes.marginMax}>
-          <FormControl variant="outlined" fullWidth>
+          <FormControl variant="outlined" fullWidth="true">
             <InputLabel>Password</InputLabel>
             <OutlinedInput
               id="password"
@@ -113,7 +191,7 @@ const LoginPage = (props) => {
           <Button
             variant="contained"
             color="primary"
-            fullWidth
+            fullWidth="true"
             onClick={handleLogin}
           >
             Login
