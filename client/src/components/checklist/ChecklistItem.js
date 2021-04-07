@@ -61,7 +61,7 @@ export default function ChecklistItem(props) {
               onChange={handleChange}
               color="primary"
             >
-              <MenuItem value={null}></MenuItem>
+              <MenuItem value={""}></MenuItem>
               <MenuItem value={-1}>N.A.</MenuItem>
               <MenuItem value={0}>0</MenuItem>
               <MenuItem value={1}>1</MenuItem>

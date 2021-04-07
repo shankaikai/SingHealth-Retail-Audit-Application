@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "space-around",
-    width: "120px",
+    width: "150px",
     alignItems: "flex-start",
     padding: "0px",
     margin: "0px",
@@ -66,10 +66,17 @@ const ViewTenant = (props) => {
 
   const handleNewAudit = () => {
     // console.log(tenantID);
-    history.push({
-      pathname: `/auditchecklist/${props.data.type}/${props.data.id}`,
-      // state: { tenantID: tenantID},
-    });
+    if (props.data.onGoingAuditID) {
+      history.push({
+        pathname: `/auditchecklist/${props.data.type}/${props.data.id}/${props.data.onGoingAuditID}`,
+        // state: { tenantID: tenantID},
+      });
+    } else {
+      history.push({
+        pathname: `/auditchecklist/${props.data.type}/${props.data.id}`,
+        // state: { tenantID: tenantID},
+      });
+    }
   };
 
   const handleEditTenant = () => {
@@ -99,7 +106,7 @@ const ViewTenant = (props) => {
           className={classes.button}
           onClick={() => handleNewAudit()}
         >
-          New Audit
+          {props.onGoingAuditID ? "Continue Audit" : "New Audit"}
         </Button>
       </div>
     </div>

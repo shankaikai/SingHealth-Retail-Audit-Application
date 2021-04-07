@@ -33,7 +33,7 @@ const AuditChecklistPage = (props) => {
 
   const [loaded, setLoaded] = useState(false);
 
-  const { type, tenantID } = useParams();
+  const { type, tenantID, onGoingAuditID } = useParams();
 
   // Grab context
   const { context } = useContext(LoginContext);
@@ -53,19 +53,13 @@ const AuditChecklistPage = (props) => {
   // Holder for the tenants details in the header
   const [tenantData, setTenantData] = useState({});
 
+  const [dateStarted, setDateStarted] = useState(new Date(Date.now()));
+
   // Holder for the total weighted audit score
   const [currentScore, setCurrentScore] = useState(0);
 
   // Holder for all the issues during this audit
   const [issues, setIssues] = useState([]);
-
-  // Holder for the audit details, default will be used if first time
-  const [auditDetails, setAuditDetails] = useState({
-    tenantID: tenantID,
-    staffID: context.id,
-    completed: 0,
-    dateStarted: new Date(Date.now()),
-  });
 
   // Function to calculate the weighted total score
   const calculateWeightedTotal = (scores) => {
@@ -85,6 +79,14 @@ const AuditChecklistPage = (props) => {
     setIssues([...issues, issue]);
   };
 
+  // Function to handle back press in header
+  // It will push the current audit data to the data base and update the tenant's onGoingAuditID
+  const handleBackPress = () => {
+    console.log("back");
+    // Upload data to backend for partial audit
+    uploadData(false);
+  };
+
   // Grab tenant data from database to update UI
   useEffect(() => {
     Axios.get(`http://localhost:3001/tenant/${tenantID}`).then((response) => {
@@ -92,6 +94,13 @@ const AuditChecklistPage = (props) => {
       setLoaded(true);
     });
   }, [tenantID]);
+
+  // Conditional grabbing of ongoing audit data if there is any
+  useEffect(() => {
+    if (onGoingAuditID) {
+      Axios.get(`http://localhost:3001/tenant/${tenantID}`).then((res) => {});
+    }
+  }, [onGoingAuditID]);
 
   // To update the current total score whenever the scores state changes
   useEffect(() => {
@@ -117,27 +126,38 @@ const AuditChecklistPage = (props) => {
       if (complete) {
         console.log("Moving to end page... uploading the checklist data");
         // Call the upload data function and wait for the audit id response
-        uploadDataComplete();
+        uploadData(true);
       }
     }
   };
 
   // POST req to push a completed set
-  const uploadDataComplete = () => {
+  const uploadData = (complete) => {
     let toUpload = {
-      ...auditDetails,
-      completed: 1,
+      tenantID: tenantID,
+      staffID: context.id,
+      dateStarted: dateStarted,
+      completed: complete ? 1 : 0,
       data: auditChecklist,
-      dateCompleted: new Date(Date.now()),
+      dateCompleted: complete ? new Date(Date.now()) : null,
       scores: scores,
       score: currentScore,
       issues: issues,
     };
 
-    Axios.post(
-      "http://localhost:3001/audit/complete",
-      toUpload
-    ).then((response) => {});
+    if (complete) {
+      Axios.post("http://localhost:3001/audit/complete", toUpload).then(
+        (response) => {
+          console.log(response.data);
+        }
+      );
+    } else {
+      Axios.post("http://localhost:3001/audit/partial", toUpload).then(
+        (response) => {
+          console.log(response.data);
+        }
+      );
+    }
   };
 
   // Handle back press
@@ -193,8 +213,9 @@ const AuditChecklistPage = (props) => {
         <div className={classes.root}>
           <Header
             back
-            title={"Audit - " + auditDetails.dateStarted.toDateString()}
+            title={"Audit - " + dateStarted.toDateString()}
             noDivider
+            backHandler={handleBackPress}
           />
           <ChecklistHeader
             currentScore={currentScore}
