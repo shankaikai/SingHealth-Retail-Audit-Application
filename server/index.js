@@ -82,6 +82,7 @@ app.listen(PORT, () => {
 });
 
 const db = require("./config/DatabaseConfig");
+/*
 db.connect((err) => {
   if (err) {
     console.log(err);
@@ -89,5 +90,5 @@ db.connect((err) => {
   }
   console.log("Connecting to MySQL Database ..");
 });
-
+*/
 //const db = require("./config/SQLiteConfig");

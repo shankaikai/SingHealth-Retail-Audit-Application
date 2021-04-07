@@ -5,6 +5,8 @@ const db = require("../config/DatabaseConfig");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
+const sendMail = require("../helpers/Emailer");
+
 // Route protector
 const redirectToLogin = (req, res, next) =>  {
   if(!req.session.userID) {
@@ -22,35 +24,41 @@ const DATABASE_ERROR = ["QUERY_ERROR", "INSERTION_ERROR"]
 const HASH_ERROR = "HASH_ERROR"
 
 
-router.post("/login", (req, res, next) => {
-  const username = req.body.username;
+router.post("/auth/login", (req, res, next) => {
+  const email = req.body.email;
   const password = req.body.password;
-  console.log(username)
+  console.log(email)
   console.log(password)
   
   db.query(
-    `SELECT * from Staffs where StaffName = ?`,
-    [username],
+    `SELECT * from staff where email = ?`,
+    [email],
     (err, result) => {
       if (err) {
         console.log(err)
       } else {
-        // Check whether username is in database
+        // Check whether email is in database
         console.log(result)
         if (result.length > 0) {
-          bcrypt.compare(password, result[0].StaffPassword, (error, response) => {
+          bcrypt.compare(password, result[0].password, (error, response) => {
             if (response) {
               // Grab the user's id on the db
-              const id = result[0].StaffID;
+              const id = result[0].id;
 
               // Create a session and place the id into it
               req.session.userID = id;
+
+              req.session.userName = result[0].name;
+
+              req.session.userType = result[0].type;
+
+              
 
               res.json({ login_status: true, result: id });
 
               // prompt user to next page
 
-              console.log(`${username} logged in!`);
+              console.log(`${email} logged in!`);
             } else {
               // Invalid Password
               res.json({  login_status : false, reason : INVALID_PASSWORD });
@@ -78,10 +86,28 @@ const hashPassword = (password) => {
     
 }
 
-const getStaff = (staffName) => {
+const getStaffName = (email) => {
+  return new Promise((resolve, reject) => {
+    var query_string = "SELECT name from staff where email = ?";
+    var query_var = [email];
+
+    db.query(
+      query_string,
+      query_var,
+      (err, result) => {
+        if(err) {
+          return reject(err);
+        } 
+        resolve(result)
+      }
+    )
+  })
+}
+
+const getStaff = (email) => {
   return new Promise((resolve, reject) => {
     var query_string = "SELECT * from staff where email = ?";
-    var query_var = [staffName];
+    var query_var = [email];
 
     db.query(
       query_string,
@@ -161,6 +187,21 @@ router.post("/auth/register", (req, res) => {
     res.send({register_status : false, reason : DATABASE_ERROR[0]});
   });
 });
+
+router.post("/auth/resetpassword", (req, res) => {
+  const email = req.body.email;
+  // TODO: Extract service from email
+  const service = "hotmail";
+  getStaffName(email)
+  .then((result) => {
+    var name = result[0].name
+    sendMail(service, email, name);
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+  
+})
 
 
 

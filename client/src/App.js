@@ -20,14 +20,17 @@ const theme = createMuiTheme({
   },
 });
 
+
 // Main wrapper class for all other pages
 const App = () => {
   // Create states to store context variables
   const [context, setContext] = useState({
     id: null, // Dummy data
     type: null, // Change to tenant if want to access tenant main
+    showTenants: null
   });
-
+  console.log("App")
+  console.log(context.id)
   return (
     <div className="App">
       <meta name="mobile-web-app-capable" content="yes" />
@@ -36,7 +39,7 @@ const App = () => {
         <ThemeProvider theme={theme}>
           <Router>
             <Route exact path="/login">
-              <LoginPage />
+              <LoginPage/>
             </Route>
             <Route exact path="/register">
               <RegisterPage />

@@ -15,7 +15,7 @@ import {
 import { Link, useHistory } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { LoginContext } from "../context/LoginContext";
-
+import Axios from "axios";
 require("dotenv/config");
 
 const useStyles = makeStyles({
@@ -95,13 +95,57 @@ const LoginPage = (props) => {
       });
     // TODO: Add proper authencation here
     setContext({
-      id: null, // Dummy data
-      type: null, // Change to tenant if want to go to tenant main
+      id: 123, // Dummy data
+      type: "staff", // Change to tenant if want to go to tenant main
     });
     //history.push("/");
     */
+
+    Axios.post("http://localhost:3000/auth/login", {
+      email,
+      password
+    }).then((res) => {
+      if(res.data.login_status) {
+        alert("LOGIN_SUCCESS")
+        setContext({
+          id: res.data.result,
+          type: "staff",
+          showTenants: true
+        })
+        //console.log(context.id)
+        history.push("/")
+        //history.push("/")
+      } else {
+        alert(res.data.reason)
+      }
+    })
+
   };
 
+
+
+  const handleForgetPassword = () => {
+    Axios.post("http://localhost:3000/auth/login", {
+      email,
+      password
+    }).then((res) => {
+      if(res.data.reason !== "INVALID_EMAIL") {
+        
+        Axios.post("http://localhost:3000/auth/resetpassword", {email})
+        .then((res) => {
+          alert("PLEASE_CHECK_YOUR_EMAIL")
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+        
+      } else {
+        alert(res.data.reason)
+      }
+    })
+    
+    console.log("Handle forget");
+  };
 
   return (
     <div className={classes.login}>
@@ -155,6 +199,9 @@ const LoginPage = (props) => {
         </Box>
         <Typography className={classes.marginMax} align="left">
           Dont have an account? <Link to="/register">Register</Link>
+        </Typography>
+        <Typography className={classes.marginMax} align="left">
+          <Link onClick={handleForgetPassword}>Forgot Password?</Link>
         </Typography>
       </FormControl>
     </div>

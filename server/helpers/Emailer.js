@@ -1,8 +1,7 @@
 const nodemailer = require("nodemailer");
-
-module.exports = () => {
+const sendMail = (service, email, name) => {
   const transporter = nodemailer.createTransport({
-    service: "hotmail",
+    service: service,
     auth: {
       user: "esccprojectt@hotmail.com",
       pass: "wearethebest123",
@@ -11,9 +10,9 @@ module.exports = () => {
 
   const mailOptions = {
     from: "esccprojectt@hotmail.com",
-    to: "tiongshankai97@gmail.com",
-    subject: "Sending Email using Node.js",
-    text: "That was easy!",
+    to: email,
+    subject: "Reset Password For SingHealth React-App",
+    text: `Dear ${name}, \nWe have received your request to reset your password. \nHave a nice day! \nRegards, \nSingHeath`,
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -24,3 +23,4 @@ module.exports = () => {
     }
   });
 };
+module.exports = sendMail
