@@ -2,7 +2,9 @@ import { TextField, makeStyles, Button } from "@material-ui/core";
 import Header from "../../components/common/Header";
 import Axios from "axios";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useLocation, useParams, useHistory } from "react-router-dom";
+import { LoginContext } from "../../context/LoginContext";
 
 const useStyles = makeStyles({
   root: {
@@ -54,7 +56,9 @@ const useStyles = makeStyles({
 
 const AddIssuePage = () => {
   const classes = useStyles();
-
+  const { issueid } = useParams();
+  let history = useHistory();
+  
   // State to store values
   const [values, setValues] = useState({
     reply: "",
@@ -63,9 +67,18 @@ const AddIssuePage = () => {
   // State to store the current selected image
   const [imageSelected, setImageSelected] = useState(null);
 
-const handleTyping = (e) => {
-  setValues({...values, reply: e.target.value});
-}
+  // Set identifying values in the post request data
+  values.issueID = issueid;
+  const { context } = useContext(LoginContext);
+  if(context.type == "staff"){
+    values.isStaff = "1";
+  } else {
+    values.isStaff = "0";
+  }
+
+  const handleTyping = (e) => {
+    setValues({...values, reply: e.target.value});
+  }
 
   // Upload Photo Handler
   const handlePhoto = (e) => {
@@ -90,10 +103,10 @@ const handleTyping = (e) => {
 
   // Submit handler
   const handleSubmit = () => {
-    //TODO: Axios post req
-    // let toUpload = {
-      
-    // }
+    Axios.post("http://localhost:3001/tenant/issue/reply", values).then((response)=>{
+      console.log(response);
+      history.goBack();
+    })
     console.log(values);
   };
 

@@ -111,8 +111,57 @@ router.get("/issue/:issueID", (req, res) => {
   );
 });
 
-router.post("/issue/reply", (req, res) => {
-  console.log(req.body)
+const createMessageArray = (
+  issueID, isStaff, dateSent, body, photoUrl) => {
+
+  }
+
+router.post("/issue/reply", (req,res) => {
+  let insert = req.body;
+  insert.dateSent = new Date(Date.now());
+  const messages = []
+  messages.push(
+    insert.issueID,
+    insert.isStaff,
+    insert.dateSent,
+    insert.reply,
+    insert.imageUrl,
+  )
+  console.log(insert);
+  console.log(messages);
+  db.query(
+    "INSERT INTO messages (issueID, isStaff, dateSent, body, photoUrl) VALUES (?,?,?,?,?)",
+    messages, 
+    (err,result) => {
+      if(err) {
+        console.log(err);
+      } else {
+        console.log("Inserted Message: " + insert);
+        res.send({message: "insert successful"})
+      }
+    }
+  )
+})
+
+router.post("/issue/:issueID", (req, res) => {
+  const issueID = req.params.issueID;
+  console.log(req.body);
+  if(req.body.closed){
+    db.query(
+      `UPDATE scratch_issues SET closed = 1 WHERE id = ${issueID}`,
+      (err,result) => {
+        if(err){
+          console.log(err)
+        }
+        else{
+          console.log("Closed issue " + issueID);
+          res.send({message: "update successful"})
+        }
+      }
+    )
+  }
 });
+
+
 
 module.exports = router;

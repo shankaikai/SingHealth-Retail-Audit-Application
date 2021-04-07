@@ -41,11 +41,8 @@ const useStyles = makeStyles({
 const TenantItem = (props) => {
   let history = useHistory();
   const classes = useStyles();
-  const completedDate = props.completedDate;
-  const auditNumber = props.auditNumber;
   const score = props.score;
   const auditID = props.id;
-  const startDate = props.startDate;
   const data = props.data;
 
   const handleOnClick = (name) => {
