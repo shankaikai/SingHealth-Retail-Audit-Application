@@ -10,21 +10,6 @@ import {
 import { ExpandMore } from "@material-ui/icons";
 import logo from "../../assets/koufu.jpg";
 
-var placeHolderIssues = [
-  {
-    name: "Issue 1",
-    dueDate: "05 August 2021",
-  },
-  {
-    name: "Issue 2",
-    dueDate: "05 August 2021",
-  },
-  {
-    name: "Issue 3",
-    dueDate: "05 August 2021",
-  },
-];
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -83,23 +68,26 @@ const OutstandingItem = (props) => {
           <div className={classes.container}>
             <Avatar alt="Koufu" src={logo} className={classes.avatar} />
             <div className={classes.description}>
-              <Typography className={classes.title}>{props.name}</Typography>
+              <Typography className={classes.title}>
+                {props.data.storeName}
+              </Typography>
               <Typography className={classes.details}>
-                {props.type} • {props.location}
+                {props.data.type} • {props.data.location}
               </Typography>
             </div>
           </div>
         </AccordionSummary>
         <AccordionDetails>
           <div className={classes.issuesContainer}>
-            {placeHolderIssues.map((issue) => (
-              <div className={classes.issue}>
+            {props.data.issues.map((issue) => (
+              <div key={issue.issueID} className={classes.issue}>
                 <Divider orientation="vertical" />
                 <Typography
                   className={classes.issueDescription}
-                  onClick={() => handleIssueClick(issue.name)}
+                  onClick={() => handleIssueClick(issue.issueID)}
                 >
-                  {issue.name} • {issue.dueDate}
+                  {issue.title} •{" "}
+                  {new Date(issue.date.slice(0, 10)).toDateString()}
                 </Typography>
               </div>
             ))}

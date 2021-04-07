@@ -1,0 +1,62 @@
+{
+  "F&B": [
+    {
+      "title": "Professionalism & Staff Hygiene (10%)",
+      "weightage": 10,
+      "numQuestions": 13,
+      "numUnanswered": 0,
+      "weightedScore": 0
+    },
+    {
+      "title": "Housekeeping & General Cleanliness (20%)",
+      "weightage": 20,
+      "numQuestions": 17,
+      "numUnanswered": 0,
+      "weightedScore": 0
+    },
+    {
+      "title": "Food Hygiene (35%)",
+      "weightage": 35,
+      "numQuestions": 13,
+      "numUnanswered": 0,
+      "weightedScore": 0
+    },
+    {
+      "title": "Healthier Choice in line with HPB’s Healthy Eating’s Initiative (15%)",
+      "weightage": 15,
+      "numQuestions": 11,
+      "numUnanswered": 0,
+      "weightedScore": 0
+    },
+    {
+      "title": "Workplace Safety & Health (20%)",
+      "weightage": 20,
+      "numQuestions": 18,
+      "numUnanswered": 0,
+      "weightedScore": 0
+    }
+  ],
+  "Non-F&B": [
+    {
+      "title": "Professionalism & Staff Hygiene (20%)",
+      "weightage": 20,
+      "numQuestions": 6,
+      "numUnanswered": 0,
+      "weightedScore": 0
+    },
+    {
+      "title": "Housekeeping & General Cleanliness (40%)",
+      "weightage": 40,
+      "numQuestions": 12,
+      "numUnanswered": 0,
+      "weightedScore": 0
+    },
+    {
+      "title": "Workplace Safety & Health (40%)",
+      "weightage": 40,
+      "numQuestions": 16,
+      "numUnanswered": 0,
+      "weightedScore": 0
+    }
+  ]
+}

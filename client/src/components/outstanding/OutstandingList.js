@@ -69,17 +69,13 @@ var tempList = [
   },
 ];
 
-const OutstandingList = () => {
+const OutstandingList = (props) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <List className={classes.list}>
-        {tempList.map((item) => (
-          <OutstandingItem
-            name={item.name}
-            type={item.type}
-            location={item.location}
-          />
+        {props.data.map((item) => (
+          <OutstandingItem key={item.storeID} data={item} />
         ))}
       </List>
     </div>

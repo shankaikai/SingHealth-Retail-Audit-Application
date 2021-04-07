@@ -50,7 +50,7 @@ const LoginPage = (props) => {
   const classes = useStyles();
 
   // States to store username and password
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -100,18 +100,22 @@ const LoginPage = (props) => {
     //history.push("/");
   };
 
+  const handleForgetPassword = () => {
+    console.log("Handle forget");
+  };
+
   return (
     <div className={classes.login}>
       <img src={logo} alt="Logo" className={classes.logo}></img>
       <FormControl className={classes.form} autoComplete="true">
         <Box m={1} className={classes.marginMax}>
           <TextField
-            id="userName"
-            label="Username"
+            id="email"
+            label="Email"
             variant="outlined"
             fullWidth="true"
             onChange={(e) => {
-              setUsername(e.target.value);
+              setEmail(e.target.value);
             }}
           />
         </Box>
@@ -152,6 +156,9 @@ const LoginPage = (props) => {
         </Box>
         <Typography className={classes.marginMax} align="left">
           Dont have an account? <Link to="/register">Register</Link>
+        </Typography>
+        <Typography className={classes.marginMax} align="left">
+          <Link onClick={handleForgetPassword}>Forgot Password?</Link>
         </Typography>
       </FormControl>
     </div>

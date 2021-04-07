@@ -13,7 +13,8 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Header from "../components/common/Header";
-require("dotenv/config")
+require("dotenv/config");
+import Axios from "axios";
 
 const useStyle = makeStyles({
   root: {
@@ -40,48 +41,47 @@ const RegisterPage = () => {
   let history = useHistory();
 
   // States to store username and password
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [cluster, setCluster] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
 
   // Function to handle a register request
 
-  const DUPLICATED_USERNAME = "DUPLICATED_USERNAME"
-  const DATABASE_ERROR = "DATABASE_ERROR"
+  const DUPLICATED_USERNAME = "DUPLICATED_USERNAME";
+  const DATABASE_ERROR = "DATABASE_ERROR";
 
   const handleRegister = () => {
     // TODO: POST request to '/register'
     if (password === repeatPassword) {
-      console.log("react: password: " + password)
-      const user = {username, password}
+      console.log("react: password: " + password);
+      const user = { username, password };
 
       fetch("http://localhost:3000/register", {
-        method : "POST",
-        headers : {"Content-Type" : "application/json"},
-        body : JSON.stringify(user)
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(user),
       })
-      .then((response) => response.json())
-      .then((data) => {
-        if(data.register_status) {
-          alert("REGISTER_SUCCESS")
-          history.push("/")
-        } else {
-          if(data.reason === DUPLICATED_USERNAME) {
-            alert(DUPLICATED_USERNAME)
-          } else if(data.reason === DATABASE_ERROR) {
-            alert(DATABASE_ERROR)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.register_status) {
+            alert("REGISTER_SUCCESS");
+            history.push("/");
+          } else {
+            if (data.reason === DUPLICATED_USERNAME) {
+              alert(DUPLICATED_USERNAME);
+            } else if (data.reason === DATABASE_ERROR) {
+              alert(DATABASE_ERROR);
+            }
           }
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      });
-
-    } 
-    
-    else {
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
       alert("PASSWORD_NOT_MATCHING");
     }
   };
@@ -92,12 +92,23 @@ const RegisterPage = () => {
       <FormControl className={classes.form}>
         <Box m={1} className={classes.marginMax}>
           <TextField
-            id="userName"
-            label="Username"
+            id="name"
+            label="Name"
             variant="outlined"
             fullWidth="true"
             onChange={(e) => {
-              setUsername(e.target.value);
+              setName(e.target.value);
+            }}
+          />
+        </Box>
+        <Box m={1} className={classes.marginMax}>
+          <TextField
+            id="email"
+            label="Email"
+            variant="outlined"
+            fullWidth="true"
+            onChange={(e) => {
+              setEmail(e.target.value);
             }}
           />
         </Box>

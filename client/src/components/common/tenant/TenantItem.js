@@ -38,12 +38,14 @@ const TenantItem = (props) => {
   const classes = useStyles();
   const storeName = props.storeName;
   const completedDate = props.completedDate;
+  const tenantID = props.id;
+  const imageUrl = props.imageUrl;
 
   const handleOnClick = (name) => {
-    console.log(name);
+    console.log(tenantID);
     history.push({
-      pathname: "/tenant",
-      state: { storeName: name },
+      pathname: `/tenant/${tenantID}`,
+      // state: { storeName: name },
     });
   };
   return (
@@ -51,12 +53,7 @@ const TenantItem = (props) => {
       <Card square onClick={() => handleOnClick(storeName)}>
         <CardContent>
           <div className={classes.content}>
-            <Avatar
-              alt="Koufu"
-              src={logo}
-              display="inline"
-              style={{ float: "left", paddingRight: "5px" }}
-            />
+            <Avatar alt="logo" src={imageUrl} style={{ paddingRight: "5px" }} />
             <div display="inline" style={{ float: "left", flexGrow: 4 }}>
               <Typography
                 style={{ marginBottom: "0" }}
@@ -80,7 +77,10 @@ const TenantItem = (props) => {
                   color="textSecondary"
                   m={1}
                 >
-                  Last Audit: {completedDate}
+                  {completedDate
+                    ? "Last Audit: " +
+                      new Date(completedDate.slice(0, 10)).toDateString()
+                    : "No audits done yet"}
                 </Box>
               </Typography>
             </div>

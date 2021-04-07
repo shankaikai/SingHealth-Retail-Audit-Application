@@ -15,14 +15,14 @@ const useStyles = makeStyles({
   },
   submit: {
     width: "80%",
-    marginBottom: "30px",
+    marginTop: "30px",
   },
   field: {
-    marginBottom: "30px",
+    marginTop: "10px",
   },
 });
 
-const AddIssuePage = () => {
+const EditTenantPage = () => {
   const classes = useStyles();
 
   // Submit handler
@@ -33,44 +33,33 @@ const AddIssuePage = () => {
 
   return (
     <div className={classes.root}>
-      <Header back title="Add New Issue" />
+      <Header back title="EditTenantPage" />
       <form className={classes.form}>
         <TextField
+          className={classes.field}
           fullWidth
           variant="filled"
-          label="Issue Name"
-          className={classes.field}
+          label="Tenant Name"
         />
         <TextField
+          className={classes.field}
           fullWidth
           variant="filled"
           label="Location"
-          className={classes.field}
         />
         <TextField
+          className={classes.field}
           fullWidth
           variant="filled"
-          label="Description"
-          className={classes.field}
-          multiline
-          rows={6}
+          label="Type"
         />
         <TextField
+          className={classes.field}
           fullWidth
           variant="filled"
-          label="Date"
-          className={classes.field}
+          label="Email Address"
         />
       </form>
-      <Button
-        variant="outlined"
-        component="label"
-        color="primary"
-        className={classes.submit}
-      >
-        Upload Photo
-        <input type="file" hidden />
-      </Button>
       <Button
         variant="contained"
         color="primary"
@@ -83,4 +72,4 @@ const AddIssuePage = () => {
   );
 };
 
-export default AddIssuePage;
+export default EditTenantPage;
