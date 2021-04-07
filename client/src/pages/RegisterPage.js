@@ -13,9 +13,8 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Header from "../components/common/Header";
+require("dotenv/config");
 import Axios from "axios";
-require("dotenv/config")
-
 
 const useStyle = makeStyles({
   root: {
@@ -57,24 +56,25 @@ const RegisterPage = () => {
 /*
     // TODO: POST request to '/register'
     if (password === repeatPassword) {
-      console.log("react: password: " + password)
-      const user = {username, password}
+      console.log("react: password: " + password);
+      const user = { username, password };
 
       fetch("http://localhost:3000/register", {
-        method : "POST",
-        headers : {"Content-Type" : "application/json"},
-        body : JSON.stringify(user)
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(user),
       })
-      .then((response) => response.json())
-      .then((data) => {
-        if(data.register_status) {
-          alert("REGISTER_SUCCESS")
-          history.push("/")
-        } else {
-          if(data.reason === DUPLICATED_USERNAME) {
-            alert(DUPLICATED_USERNAME)
-          } else if(data.reason === DATABASE_ERROR) {
-            alert(DATABASE_ERROR)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.register_status) {
+            alert("REGISTER_SUCCESS");
+            history.push("/");
+          } else {
+            if (data.reason === DUPLICATED_USERNAME) {
+              alert(DUPLICATED_USERNAME);
+            } else if (data.reason === DATABASE_ERROR) {
+              alert(DATABASE_ERROR);
+            }
           }
         }
       })

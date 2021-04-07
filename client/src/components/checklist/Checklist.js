@@ -63,12 +63,6 @@ export default function Checklist(props) {
     props.backHandler();
   };
 
-  // Handler for updating the value of the checklist item
-  const handleUpdate = (questionIndex, sectionIndex, value) => {
-    // Send data to parent
-    props.updateTotalScores(sectionIndex, questionIndex, value);
-  };
-
   return (
     <div className={classes.root}>
       <Paper square className={classes.bar}>
@@ -99,7 +93,7 @@ export default function Checklist(props) {
                       text: question.text,
                       score: question.score,
                     }}
-                    updateHandler={handleUpdate}
+                    updateHandler={props.updateTotalScores}
                   />
                 );
               })}

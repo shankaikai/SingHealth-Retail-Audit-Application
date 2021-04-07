@@ -69,13 +69,13 @@ app.use(express.static(path.join(rootDir, "/client/build")));
 app.use(express.static(path.join(rootDir, "/client/build/static/media")));
 
 // only get request from react component through #fetch or redirect by node server
-app.get("/", (req, res) => {
+app.get("*", (req, res) => {
   res.sendFile(path.join(rootDir + "/client/build/index.html"));
 });
 
-app.get("*", (req, res) => {
-  res.send(` <h2> Oops! 404 Not Found </h2> `);
-});
+// app.get("*", (req, res) => {
+//   res.send(` <h2> Oops! 404 Not Found </h2> `);
+// });
 
 app.listen(PORT, () => {
   console.log(`Server starting on port ${PORT}`);

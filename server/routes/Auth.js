@@ -16,6 +16,17 @@ const redirectToLogin = (req, res, next) =>  {
   }
 }
 
+router.get("/auth/login", (req, res) => {
+  if(req.session.userID) {
+    var user = {userID : req.session.userID,
+            userName: req.session.userName,
+            userType: req.session.userType}
+    res.json({result: user});
+  } else {
+    
+  }
+})
+
 const INVALID_USERNAME = "INVALID_EMAIL" // check on login && register
 const INVALID_PASSWORD = "INVALID_PASSWORD" // check on valid username
 
@@ -52,7 +63,7 @@ router.post("/auth/login", (req, res, next) => {
 
               req.session.userType = result[0].type;
 
-              
+
 
               res.json({ login_status: true, result: id });
 

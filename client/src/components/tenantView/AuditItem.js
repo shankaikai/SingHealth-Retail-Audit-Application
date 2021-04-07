@@ -9,8 +9,7 @@ import tick from "../../assets/tick.svg";
 import { useHistory } from "react-router-dom";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { IconButton, Paper } from "@material-ui/core";
-import ExportIcon from "@material-ui/icons/GetApp"
-
+import ExportIcon from "@material-ui/icons/GetApp";
 
 const useStyles = makeStyles({
   root: {
@@ -24,7 +23,7 @@ const useStyles = makeStyles({
   },
   text: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   left: {
     display: "flex",
@@ -33,10 +32,10 @@ const useStyles = makeStyles({
   },
   icon: {
     // width: "30px",
-    color:"#5F5F5F",
-    padding:"0",
-    paddingLeft:"20px",
-  }
+    color: "#5F5F5F",
+    padding: "0",
+    paddingLeft: "20px",
+  },
 });
 
 const TenantItem = (props) => {
@@ -45,42 +44,50 @@ const TenantItem = (props) => {
   const completedDate = props.completedDate;
   const auditNumber = props.auditNumber;
   const score = props.score;
+  const auditID = props.id;
+  const startDate = props.startDate;
+  const data = props.data;
 
   const handleOnClick = (name) => {
     console.log(name);
     history.push({
-      pathname: "/tenant",
+      pathname: `/audit/${auditID}`,
       state: { storeName: name },
     });
   };
   return (
     <div className={classes.root}>
-      <div className={classes.text}>
+      <div className={classes.text} onClick={() => handleOnClick(auditID)}>
         <Typography color="textPrimary">
           <Box fontWeight="fontWeightBold" fontSize={20}>
-            Audit {auditNumber}
+            Audit: {new Date(data.dateStarted.slice(0, 10)).toDateString().slice(4)}
           </Box>
         </Typography>
         <Typography color="textSecondary">
           <Box fontSize={14}>
-            Date Completed: {completedDate}
+            Date Completed:{" "}
+            {data.dateCompleted
+              ? new Date(data.dateCompleted.slice(0, 10)).toDateString()
+              : null}
           </Box>
         </Typography>
       </div>
       <div className={classes.left}>
-        {parseInt(score) >= 95 ?
+        {parseInt(score) >= 95 ? (
           <Typography>
             <Box fontSize={20} fontWeight="fontWeightBold" color="#6FCF97">
               {score}%
             </Box>
-          </Typography> :
+          </Typography>
+        ) : (
           <Typography>
             <Box fontSize={20} fontWeight="fontWeightBold" color="#EB5757">
               {score}%
             </Box>
-          </Typography>}
+          </Typography>
+        )}
         <IconButton className={classes.icon}>
-          <ExportIcon/>
+          <ExportIcon />
         </IconButton>
       </div>
     </div>

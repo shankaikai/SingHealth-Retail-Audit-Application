@@ -27,6 +27,7 @@ const App = () => {
   const [context, setContext] = useState({
     id: null, // Dummy data
     type: null, // Change to tenant if want to access tenant main
+    name: null,
     showTenants: null
   });
   console.log("App")

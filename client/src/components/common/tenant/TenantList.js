@@ -16,75 +16,19 @@ const useStyles = makeStyles({
   },
 });
 
-const TenantList = () => {
-  var itemDescriptions = [
-    {
-      name: "Store 1",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
-      id: 1,
-    },
-    {
-      name: "Store 2",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
-      id: 2,
-    },
-    {
-      name: "Store 3",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
-      id: 3,
-    },
-    {
-      name: "Store 4",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
-      id: 4,
-    },
-    {
-      name: "Store 5",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
-      id: 5,
-    },
-    {
-      name: "Store 6",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
-      id: 6,
-    },
-    {
-      name: "Store 7",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
-      id: 7,
-    },
-    {
-      name: "Store 8",
-      date: "01 Dec 2020",
-      check: true,
-      score: 95,
-      id: 8,
-    },
-  ];
+const TenantList = (props) => {
   const classes = useStyles();
+
   return (
     <div className={classes.root}>
       <List className={classes.list}>
-        {itemDescriptions.map((item) => (
+        {props.data.map((tenant) => (
           <TenantItem
-            storeName={item.name}
-            completedDate={item.date}
-            key={item.name}
-            id ={item.id}
+            storeName={tenant.name}
+            completedDate={tenant.lastAudit}
+            imageUrl={tenant.imageUrl}
+            key={tenant.id}
+            id={tenant.id}
           />
         ))}
       </List>

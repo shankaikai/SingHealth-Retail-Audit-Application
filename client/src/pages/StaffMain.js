@@ -9,7 +9,7 @@ import AuditEndPage from "./staff/AuditEndPage";
 import { Redirect, Route, BrowserRouter as Router } from "react-router-dom";
 import NewMessagePage from "./staff/NewMessagePage";
 import AuditIssuePage from "./staff/AuditIssuePage";
-import App from "../App";
+import AuditViewPage from "./staff/AuditViewPage";
 import { LoginContext } from "../context/LoginContext";
 
 export default function StaffMain(props) {
@@ -17,54 +17,42 @@ export default function StaffMain(props) {
   console.log("StaffMain")
   return (
     <div>
-      {/* {context.id === null ? (
+      {context.id === null ? (
         <Redirect to="/login" />
       ) : (
-        
-      )} */}
-      {
-        context.showTenants ? (
-          <TenantsPage />
-        ) : (
-          <Router>
-        <Route exact path="/outstanding">
-          <OutstandingPage />
-        </Route>
-        <Route exact path="/account">
-          <AccountPage />
-        </Route>
-        <Route exact path="/tenant/:id">
-          <TenantPage />
-        </Route>
-        <Route exact path="/addtenant">
-          <AddTenantPage />
-        </Route>
-        <Route exact path="/auditchecklist">
-          <AuditChecklistPage />
-        </Route>
-        <Route exact path="/auditend">
-          <AuditEndPage />
-        </Route>
-        <Route exact path="/newmessage">
-          <NewMessagePage />
-        </Route>
-        <Route exact path="/issue">
-          <AuditIssuePage />
-        </Route>
-        <Route exact path="/logout">
-          <App/>
-        </Route>
-        <Route exact path="/">
-          <TenantsPage />
-        </Route>
-        
-      </Router>
-        )
-          
-        
-      }
-      
-      
+        <Router>
+          <Route exact path="/">
+            <TenantsPage />
+          </Route>
+          <Route exact path="/outstanding">
+            <OutstandingPage />
+          </Route>
+          <Route exact path="/account">
+            <AccountPage />
+          </Route>
+          <Route exact path="/tenant/:id">
+            <TenantPage />
+          </Route>
+          <Route exact path="/addtenant">
+            <AddTenantPage />
+          </Route>
+          <Route exact path="/auditchecklist/:type/:tenantID">
+            <AuditChecklistPage />
+          </Route>
+          <Route exact path="/auditend">
+            <AuditEndPage />
+          </Route>
+          <Route exact path="/audit/:id">
+            <AuditViewPage />
+          </Route>
+          <Route exact path="/newmessage">
+            <NewMessagePage />
+          </Route>
+          <Route exact path="/issue/:id">
+            <AuditIssuePage />
+          </Route>
+        </Router>
+      )}
     </div>
   );
 }
