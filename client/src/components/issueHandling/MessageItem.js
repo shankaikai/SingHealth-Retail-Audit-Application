@@ -15,6 +15,7 @@ const useStyles = makeStyles({
         paddingRight: "32px",
         justifyContent: "flex-start",
         flexDirection: "column",
+        maxWidth: "100%",
     },
     header: {
         display: "flex",
@@ -82,7 +83,7 @@ const MessageItem = (props) => {
                 )
                     : null}
                 <Typography color="textPrimary" style={{marginTop:"15px"}}>
-                    <Box fontSize={15}>
+                    <Box fontSize={15} style={{wrap:"pre-wrap"}}>
                         {data.body}
                     </Box>
                 </Typography>

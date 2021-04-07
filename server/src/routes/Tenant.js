@@ -82,15 +82,29 @@ router.get("/issue/:issueID", (req, res) => {
                   if (err) {
                     console.log(err)
                   } else {
-                    let tenantName = result[0].name;
+                    let tenantName;
+                    try{
+                      tenantName = result[0].name;
+                    }
+                    catch(err){
+                      console.log("can't find tenant")
+                      tenantName = "Deleted Tenant";
+                    }
                     db.query(
                       `SELECT * FROM staff WHERE id = ${staffID}`,
                       (err, result) => {
                         if (err) {
                           console.log(err)
                         } else {
-                          let staffName = result[0].name;
-                          console.log(result)
+                          let staffName;
+                          try{
+                          staffName = result[0].name;
+                          }
+                          catch(err){
+                            console.log("can't find staff")
+                            staffName = "Deleted Staff"
+                          }
+                          console.log(staffName)
                           res.send({
                             issue: issueBase,
                             messages: issueMessages,
