@@ -3,7 +3,7 @@ import Header from "../../components/common/Header";
 import Axios from "axios";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { useState, useContext } from "react";
-import { useLocation, useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { LoginContext } from "../../context/LoginContext";
 
 const useStyles = makeStyles({

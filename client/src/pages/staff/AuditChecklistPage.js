@@ -30,13 +30,14 @@ const scoresTemplate = require("../../assets/scores_template.json");
 // TODO: Implement real props from the tenant page
 const AuditChecklistPage = (props) => {
   const classes = useStyles();
+  let history = useHistory();
 
   const [loaded, setLoaded] = useState(false);
 
   const { type, tenantID, onGoingAuditID } = useParams();
 
   // Grab context
-  const { context } = useContext(LoginContext);
+  const { context, setSpinner } = useContext(LoginContext);
 
   // Index counter
   const [index, setIndex] = useState(0);
@@ -53,10 +54,11 @@ const AuditChecklistPage = (props) => {
   // Holder for the tenants details in the header
   const [tenantData, setTenantData] = useState({});
 
-  const [dateStarted, setDateStarted] = useState(new Date(Date.now()));
-
   // Holder for the total weighted audit score
   const [currentScore, setCurrentScore] = useState(0);
+
+  // Holder for date started
+  const [dateStarted, setDateStarted] = useState(new Date(Date.now()));
 
   // Holder for all the issues during this audit
   const [issues, setIssues] = useState([]);
@@ -89,16 +91,26 @@ const AuditChecklistPage = (props) => {
 
   // Grab tenant data from database to update UI
   useEffect(() => {
-    Axios.get(`http://localhost:3001/tenant/${tenantID}`).then((response) => {
-      setTenantData(response.data);
-      setLoaded(true);
-    });
+    Axios.get(`http://localhost:3001/api/tenant/${tenantID}`).then(
+      (response) => {
+        setTenantData(response.data);
+        setLoaded(true);
+      }
+    );
   }, [tenantID]);
 
   // Conditional grabbing of ongoing audit data if there is any
   useEffect(() => {
     if (onGoingAuditID) {
-      Axios.get(`http://localhost:3001/tenant/${tenantID}`).then((res) => {});
+      Axios.get(
+        `http://localhost:3001/api/audit/ongoing/${onGoingAuditID}`
+      ).then((response) => {
+        const res = response.data[0];
+        setScores(JSON.parse(res.scores));
+        setAuditCheckList(JSON.parse(res.data));
+        setCurrentScore(res.score);
+        setDateStarted(new Date(res.dateStarted));
+      });
     }
   }, [onGoingAuditID]);
 
@@ -133,6 +145,7 @@ const AuditChecklistPage = (props) => {
 
   // POST req to push a completed set
   const uploadData = (complete) => {
+    setSpinner(true);
     let toUpload = {
       tenantID: tenantID,
       staffID: context.id,
@@ -143,20 +156,45 @@ const AuditChecklistPage = (props) => {
       scores: scores,
       score: currentScore,
       issues: issues,
+      auditID: onGoingAuditID ? onGoingAuditID : null,
     };
-
-    if (complete) {
-      Axios.post("http://localhost:3001/api/audit/complete", toUpload).then(
+    // new to complete insert
+    if (complete && !onGoingAuditID) {
+      Axios.post("http://localhost:3001/api/audit/newcomplete", toUpload).then(
         (response) => {
           console.log(response.data);
+          setSpinner(false);
+          history.push(`/auditend/${tenantID}/${response.data.auditID}`);
         }
       );
-    } else {
+      // new to partial insert
+    } else if (!complete && !onGoingAuditID) {
+      Axios.post("http://localhost:3001/api/audit/newpartial", toUpload).then(
+        (response) => {
+          console.log(response.data);
+          setSpinner(false);
+          history.push(`/tenant/${tenantID}`);
+        }
+      );
+      // partial to partial update
+    } else if (!complete && onGoingAuditID) {
       Axios.post("http://localhost:3001/api/audit/partial", toUpload).then(
         (response) => {
           console.log(response.data);
+          setSpinner(false);
+          history.push(`/tenant/${tenantID}`);
         }
       );
+      // partial to complete update
+    } else if (complete && onGoingAuditID) {
+      Axios.post(
+        "http://localhost:3001/api/audit/partialcomplete",
+        toUpload
+      ).then((response) => {
+        console.log(response.data);
+        setSpinner(false);
+        history.push(`/auditend/${tenantID}/${response.data.auditID}`);
+      });
     }
   };
 
@@ -178,7 +216,6 @@ const AuditChecklistPage = (props) => {
   const updateScores = (newAuditChecklist) => {
     var temp = JSON.parse(JSON.stringify(scores));
     var section = newAuditChecklist[index];
-    console.log(section);
     var weightage = section.weightage;
     let totalSectionScore = 0;
     let numQuestionsConsidered = 0;

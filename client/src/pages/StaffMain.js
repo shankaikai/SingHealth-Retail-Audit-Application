@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import TenantsPage from "./staff/TenantsPage";
 import TenantPage from "./staff/TenantPage";
 import OutstandingPage from "./staff/OutstandingPage";
@@ -9,12 +9,11 @@ import AuditEndPage from "./staff/AuditEndPage";
 import { Redirect, Route, Switch } from "react-router-dom";
 import NewMessagePage from "./staff/NewMessagePage";
 import AuditIssuePage from "./staff/AuditIssuePage";
-import AuditViewPage from "./staff/AuditViewPage";
 import { LoginContext } from "../context/LoginContext";
 
 export default function StaffMain(props) {
   const { context } = useContext(LoginContext);
-  console.log("StaffMain");
+  console.log(context);
   return (
     <div>
       {!context.id ? (
@@ -39,11 +38,8 @@ export default function StaffMain(props) {
           <Route exact path="/auditchecklist/:type/:tenantID/:onGoingAuditID?">
             <AuditChecklistPage />
           </Route>
-          <Route exact path="/auditend">
+          <Route exact path="/auditend/:tenantID/:auditID">
             <AuditEndPage />
-          </Route>
-          <Route exact path="/audit/:id">
-            <AuditViewPage />
           </Route>
           <Route exact path="/newmessage/:issueid">
             <NewMessagePage />

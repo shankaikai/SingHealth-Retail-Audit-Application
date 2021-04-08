@@ -12,7 +12,7 @@ import {
   FormControl,
   InputLabel,
 } from "@material-ui/core";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { LoginContext } from "../context/LoginContext";
 import Axios from "axios";
@@ -44,8 +44,6 @@ const useStyles = makeStyles({
 });
 
 const LoginPage = (props) => {
-  let history = useHistory();
-
   // Create a style object
   const classes = useStyles();
 
@@ -54,29 +52,25 @@ const LoginPage = (props) => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  // Grab setContext from LoginContext
-  const { setContext } = useContext(LoginContext);
+  // Grab setContext and setSpinner from LoginContext
+  const { setContext, setSpinner } = useContext(LoginContext);
 
   // Function to handle a login request
-  const INVALID_USERNAME = "Username does not exist!"; // check on login && register
-  const INVALID_PASSWORD = "Incorrect password!"; // check on valid username
-
-  const handleLogin = (e) => {
+  const handleLogin = () => {
+    setSpinner(true);
+    console.log("here");
     Axios.post("http://localhost:3001/api/auth/login", {
       email,
       password,
     }).then((res) => {
       if (res.data.login_status) {
-        // alert("LOGIN_SUCCESS");
-        setContext({
-          id: res.data.result,
-          type: "staff",
-          name: "name",
-        });
+        console.log(res.data);
+        setContext(res.data);
       } else {
         alert(res.data.reason);
       }
     });
+    setSpinner(false);
   };
 
   const handleForgetPassword = () => {
@@ -85,7 +79,7 @@ const LoginPage = (props) => {
       password,
     }).then((res) => {
       if (res.data.reason !== "INVALID_EMAIL") {
-        Axios.post("http://localhost:3001/api/auth/resetpassword", { email })
+        Axios.post("http://localhost:3001/auth/resetpassword", { email })
           .then((res) => {
             alert("PLEASE_CHECK_YOUR_EMAIL");
           })
@@ -109,7 +103,7 @@ const LoginPage = (props) => {
             id="email"
             label="Email"
             variant="outlined"
-            fullWidth="true"
+            fullWidth
             onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -117,7 +111,7 @@ const LoginPage = (props) => {
         </Box>
 
         <Box m={1} className={classes.marginMax}>
-          <FormControl variant="outlined" fullWidth="true">
+          <FormControl variant="outlined" fullWidth autoComplete="true">
             <InputLabel>Password</InputLabel>
             <OutlinedInput
               id="password"
@@ -144,8 +138,10 @@ const LoginPage = (props) => {
           <Button
             variant="contained"
             color="primary"
-            fullWidth="true"
+            fullWidth
             onClick={handleLogin}
+            onSubmit={handleLogin}
+            type="submit"
           >
             Login
           </Button>
@@ -154,7 +150,9 @@ const LoginPage = (props) => {
           Dont have an account? <Link to="/register">Register</Link>
         </Typography>
         <Typography className={classes.marginMax} align="left">
-          <Link onClick={handleForgetPassword}>Forgot Password?</Link>
+          <Link to="resetenterusername" onClick={handleForgetPassword}>
+            Forgot Password?
+          </Link>
         </Typography>
       </FormControl>
     </div>

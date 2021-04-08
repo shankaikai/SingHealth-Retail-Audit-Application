@@ -45,7 +45,7 @@ const TenantPage = () => {
     <div className={classes.root}>
       {loaded ? (
         <div>
-          <Header back title={data.name} avatar={data.imageUrl} noDivider />
+          <Header title={data.name} avatar={data.imageUrl} noDivider />
           <HeaderViewTenant data={data} onGoingAuditID={data.onGoingAuditID} />
           <Tabs outstanding={data.issues} audits={data.audits} />
           <Navbar route="tenants" />
