@@ -8,7 +8,6 @@ import {
   Divider,
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
-import logo from "../../assets/koufu.jpg";
 
 const useStyles = makeStyles((theme) => ({
   root: {

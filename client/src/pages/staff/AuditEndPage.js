@@ -45,7 +45,7 @@ export default function AuditEndPage() {
         }
       );
     });
-  }, [tenantID]);
+  }, [tenantID, auditID]);
 
   const handleDone = () => {
     history.push(`/tenant/${tenantID}`);

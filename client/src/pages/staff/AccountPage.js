@@ -1,10 +1,8 @@
 import React from "react";
 import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
 import Navbar from "../../components/common/Navbar";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { LoginContext } from "../../context/LoginContext";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 
 const useStyles = makeStyles({
   root: {

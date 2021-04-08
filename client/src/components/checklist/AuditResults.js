@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {
   AppBar,
@@ -8,6 +8,7 @@ import {
   Box,
   Divider,
   Button,
+  Typography,
 } from "@material-ui/core";
 import ScoreItem from "./ScoreItem";
 import IssueItem from "./IssueItem";
@@ -53,6 +54,11 @@ const useStyles = makeStyles({
     alignSelf: "center",
     marginTop: "10px",
   },
+  noIssues: {
+    justifySelf: "center",
+    alignSelf: "center",
+    margin: "40px",
+  },
 });
 
 export default function AuditResults(props) {
@@ -94,12 +100,16 @@ export default function AuditResults(props) {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <div className={classes.scores}>
-          {issues.map((issue) => (
-            <div key={issue.id}>
-              <IssueItem data={issue} />
-              <Divider />
-            </div>
-          ))}
+          {issues.length === 0 ? (
+            <Typography className={classes.noIssues}>No issues :)</Typography>
+          ) : (
+            issues.map((issue) => (
+              <div key={issue.id}>
+                <IssueItem data={issue} />
+                <Divider />
+              </div>
+            ))
+          )}
           <Button
             className={classes.done}
             onClick={props.handleDone}

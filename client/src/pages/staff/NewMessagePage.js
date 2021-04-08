@@ -3,7 +3,7 @@ import Header from "../../components/common/Header";
 import Axios from "axios";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { useState, useContext } from "react";
-import { useLocation, useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { LoginContext } from "../../context/LoginContext";
 
 const useStyles = makeStyles({
@@ -68,7 +68,7 @@ const AddIssuePage = () => {
   // Set identifying values in the post request data
   values.issueID = issueid;
   const { context } = useContext(LoginContext);
-  if (context.type == "staff") {
+  if (context.type === "staff") {
     values.isStaff = "1";
   } else {
     values.isStaff = "0";
