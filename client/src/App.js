@@ -33,7 +33,7 @@ const App = () => {
       <div className="App">
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <LoginContext.Provider value={{ context, setContext }}>
+        <LoginContext.Provider value={{ context, setContext, setSpinner }}>
           <ThemeProvider theme={theme}>
             <Router>
               <Route exact path="/login">

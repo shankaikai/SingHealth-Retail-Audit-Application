@@ -97,7 +97,7 @@ const LoginPage = (props) => {
   return (
     <div className={classes.login}>
       <img src={logo} alt="Logo" className={classes.logo}></img>
-      <FormControl className={classes.form} autoComplete>
+      <FormControl className={classes.form} autoComplete="true">
         <Box m={1} className={classes.marginMax}>
           <TextField
             id="email"
@@ -111,7 +111,7 @@ const LoginPage = (props) => {
         </Box>
 
         <Box m={1} className={classes.marginMax}>
-          <FormControl variant="outlined" fullWidth autoComplete>
+          <FormControl variant="outlined" fullWidth autoComplete="true">
             <InputLabel>Password</InputLabel>
             <OutlinedInput
               id="password"

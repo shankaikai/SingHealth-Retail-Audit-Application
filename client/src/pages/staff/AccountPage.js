@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 
 const AccountPage = () => {
   const { context, setContext } = useContext(LoginContext);
-  console.log(context);
+
   const handleLogout = () => {
     // TODO: Release session from node
     setContext({});

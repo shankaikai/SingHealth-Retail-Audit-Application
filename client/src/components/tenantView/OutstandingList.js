@@ -1,4 +1,4 @@
-import { List, makeStyles } from "@material-ui/core";
+import { List, makeStyles, Typography } from "@material-ui/core";
 import IssueItem from "./IssueItem";
 import Divider from "@material-ui/core/Divider";
 
@@ -13,6 +13,7 @@ const useStyles = makeStyles({
     padding: 0,
     overflow: "auto",
   },
+  noIssues: {},
 });
 
 const OutstandingList = (props) => {
@@ -20,16 +21,20 @@ const OutstandingList = (props) => {
   return (
     <div className={classes.root}>
       <List className={classes.list}>
-        {props.outstanding.map((issue) => (
-          <div key={issue.id}>
-            <IssueItem
-              dueDate={issue.date}
-              issueID={issue.id}
-              issueName={issue.title}
-            />
-            <Divider light />
-          </div>
-        ))}
+        {props.outstanding.length === 0 ? (
+          <Typography className={classes.noIssues}>No issues :)</Typography>
+        ) : (
+          props.outstanding.map((issue) => (
+            <div key={issue.id}>
+              <IssueItem
+                dueDate={issue.date}
+                issueID={issue.id}
+                issueName={issue.title}
+              />
+              <Divider light />
+            </div>
+          ))
+        )}
       </List>
     </div>
   );

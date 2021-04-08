@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import Navbar from "../../components/common/NavbarTenant";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import { LoginContext } from "../../context/LoginContext";
 
 const useStyles = makeStyles({
   root: {
@@ -27,19 +28,22 @@ const useStyles = makeStyles({
 
 const TenantProfilePage = () => {
   let history = useHistory();
+
+  const { context, setContext } = useContext(LoginContext);
+
   // Function to handle logouts
   const handleLogout = () => {
     // TODO: Release session
-    history.push("/");
+    setContext({});
   };
 
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Avatar src={<AccountCircleIcon />} className={classes.avatar} />
+      <Avatar src={context.imageUrl} className={classes.avatar} />
       <Typography variant="h5" className={classes.name}>
-        Tenant Name
+        {context.name}
       </Typography>
       <Button
         variant="contained"

@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Navbar from "../../components/common/NavbarTenant";
 import Header from "../../components/common/Header";
 import { makeStyles } from "@material-ui/core";
 import OutstandingList from "../../components/tenantView/OutstandingList";
 import Axios from "axios";
 import Skeleton from "@material-ui/lab/Skeleton";
-import {LoginContext} from "../../context/LoginContext";
-
+import { LoginContext } from "../../context/LoginContext";
 
 const useStyles = makeStyles({
   root: {
@@ -14,6 +13,7 @@ const useStyles = makeStyles({
     height: "100%",
     display: "flex",
     flexDirection: "column",
+    marginTop: "62px",
   },
   skeletons: {
     width: "100%",
@@ -30,24 +30,27 @@ const useStyles = makeStyles({
 });
 
 const TenantOutstandingPage = () => {
-  const{context,setContext} = useContext(LoginContext);
+  const { context, setContext } = useContext(LoginContext);
   const classes = useStyles();
 
   const [data, setData] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
-  // useEffect(() => {
-  //   Axios.get(`http://localhost:3001/api/tenant/${id}outstanding`).then((response) => {
-  //     setData(response.data);
-  //     setLoaded(true);
-  //   });
-  // }, []);
+  useEffect(() => {
+    Axios.get(`http://localhost:3001/api/tenant/${context.id}`).then(
+      (response) => {
+        console.log(response.data);
+        setData(response.data);
+        setLoaded(true);
+      }
+    );
+  }, []);
 
   return (
     <div className={classes.root}>
       <Header title="Outstanding" />
       {loaded ? (
-        <OutstandingList data={data} />
+        <OutstandingList outstanding={data.issues} />
       ) : (
         <div className={classes.skeletons}>
           <Skeleton className={classes.skele} />
