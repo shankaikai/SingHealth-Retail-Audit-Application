@@ -57,9 +57,9 @@ const MessageItem = (props) => {
                 <div className={classes.header}>
                     <Typography color="textPrimary">
                         <Box fontWeight="fontWeightBold" fontSize={20}>
-                            {data.isStaff==0?
-                            users.tenant
-                            :users.staff}
+                            {data.staffName ? 
+                            data.staffName :
+                            data.tenantName}
                         </Box>
                     </Typography>
                     <Typography color="textSecondary" style={{ paddingLeft: "20px" }}>

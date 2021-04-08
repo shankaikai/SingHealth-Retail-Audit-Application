@@ -17,7 +17,7 @@ router.get("/:tenantID", (req, res) => {
       } else {
         details = result;
         db.query(
-          `SELECT * from scratch_issues WHERE tenantID = ${tenantID} AND closed = 0`,
+          `SELECT * from scratch_issues WHERE tenantID = ${tenantID}`,
           (err, result) => {
             if (err) {
               console.log(err);
@@ -63,17 +63,22 @@ router.get("/edit/:tenantID", (req, res) => {
 router.get("/issue/:issueID", (req, res) => {
   const issueID = req.params.issueID;
   db.query(
-    `SELECT * FROM scratch_issues WHERE id = ${issueID}`,
+    `SELECT i.*, t.name as tenantName, s.name as staffName
+    FROM scratch_issues i
+    INNER JOIN scratch_tenants t ON t.id = i.tenantID
+    INNER join staff s ON s.id = i.staffID
+    WHERE i.id = ${issueID}`,
     (err, result) => {
       if (err) {
         console.log(err);
       } else {
         console.log(issueID);
         let issueBase = result;
-        let tenantID = "" + issueBase[0].tenantID;
-        let staffID = "" + issueBase[0].staffID;
         db.query(
-          `SELECT * FROM messages WHERE issueID = ${issueID}`,
+          `SELECT m.*, s.name as staffName, t.name as tenantName FROM messages m
+          LEFT JOIN staff s ON s.id = m.staffID
+          LEFT JOIN scratch_tenants t ON t.id = m.tenantID
+          WHERE m.issueID = ${issueID}`,
           (err, result) => {
             if (err) {
               console.log(err);
@@ -98,7 +103,8 @@ router.post("/issue/reply", (req, res) => {
   const messages = [];
   messages.push(
     insert.issueID,
-    insert.isStaff,
+    insert.staffID,
+    insert.tenantID,
     insert.dateSent,
     insert.reply,
     insert.imageUrl
@@ -106,7 +112,7 @@ router.post("/issue/reply", (req, res) => {
   console.log(insert);
   console.log(messages);
   db.query(
-    "INSERT INTO messages (issueID, staffID, tenantID, dateSent, body, photoUrl) VALUES (?,?,?,?,?,?)",
+    "INSERT INTO messages (issueID, staffID, tenantID, dateSent, body, photoUrl) VALUES (?,?,?,?,?, ?)",
     messages,
     (err, result) => {
       if (err) {

@@ -13,8 +13,7 @@ const useStyles = makeStyles({
     height: "100%",
     display: "flex",
     flexDirection: "column",
-    marginTop: "64px",
-    height: "calc(100vh - 119px)",
+    marginTop: "62px",
   },
   skeletons: {
     width: "100%",
@@ -31,7 +30,7 @@ const useStyles = makeStyles({
 });
 
 const TenantOutstandingPage = () => {
-  const { context } = useContext(LoginContext);
+  const { context, setContext } = useContext(LoginContext);
   const classes = useStyles();
 
   const [data, setData] = useState([]);
