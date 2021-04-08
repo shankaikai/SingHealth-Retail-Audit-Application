@@ -5,7 +5,7 @@ const db = require("../config/DatabaseConfig");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-const sendMail = require("../helpers/Emailer");
+const sendMail = require("../helpers/emails/Emailer");
 
 // Route protector
 const redirectToLogin = (req, res, next) => {

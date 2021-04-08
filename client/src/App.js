@@ -32,12 +32,14 @@ const App = () => {
       <LoginContext.Provider value={{ context, setContext }}>
         <ThemeProvider theme={theme}>
           <Router>
+            <Route path="/register">
+              <RegisterPage />
+            </Route>
             <Route exact path="/login">
               {context.id ? <Redirect to="/" /> : <LoginPage />}
             </Route>
-            <Route exact path="/register">
-              <RegisterPage />
-            </Route>
+
+            {/* IMPT to put exact path*/}
             <Route path="/">
               {!context.id ? (
                 <Redirect to="/login" />
