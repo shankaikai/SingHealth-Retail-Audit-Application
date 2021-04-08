@@ -112,7 +112,7 @@ router.post("/issue/reply", (req, res) => {
   console.log(insert);
   console.log(messages);
   db.query(
-    "INSERT INTO messages (issueID, staffID, tenantID, dateSent, body, photoUrl) VALUES (?,?,?,?,?)",
+    "INSERT INTO messages (issueID, staffID, tenantID, dateSent, body, photoUrl) VALUES (?,?,?,?,?, ?)",
     messages,
     (err, result) => {
       if (err) {
