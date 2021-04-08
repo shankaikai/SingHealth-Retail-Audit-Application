@@ -6,7 +6,8 @@ import { Route, BrowserRouter as Router, Redirect } from "react-router-dom";
 import TenantMain from "./pages/TenantMain";
 import StaffMain from "./pages/StaffMain";
 import { LoginContext } from "./context/LoginContext";
-import { useState } from "react";
+import Axios from "axios";
+import { useEffect, useState } from "react";
 
 // Creating a custom theme
 const theme = createMuiTheme({
@@ -24,7 +25,19 @@ const theme = createMuiTheme({
 const App = () => {
   // Create states to store context variables
   const [context, setContext] = useState({});
-
+  useEffect(() => {
+    Axios.get("http://localhost:3001/api/auth/login").then((res) => {
+      setTimeout(1000);
+      if (res.data.cookie_status) {
+        var user = res.data.result;
+        setContext({
+          id: user.userID,
+          type: user.userType,
+          name: user.userName,
+        });
+      }
+    });
+  }, []);
   return (
     <div className="App">
       <meta name="mobile-web-app-capable" content="yes" />
@@ -32,7 +45,7 @@ const App = () => {
       <LoginContext.Provider value={{ context, setContext }}>
         <ThemeProvider theme={theme}>
           <Router>
-            <Route path="/register">
+            <Route exact path="/register">
               <RegisterPage />
             </Route>
             <Route exact path="/login">

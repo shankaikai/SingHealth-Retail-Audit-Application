@@ -23,7 +23,7 @@ router.get("/login", (req, res) => {
       userName: req.session.userName,
       userType: req.session.userType,
     };
-    res.json({ result: user });
+    res.json({ cookie_status: true, result: user });
   } else {
   }
 });
