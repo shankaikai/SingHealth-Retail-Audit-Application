@@ -21,15 +21,14 @@ const OutstandingList = (props) => {
     <div className={classes.root}>
       <List className={classes.list}>
         {props.outstanding.map((issue) => (
-          <List className={classes.list}>
+          <div key={issue.id}>
             <IssueItem
-              key={issue.id}
               dueDate={issue.date}
               issueID={issue.id}
               issueName={issue.title}
             />
             <Divider light />
-          </List>
+          </div>
         ))}
       </List>
     </div>

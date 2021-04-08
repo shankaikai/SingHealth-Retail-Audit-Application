@@ -7,6 +7,7 @@ import TenantMain from "./pages/TenantMain";
 import StaffMain from "./pages/StaffMain";
 import { LoginContext } from "./context/LoginContext";
 import { useState } from "react";
+import LoadingOverlay from "react-loading-overlay";
 
 // Creating a custom theme
 const theme = createMuiTheme({
@@ -24,33 +25,37 @@ const theme = createMuiTheme({
 const App = () => {
   // Create states to store context variables
   const [context, setContext] = useState({});
+  const [spinner, setSpinner] = useState(false);
 
   return (
-    <div className="App">
-      <meta name="mobile-web-app-capable" content="yes" />
-      <meta name="apple-mobile-web-app-capable" content="yes" />
-      <LoginContext.Provider value={{ context, setContext }}>
-        <ThemeProvider theme={theme}>
-          <Router>
-            <Route exact path="/login">
-              {context.id ? <Redirect to="/" /> : <LoginPage />}
-            </Route>
-            <Route exact path="/register">
-              <RegisterPage />
-            </Route>
-            <Route path="/">
-              {!context.id ? (
-                <Redirect to="/login" />
-              ) : context.type === "staff" ? (
-                <StaffMain />
-              ) : (
-                <TenantMain />
-              )}
-            </Route>
-          </Router>
-        </ThemeProvider>
-      </LoginContext.Provider>
-    </div>
+    <LoadingOverlay active={spinner} spinner styles={{ zIndex: 100000 }}>
+      <div className="App">
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+
+        <LoginContext.Provider value={{ context, setContext, setSpinner }}>
+          <ThemeProvider theme={theme}>
+            <Router>
+              <Route exact path="/login">
+                {context.id ? <Redirect to="/" /> : <LoginPage />}
+              </Route>
+              <Route exact path="/register">
+                <RegisterPage />
+              </Route>
+              <Route path="/">
+                {!context.id ? (
+                  <Redirect to="/login" />
+                ) : context.type === "staff" ? (
+                  <StaffMain />
+                ) : (
+                  <TenantMain />
+                )}
+              </Route>
+            </Router>
+          </ThemeProvider>
+        </LoginContext.Provider>
+      </div>
+    </LoadingOverlay>
   );
 };
 

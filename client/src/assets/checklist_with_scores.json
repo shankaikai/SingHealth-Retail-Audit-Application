@@ -9,15 +9,15 @@
           "questions": [
             {
               "text": "Shop is open and ready to service patients/visitors according to operating hours.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Staff Attendance: adequate staff for peak and non-peak hours.",
-              "score": null
+              "score": ""
             },
             {
               "text": "At least one (1) clearly assigned person in-charge on site.",
-              "score": null
+              "score": ""
             }
           ]
         },
@@ -26,43 +26,43 @@
           "questions": [
             {
               "text": "Staff who are unfit for work due to illness should not report to work).",
-              "score": null
+              "score": ""
             },
             {
               "text": "Staff who are fit for work but suffering from the lingering effects of a cough and/or cold should cover their mouths with a surgical mask.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Clean clothes/uniform or aprons are worn during food preparation and food service.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Hair is kept tidy (long hair must be tied up) and covered with clean caps or hair nets where appropriate.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Sores, wounds or cuts on hands, if any, are covered with waterproof and brightly-coloured plaster.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Hands are washed thoroughly with soap and water, frequently and at appropriate times.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Fingernails are short, clean, unpolished and without nail accessories.",
-              "score": null
+              "score": ""
             },
             {
               "text": "No wrist watches/ rings or other hand jewellery (with exception of wedding ring) is worn by staff handling food.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Food is handled with clean utensils and gloves.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Disposable gloves are changed regularly and/ or in between tasks./n - Staff do not handle cash with gloved hands.",
-              "score": null
+              "score": ""
             }
           ]
         }
@@ -77,76 +77,76 @@
           "questions": [
             {
               "text": "Cleaning and maintenance records for equipment, ventilation and exhaust system.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Adequate and regular pest control./n - Pest control record.",
-              "score": null
+              "score": ""
             },
 
             {
               "text": "Goods and equipment are within shop boundary.",
-              "score": null
+              "score": ""
             },
 
             {
               "text": "Store display/ Shop front is neat and tidy.",
-              "score": null
+              "score": ""
             },
 
             {
               "text": "Work/ serving area is neat, clean and free of spillage.",
-              "score": null
+              "score": ""
             },
 
             {
               "text": "Uncluttered circulation space free of refuse/ furniture.",
-              "score": null
+              "score": ""
             },
 
             {
               "text": "Tables are cleared promptly within 10 minutes.",
-              "score": null
+              "score": ""
             },
 
             {
               "text": "Fixtures and fittings including shelves, cupboards and drawers are clean and dry, free from pests, and in a good state.",
-              "score": null
+              "score": ""
             },
 
             {
               "text": "Ceiling/ ceiling boards are free from stains/ dust with no gaps.",
-              "score": null
+              "score": ""
             },
 
             {
               "text": "Fans and air-con units are in proper working order and clean and free from dust. Proper maintenance and routine cleaning are carried out regularly.",
-              "score": null
+              "score": ""
             },
 
             {
               "text": "Equipment, exhaust hood, crockery and utensils are clean, in good condition and serviced.",
-              "score": null
+              "score": ""
             },
 
             {
               "text": "Surfaces, walls and ceilings within customer areas are dry and clean.",
-              "score": null
+              "score": ""
             },
 
             {
               "text": "Floor within customer areas is clean, dry and non-greasy.",
-              "score": null
+              "score": ""
             },
 
             {
               "text": "Waste bins are properly lined with plastic bags and covered at all times.",
-              "score": null
+              "score": ""
             },
 
             {
               "text": "Adequate number of covered waste pedal bins are available and waste is properly managed and disposed./n - Waste bins are not over-filled./n - Waste Management: Proper disposal of food stuff and waste./n - Waste is properly bagged before disposing it at the waste disposal area/ bin centre.",
-              "score": null
+              "score": ""
             }
           ]
         },
@@ -155,12 +155,12 @@
           "questions": [
             {
               "text": "Hand washing facilities are easily accessible, in good working condition and soap is provided.",
-              "score": null
+              "score": ""
             },
 
             {
               "text": "Adequate facilities for hand hygiene are available including liquid soap and disposable hand towels.",
-              "score": null
+              "score": ""
             }
           ]
         }
@@ -175,11 +175,11 @@
           "questions": [
             {
               "text": "Hand washing facilities are easily accessible, in good working condition and soap is provided.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Adequate facilities for hand hygiene are available including liquid soap and disposable hand towels.",
-              "score": null
+              "score": ""
             }
           ]
         },
@@ -188,47 +188,47 @@
           "questions": [
             {
               "text": "Daily Temperature Log for food storage units (freezers, chillers, warmers, steamers, ovens) using independent thermometer, etc. is maintained for inspection from time to time.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Food storage units (freezers, chillers, warmers, steamers, ovens) are kept clean and well maintained. All rubber gaskets of refrigerators / warmers are free from defect, dirt and mould.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Food storage units are not overstocked to allow good air circulation.",
-              "score": null
+              "score": ""
             },
             {
               "text": "For walk-in freezers and chillers, food items are stored neatly on shelves and off the floor.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Frozen food is stored at a temperature of not more than -12°C/n - Freezer’s temperature: < -12°C",
-              "score": null
+              "score": ""
             },
             {
               "text": "Chilled food is stored at a temperature of not more than 4°C./n - Chiller’s temperature: 0°C ~ 4°C",
-              "score": null
+              "score": ""
             },
             {
               "text": "Hot food are held above 60°C./n - Food warmer’s temperature: > 60°C",
-              "score": null
+              "score": ""
             },
             {
               "text": "Perishable food is stored at a temperature of not more than 4°C.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Dairy products are stored at a temperature of not more than 7°C.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Cooked/ ready-to-eat food are stored above raw food.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Food items are properly wrapped/covered in proper containers and protected from contamination.",
-              "score": null
+              "score": ""
             }
           ]
         }
@@ -243,25 +243,25 @@
           "questions": [
             {
               "text": "Min. no. of healthier variety of food items per stall./n Lease Term: 50% of food items.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Label caloric count of healthier options.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Include HPB’s Identifiers beside healthier options.",
-              "score": null
+              "score": ""
             },
-            { "text": "Use of healthier cooking oils.", "score": null },
-            { "text": "Offer wholemeal/ whole-grain option.", "score": null },
+            { "text": "Use of healthier cooking oils.", "score": "" },
+            { "text": "Offer wholemeal/ whole-grain option.", "score": "" },
             {
               "text": "Healthier option food sold at lower price than regular items.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Limit deep-fried and pre-deep fried food items sold (≤ 20% deep-fried items).",
-              "score": null
+              "score": ""
             }
           ]
         },
@@ -270,19 +270,19 @@
           "questions": [
             {
               "text": "No sugar / Lower-sugar brewed beverage offerings according to guidelines.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Healthier option beverages sold at lower price than regular items.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Label caloric count of healthier options.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Limit sugar content on commercially-prepared sweetened beverages.(≥ 70% commercially-prepared sweetened beverages sold to have HCS)",
-              "score": null
+              "score": ""
             }
           ]
         }
@@ -297,44 +297,44 @@
           "questions": [
             {
               "text": "All food handlers have Basic Food Hygiene certificate and a valid Refresher Food Hygiene certificate (if applicable).",
-              "score": null
+              "score": ""
             },
             {
               "text": "MSDS for all industrial chemicals are available and up to date.",
-              "score": null
+              "score": ""
             },
-            { "text": "Proper chemicals storage.", "score": null },
+            { "text": "Proper chemicals storage.", "score": "" },
             {
               "text": "All detergent and bottles containing liquids are labelled appropriately.",
-              "score": null
+              "score": ""
             },
             {
               "text": "All personnel to wear safety shoes and safety attire where necessary.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Knives and sharp objects are kept at a safe place.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Area under the sink should not be cluttered with items other than washing agents.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Delivery personnel do not stack goods above the shoulder level.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Stacking of goods does not exceed 600mm from the ceiling and heavy items at the bottom, light items on top.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Proper signage/ label (fire, hazards, warnings, food stuff) and Exit signs in working order.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Equipment, crockery and utensils are not chipped, broken or cracked.",
-              "score": null
+              "score": ""
             }
           ]
         },
@@ -343,15 +343,15 @@
           "questions": [
             {
               "text": "Fire extinguishers access is unobstructed; Fire extinguishers are not expired and employees know how to use them.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Escape route and exits are unobstructed.",
-              "score": null
+              "score": ""
             },
             {
               "text": "First aid box is available and well-equipped.",
-              "score": null
+              "score": ""
             }
           ]
         },
@@ -360,17 +360,17 @@
           "questions": [
             {
               "text": "Electrical sockets are not overloaded – one plug to one socket.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Plugs and cords are intact and free from exposure/ tension with PSB safety mark.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Power points that are in close proximity to flammable and/or water sources are installed with a plastic cover.",
-              "score": null
+              "score": ""
             },
-            { "text": "Electrical panels / DBs are covered.", "score": null }
+            { "text": "Electrical panels / DBs are covered.", "score": "" }
           ]
         }
       ]
@@ -386,29 +386,29 @@
           "questions": [
             {
               "text": "Shop is open and ready to service patients/visitors according to operating hours.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Staff Attendance: adequate staff for peak and non-peak hours.",
-              "score": null
+              "score": ""
             },
             {
               "text": "At least one (1) clearly assigned person in-charge on site.",
-              "score": null
+              "score": ""
             }
           ]
         },
         {
           "subtitle": "Staff Hygiene",
           "questions": [
-            { "text": "Staff uniform/attire is not soiled.", "score": null },
+            { "text": "Staff uniform/attire is not soiled.", "score": "" },
             {
               "text": "Staff who are unfit for work due to illness should not report to work).",
-              "score": null
+              "score": ""
             },
             {
               "text": "Staff who are fit for work but suffering from the lingering effects of a cough and/or cold should cover their mouths with a surgical mask.",
-              "score": null
+              "score": ""
             }
           ]
         }
@@ -423,51 +423,51 @@
           "questions": [
             {
               "text": "Adequate and regular pest control. - Pest control record.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Goods and equipment are within shop boundary.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Store display/Shop front is neat and tidy.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Work/ serving area is neat, clean and free of spillage.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Uncluttered circulation space free of refuse/ furniture.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Fixtures and fittings including shelves, cupboards and drawers are clean and dry and in a good state.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Ceiling boards are free from stains/dust with no gaps.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Fans and air-con units are in proper working order and clean and free from dust. Proper maintenance and routine cleaning are carried out regularly.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Equipment is clean, in good condition and serviced.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Surfaces, walls and ceilings within customer areas are dry and clean.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Floor within customer areas is clean and dry.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Waste is properly managed and disposed. - Waste bins are not over-filled. - Waste Management: Proper disposal of general waste.",
-              "score": null
+              "score": ""
             }
           ]
         }
@@ -482,36 +482,36 @@
           "questions": [
             {
               "text": "MSDS for all industrial chemicals are available and up to date.",
-              "score": null
+              "score": ""
             },
-            { "text": "Proper chemicals storage.", "score": null },
+            { "text": "Proper chemicals storage.", "score": "" },
             {
               "text": "All detergent and bottles containing liquids are labelled appropriately.",
-              "score": null
+              "score": ""
             },
             {
               "text": "All personnel to wear safety shoes and safety attire where necessary.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Knives and sharp objects are kept at a safe place.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Area under the sink should not be cluttered with items other than washing agents.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Delivery personnel do not stack goods above the shoulder level.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Stacking of goods does not exceed 600mm from the ceiling and heavy items at the bottom, light items on top.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Proper signage/ label (fire, hazards, warnings, food stuff) and Exit signs in working order.",
-              "score": null
+              "score": ""
             }
           ]
         },
@@ -520,15 +520,15 @@
           "questions": [
             {
               "text": "Fire extinguishers access is unobstructed; Fire extinguishers are not expired and employees know how to use them.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Escape route and exits are unobstructed.",
-              "score": null
+              "score": ""
             },
             {
               "text": "First aid box is available and well-equipped.",
-              "score": null
+              "score": ""
             }
           ]
         },
@@ -537,17 +537,17 @@
           "questions": [
             {
               "text": "Electrical sockets are not overloaded – one plug to one socket.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Plugs and cords are intact and free from exposure/ tension with PSB safety mark.",
-              "score": null
+              "score": ""
             },
             {
               "text": "Power points that are in close proximity to flammable and/or water sources are installed with a plastic cover.",
-              "score": null
+              "score": ""
             },
-            { "text": "Electrical panels / DBs are covered.", "score": null }
+            { "text": "Electrical panels / DBs are covered.", "score": "" }
           ]
         }
       ]

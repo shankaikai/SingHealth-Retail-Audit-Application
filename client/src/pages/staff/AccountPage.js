@@ -28,7 +28,8 @@ const useStyles = makeStyles({
 });
 
 const AccountPage = () => {
-  const { setContext } = useContext(LoginContext);
+  const { context, setContext } = useContext(LoginContext);
+  console.log(context);
   const handleLogout = () => {
     // TODO: Release session from node
     setContext({});
@@ -38,9 +39,9 @@ const AccountPage = () => {
 
   return (
     <div className={classes.root}>
-      <Avatar src={<AccountCircleIcon />} className={classes.avatar} />
+      <Avatar src={context.imageUrl} className={classes.avatar} />
       <Typography variant="h5" className={classes.name}>
-        Staff Name
+        {context.name}
       </Typography>
       <Button
         variant="contained"

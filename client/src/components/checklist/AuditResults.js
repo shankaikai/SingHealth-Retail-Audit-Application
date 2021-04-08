@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { AppBar, Tabs, Tab, makeStyles, Box, Divider } from "@material-ui/core";
+import {
+  AppBar,
+  Tabs,
+  Tab,
+  makeStyles,
+  Box,
+  Divider,
+  Button,
+} from "@material-ui/core";
 import ScoreItem from "./ScoreItem";
 import IssueItem from "./IssueItem";
 
@@ -37,11 +45,18 @@ const useStyles = makeStyles({
   scores: {
     overflowY: "scroll",
     height: "calc(100vh - 62px - 72px - 20px - 48px)",
+    display: "flex",
+    flexDirection: "column",
+  },
+  done: {
+    justifySelf: "center",
+    alignSelf: "center",
+    marginTop: "10px",
   },
 });
 
 export default function AuditResults(props) {
-  const scores = props.data.scores;
+  const scores = JSON.parse(props.data.scores);
   const issues = props.data.issues;
 
   const classes = useStyles();
@@ -62,21 +77,37 @@ export default function AuditResults(props) {
       <TabPanel value={value} index={0} className={classes.tab}>
         <div className={classes.scores}>
           {scores.map((score) => (
-            <div>
+            <div key={score.section}>
               <ScoreItem data={score} />
               <Divider />
             </div>
           ))}
+          <Button
+            variant="outlined"
+            color="primary"
+            className={classes.done}
+            onClick={props.handleDone}
+          >
+            Done
+          </Button>
         </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <div className={classes.issue}>
+        <div className={classes.scores}>
           {issues.map((issue) => (
-            <div>
+            <div key={issue.id}>
               <IssueItem data={issue} />
               <Divider />
             </div>
           ))}
+          <Button
+            className={classes.done}
+            onClick={props.handleDone}
+            variant="outlined"
+            color="primary"
+          >
+            Done
+          </Button>
         </div>
       </TabPanel>
     </div>

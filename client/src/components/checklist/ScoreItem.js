@@ -38,7 +38,7 @@ const ScoreItem = (props) => {
       <div className={classes.text}>
         <Typography color="textPrimary">
           <Box fontWeight="fontWeightBold" fontSize={16}>
-            {props.data.section}
+            {props.data.title}
           </Box>
         </Typography>
         <Typography color="textSecondary">
@@ -46,16 +46,17 @@ const ScoreItem = (props) => {
         </Typography>
       </div>
       <div className={classes.left}>
-        {parseInt(props.data.score) >= (95 / 100) * props.data.weightage ? (
+        {parseInt(props.data.weightedScore) >=
+        (95 / 100) * props.data.weightage ? (
           <Typography>
             <Box fontSize={20} fontWeight="fontWeightBold" color="#6FCF97">
-              {props.data.score}%
+              {props.data.weightedScore.toFixed(1)}%
             </Box>
           </Typography>
         ) : (
           <Typography>
             <Box fontSize={20} fontWeight="fontWeightBold" color="#EB5757">
-              {props.data.score}%
+              {props.data.weightedScore.toFixed(1)}%
             </Box>
           </Typography>
         )}

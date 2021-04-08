@@ -55,37 +55,34 @@ const LoginPage = (props) => {
   const [showPassword, setShowPassword] = useState(false);
 
   // Grab setContext from LoginContext
-  const { setContext } = useContext(LoginContext);
+  const { setContext, setSpinner } = useContext(LoginContext);
 
   // Function to handle a login request
   const INVALID_USERNAME = "Username does not exist!"; // check on login && register
   const INVALID_PASSWORD = "Incorrect password!"; // check on valid username
 
   const handleLogin = (e) => {
+    setSpinner(true);
     Axios.post("http://localhost:3001/api/auth/login", {
       email,
       password,
     }).then((res) => {
       if (res.data.login_status) {
-        // alert("LOGIN_SUCCESS");
-        setContext({
-          id: res.data.result,
-          type: "staff",
-          name: "name",
-        });
+        setContext(res.data);
       } else {
         alert(res.data.reason);
       }
     });
+    setSpinner(false);
   };
 
   const handleForgetPassword = () => {
-    Axios.post("http://localhost:3000/auth/login", {
+    Axios.post("http://localhost:3001/api/auth/login", {
       email,
       password,
     }).then((res) => {
       if (res.data.reason !== "INVALID_EMAIL") {
-        Axios.post("http://localhost:3000/auth/resetpassword", { email })
+        Axios.post("http://localhost:3001/auth/resetpassword", { email })
           .then((res) => {
             alert("PLEASE_CHECK_YOUR_EMAIL");
           })
@@ -103,13 +100,13 @@ const LoginPage = (props) => {
   return (
     <div className={classes.login}>
       <img src={logo} alt="Logo" className={classes.logo}></img>
-      <FormControl className={classes.form} autoComplete="true">
+      <FormControl className={classes.form} autoComplete>
         <Box m={1} className={classes.marginMax}>
           <TextField
             id="email"
             label="Email"
             variant="outlined"
-            fullWidth="true"
+            fullWidth
             onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -117,7 +114,7 @@ const LoginPage = (props) => {
         </Box>
 
         <Box m={1} className={classes.marginMax}>
-          <FormControl variant="outlined" fullWidth="true">
+          <FormControl variant="outlined" fullWidth autoComplete>
             <InputLabel>Password</InputLabel>
             <OutlinedInput
               id="password"
@@ -144,8 +141,10 @@ const LoginPage = (props) => {
           <Button
             variant="contained"
             color="primary"
-            fullWidth="true"
+            fullWidth
             onClick={handleLogin}
+            onSubmit={handleLogin}
+            type="submit"
           >
             Login
           </Button>
@@ -154,7 +153,9 @@ const LoginPage = (props) => {
           Dont have an account? <Link to="/register">Register</Link>
         </Typography>
         <Typography className={classes.marginMax} align="left">
-          <Link onClick={handleForgetPassword}>Forgot Password?</Link>
+          <Link to="/login" onClick={handleForgetPassword}>
+            Forgot Password?
+          </Link>
         </Typography>
       </FormControl>
     </div>

@@ -38,15 +38,12 @@ const HASH_ERROR = "HASH_ERROR";
 router.post("/login", (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-  console.log(email);
-  console.log(password);
-
+  console.log(email + " is attempting to log in...");
   db.query(`SELECT * from staff where email = ?`, [email], (err, result) => {
     if (err) {
       console.log(err);
     } else {
       // Check whether email is in database
-      console.log(result);
       if (result.length > 0) {
         bcrypt.compare(password, result[0].password, (error, response) => {
           if (response) {
@@ -60,7 +57,15 @@ router.post("/login", (req, res, next) => {
 
             req.session.userType = result[0].type;
 
-            res.json({ login_status: true, result: id });
+            req.session.imageUrl = result[0].imageUrl;
+
+            res.json({
+              login_status: true,
+              id: id,
+              name: result[0].name,
+              type: result[0].type,
+              imageUrl: result[0].imageUrl,
+            });
 
             // prompt user to next page
 

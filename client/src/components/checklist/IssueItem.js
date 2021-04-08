@@ -38,7 +38,7 @@ const IssueItem = (props) => {
       <div className={classes.text}>
         <Typography color="textPrimary">
           <Box fontWeight="fontWeightBold" fontSize={16}>
-            {props.data.name}
+            {props.data.title}
           </Box>
         </Typography>
         <Typography color="textSecondary">

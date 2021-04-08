@@ -16,67 +16,22 @@ const useStyles = makeStyles({
 });
 
 const AuditList = (props) => {
-  var audits = [
-    {
-      completedDate: "21/12/21",
-      auditNumber: "1",
-      score: "90",
-      id: "1",
-    },
-    {
-      completedDate: "22/12/21",
-      auditNumber: "2",
-      score: "96",
-      id: "2",
-    },
-    {
-      completedDate: "23/12/21",
-      auditNumber: "3",
-      score: "99",
-      id: "3",
-    },
-    {
-      completedDate: "24/12/21",
-      auditNumber: "4",
-      score: "100",
-      id: "4",
-    },
-    {
-      completedDate: "25/12/21",
-      auditNumber: "5",
-      score: "70",
-      id: "5",
-    },
-    {
-      completedDate: "26/12/21",
-      auditNumber: "6",
-      score: "98",
-      id: "6",
-    },
-    {
-      completedDate: "27/12/21",
-      auditNumber: "7",
-      score: "92",
-      id: "7",
-    },
-  ];
-
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <List className={classes.list}>
         {props.audits.map((audit) => (
-          <List className={classes.list}>
+          <div key={audit.id}>
             <AuditItem
-              data = {audit}
-              key={audit.id}
+              data={audit}
               completedDate={audit.dateCompleted}
               score={Math.round(audit.score * 10) / 10}
               auditNumber={audit.id}
+              tenantID={audit.tenantID}
               id={audit.id}
             />
             <Divider light />
-          </List>
+          </div>
         ))}
       </List>
     </div>

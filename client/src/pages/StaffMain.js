@@ -14,7 +14,7 @@ import { LoginContext } from "../context/LoginContext";
 
 export default function StaffMain(props) {
   const { context } = useContext(LoginContext);
-  console.log("StaffMain");
+
   return (
     <div>
       {!context.id ? (
@@ -39,7 +39,7 @@ export default function StaffMain(props) {
           <Route exact path="/auditchecklist/:type/:tenantID/:onGoingAuditID?">
             <AuditChecklistPage />
           </Route>
-          <Route exact path="/auditend">
+          <Route exact path="/auditend/:tenantID/:auditID">
             <AuditEndPage />
           </Route>
           <Route exact path="/audit/:id">

@@ -1,13 +1,6 @@
 import React from "react";
 import { makeStyles, Typography, Box } from "@material-ui/core";
 
-const temp = {
-  name: "Tenant Name Here",
-  type: "F&B",
-  location: "#10-25",
-  dateStarted: new Date(Date.now()).toDateString(),
-};
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -43,17 +36,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AuditEndHeader(props) {
   const classes = useStyles();
-
+  const data = props.data;
+  console.log(props.date);
   return (
     <div className={classes.root}>
       <div className={classes.details}>
-        <Typography className={classes.text}>Tenant: {temp.name}</Typography>
-        <Typography className={classes.text}>Type: {temp.type}</Typography>
         <Typography className={classes.text}>
-          Location: {temp.location}
+          Tenant Name: {data.name}
+        </Typography>
+        <Typography className={classes.text}>Type: {data.type}</Typography>
+        <Typography className={classes.text}>
+          Location: {data.location}
         </Typography>
         <Typography className={classes.text}>
-          Audit Date: {temp.dateStarted}
+          Completed Date: {new Date(props.date).toDateString()}
         </Typography>
       </div>
       <div className={classes.score}>
