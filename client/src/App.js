@@ -39,6 +39,12 @@ const App = () => {
             <Route exact path="/register">
               <RegisterPage />
             </Route>
+            <Route exact path="/resetenterusername">
+              <ResetEnterUsernamePage/>
+            </Route>
+            <Route exact path="/resetenternewpassword">
+              <ResetEnterNewPasswordPage/>
+            </Route>
             <Route path="/">
               {!context.id ? (
                 <Redirect to="/login" />
