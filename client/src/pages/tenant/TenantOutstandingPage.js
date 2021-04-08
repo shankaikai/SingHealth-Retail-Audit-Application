@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext} from "react";
 import Navbar from "../../components/common/NavbarTenant";
 import Header from "../../components/common/Header";
 import { makeStyles } from "@material-ui/core";
 import OutstandingList from "../../components/tenantView/OutstandingList";
 import Axios from "axios";
 import Skeleton from "@material-ui/lab/Skeleton";
+import {LoginContext} from "../../context/LoginContext";
+
 
 const useStyles = makeStyles({
   root: {
@@ -34,12 +36,12 @@ const TenantOutstandingPage = () => {
   const [data, setData] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
-  useEffect(() => {
-    Axios.get(`http://localhost:3001/api/tenant/${id}outstanding`).then((response) => {
-      setData(response.data);
-      setLoaded(true);
-    });
-  }, []);
+  // useEffect(() => {
+  //   Axios.get(`http://localhost:3001/api/tenant/${id}outstanding`).then((response) => {
+  //     setData(response.data);
+  //     setLoaded(true);
+  //   });
+  // }, []);
 
   return (
     <div className={classes.root}>

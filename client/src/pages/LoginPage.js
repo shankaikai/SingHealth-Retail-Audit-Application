@@ -159,7 +159,7 @@ const LoginPage = (props) => {
           Dont have an account? <Link to="/register">Register</Link>
         </Typography>
         <Typography className={classes.marginMax} align="left">
-          <Link onClick={handleForgetPassword}>Forgot Password?</Link>
+          <Link to="resetenterusername" onClick={handleForgetPassword}>Forgot Password?</Link>
         </Typography>
       </FormControl>
     </div>

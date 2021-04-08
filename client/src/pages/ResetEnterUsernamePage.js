@@ -61,7 +61,8 @@ const ResetEnterUsernamePage = (props) => {
   const INVALID_USERNAME = "Username does not exist!"; // check on login && register
   const INVALID_PASSWORD = "Incorrect password!"; // check on valid username
 
-  const handleLogin = (e) => {
+  const handleSendResetLink = (e) => {
+    history.push("resetenternewpassword")
     // Axios.post("http://localhost:3001/api/auth/login", {
     //   email,
     //   password,
@@ -77,33 +78,28 @@ const ResetEnterUsernamePage = (props) => {
     //     alert(res.data.reason);
     //   }
     // });
-    setContext({
-      id: 1,
-      type: "tenant",
-      name: "name",
-    });
-  };
 
-  const handleForgetPassword = () => {
-    Axios.post("http://localhost:3000/auth/login", {
-      email,
-      password,
-    }).then((res) => {
-      if (res.data.reason !== "INVALID_EMAIL") {
-        Axios.post("http://localhost:3000/auth/resetpassword", { email })
-          .then((res) => {
-            alert("PLEASE_CHECK_YOUR_EMAIL");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      } else {
-        alert(res.data.reason);
-      }
-    });
 
-    console.log("Handle forget");
-  };
+  // const handleForgetPassword = () => {
+  //   Axios.post("http://localhost:3000/auth/login", {
+  //     email,
+  //     password,
+  //   }).then((res) => {
+  //     if (res.data.reason !== "INVALID_EMAIL") {
+  //       Axios.post("http://localhost:3000/auth/resetpassword", { email })
+  //         .then((res) => {
+  //           alert("PLEASE_CHECK_YOUR_EMAIL");
+  //         })
+  //         .catch((err) => {
+  //           console.log(err);
+  //         });
+  //     } else {
+  //       alert(res.data.reason);
+  //     }
+  //   });
+
+  //   console.log("Handle forget");
+};
 
   return (
     <div className={classes.login}>
@@ -111,8 +107,8 @@ const ResetEnterUsernamePage = (props) => {
       <FormControl className={classes.form} autoComplete="true">
         <Box m={1} className={classes.marginMax}>
           <TextField
-            id="email"
-            label="Email"
+            id="Username"
+            label="Username"
             variant="outlined"
             fullWidth="true"
             onChange={(e) => {
@@ -122,37 +118,13 @@ const ResetEnterUsernamePage = (props) => {
         </Box>
 
         <Box m={1} className={classes.marginMax}>
-          <FormControl variant="outlined" fullWidth="true">
-            <InputLabel>Password</InputLabel>
-            <OutlinedInput
-              id="password"
-              type={showPassword ? "text" : "password"}
-              label="Password"
-              variant="outlined"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => setShowPassword(!showPassword)}
-                    edge="end"
-                  >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            ></OutlinedInput>
-          </FormControl>
-        </Box>
-        <Box m={1} className={classes.marginMax}>
           <Button
             variant="contained"
             color="primary"
             fullWidth="true"
-            onClick={handleLogin}
+            onClick={handleSendResetLink}
           >
-            Login
+            Send reset link
           </Button>
         </Box>
       </FormControl>
