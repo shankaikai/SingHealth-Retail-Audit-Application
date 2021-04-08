@@ -69,11 +69,9 @@ const AddIssuePage = () => {
   values.issueID = issueid;
   const { context } = useContext(LoginContext);
   if (context.type == "staff") {
-    values.staffID = context.id;
-    values.tenantID = null;
+    values.isStaff = "1";
   } else {
-    values.tenantID = context.id;
-    values.staffID = null;
+    values.isStaff = "0";
   }
 
   const handleTyping = (e) => {
