@@ -107,8 +107,8 @@ const ResetEnterUsernamePage = (props) => {
       <FormControl className={classes.form} autoComplete="true">
         <Box m={1} className={classes.marginMax}>
           <TextField
-            id="Username"
-            label="Username"
+            id="email"
+            label="Email"
             variant="outlined"
             fullWidth="true"
             onChange={(e) => {

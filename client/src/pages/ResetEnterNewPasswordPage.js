@@ -14,6 +14,7 @@ import {
   import { useHistory } from "react-router-dom";
   import Header from "../components/common/Header";
   import Axios from "axios";
+import LoginPage from "./LoginPage";
   require("dotenv/config");
   
   const useStyle = makeStyles({
@@ -49,66 +50,12 @@ import {
     // Function to handle a register request
   
     const REGISTER_SUCCESS = "REGISTER_SUCCESS";
-    const handleRegister = () => {
-      /*
-      // TODO: POST request to '/register'
-      if (password === repeatPassword) {
-        console.log("react: password: " + password);
-        const user = { username, password };
-  
-        fetch("http://localhost:3000/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(user),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.register_status) {
-              alert("REGISTER_SUCCESS");
-              history.push("/");
-            } else {
-              if (data.reason === DUPLICATED_USERNAME) {
-                alert(DUPLICATED_USERNAME);
-              } else if (data.reason === DATABASE_ERROR) {
-                alert(DATABASE_ERROR);
-              }
-            }
-          }
-        })
-        .catch((err) => {
-          console.log(err)
-        });
-  
-      } 
-      
-      else {
-        alert("PASSWORD_NOT_MATCHING");
-      // TODO: Add proper authencation here
-      if (email === "" || password === "") {
-        alert("Email/Password cannot be blank!");
-      }
-  */
-      if (password === repeatPassword) {
-        Axios.post("http://localhost:3000/auth/register", {
-          password: password,
-        }).then((response) => {
-          console.log(response);
-          if (response.data.register_status === true) {
-            alert(REGISTER_SUCCESS);
-            history.push("/login");
-          } else {
-            alert(response.data.reason);
-            console.log("register status: ", response.data.register_status);
-          }
-        });
-      } else {
-        alert("PASSWORD_NOT_MATCHED");
-      }
-    };
+    const handleLogin = () => {
+        history.push("login")}
   
     return (
       <div className={classes.root}>
-        <Header back title="Reset Password Page" />
+        <Header back title="Reset Password" />
         <FormControl className={classes.form}>
           <Box m={1} className={classes.marginMax}>
             <FormControl variant="outlined" fullWidth="true">
@@ -163,7 +110,7 @@ import {
               variant="contained"
               color="primary"
               fullWidth="true"
-              onClick={handleRegister}
+              onClick={handleLogin}
             >
               Reset password
             </Button>
