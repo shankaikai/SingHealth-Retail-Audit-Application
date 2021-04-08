@@ -147,7 +147,7 @@ const AddIssuePage = () => {
         </div>
       ) : (
         <div className={classes.root}>
-          <Header back title={context.name} noDivider />
+          <Header back title={issueData[0].title} noDivider />
           {issueDataTranslated ? (
             <div className={classes.subheaderContainer}>
               <div className={classes.subheader}>

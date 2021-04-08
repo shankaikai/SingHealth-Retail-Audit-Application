@@ -17,7 +17,7 @@ router.get("/:tenantID", (req, res) => {
       } else {
         details = result;
         db.query(
-          `SELECT * from scratch_issues WHERE tenantID = ${tenantID}`,
+          `SELECT * from scratch_issues WHERE tenantID = ${tenantID} AND closed = 0`,
           (err, result) => {
             if (err) {
               console.log(err);
@@ -112,7 +112,7 @@ router.post("/issue/reply", (req, res) => {
   console.log(insert);
   console.log(messages);
   db.query(
-    "INSERT INTO messages (issueID, staffID, tenantID, dateSent, body, photoUrl) VALUES (?,?,?,?,?, ?)",
+    "INSERT INTO messages (issueID, staffID, tenantID, dateSent, body, photoUrl) VALUES (?,?,?,?,?,?)",
     messages,
     (err, result) => {
       if (err) {
