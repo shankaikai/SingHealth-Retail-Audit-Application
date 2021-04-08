@@ -7,7 +7,8 @@ import TenantMain from "./pages/TenantMain";
 import StaffMain from "./pages/StaffMain";
 import { LoginContext } from "./context/LoginContext";
 import { useState } from "react";
-
+import ResetEnterUsernamePage from "./pages/ResetEnterUsernamePage";
+import ResetEnterNewPasswordPage from "./pages/ResetEnterNewPasswordPage";
 // Creating a custom theme
 const theme = createMuiTheme({
   palette: {

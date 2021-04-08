@@ -57,8 +57,7 @@ const ResetEnterNewPasswordPage = (props) => {
   // Grab setContext from LoginContext
   const { setContext } = useContext(LoginContext);
 
-  // Function to handle a login request
-  const INVALID_USERNAME = "Username does not exist!"; // check on login && register
+  // Function to handle a newpassword request
   const INVALID_PASSWORD = "Incorrect password!"; // check on valid username
 
   const handleLogin = (e) => {
