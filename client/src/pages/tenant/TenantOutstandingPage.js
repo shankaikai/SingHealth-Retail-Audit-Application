@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../../components/common/Navbar";
+import Navbar from "../../components/common/NavbarTenant";
 import Header from "../../components/common/Header";
 import { makeStyles } from "@material-ui/core";
 import OutstandingList from "../../components/tenantView/OutstandingList";
@@ -28,13 +28,14 @@ const useStyles = makeStyles({
 });
 
 const TenantOutstandingPage = () => {
+  const{context,setContext} = useContext(LoginContext);
   const classes = useStyles();
 
   const [data, setData] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/tenants/outstanding").then((response) => {
+    Axios.get(`http://localhost:3001/api/tenant/${id}outstanding`).then((response) => {
       setData(response.data);
       setLoaded(true);
     });

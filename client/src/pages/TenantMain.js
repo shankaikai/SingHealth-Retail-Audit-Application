@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { LoginContext } from "../context/LoginContext";
-import { Redirect, Route, BrowserRouter as Router } from "react-router-dom";
+import { Redirect, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import TenantAuditIssuePage from "./tenant/TenantAuditIssuePage";
 import TenantNewMessagePage from "./tenant/TenantNewMessage";
 import TenantOutstandingPage from "./tenant/TenantOutstandingPage";
@@ -15,8 +15,8 @@ export default function TenantMain(props) {
       {context.id === null ? (
         <Redirect to="/login" />
       ) : (
-        <Router>
-          <Route exact path="/outstanding">
+        <Switch>
+          <Route exact path="/">
             <TenantOutstandingPage/>
           </Route>
           <Route exact path="/account">
@@ -28,7 +28,7 @@ export default function TenantMain(props) {
           <Route exact path="/newmessage">
             <TenantNewMessagePage/>
           </Route>
-        </Router>
+        </Switch>
       )}
     </div>
   );

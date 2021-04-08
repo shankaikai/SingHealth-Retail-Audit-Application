@@ -62,20 +62,25 @@ const LoginPage = (props) => {
   const INVALID_PASSWORD = "Incorrect password!"; // check on valid username
 
   const handleLogin = (e) => {
-    Axios.post("http://localhost:3001/api/auth/login", {
-      email,
-      password,
-    }).then((res) => {
-      if (res.data.login_status) {
-        // alert("LOGIN_SUCCESS");
-        setContext({
-          id: res.data.result,
-          type: "staff",
-          name: "name",
-        });
-      } else {
-        alert(res.data.reason);
-      }
+    // Axios.post("http://localhost:3001/api/auth/login", {
+    //   email,
+    //   password,
+    // }).then((res) => {
+    //   if (res.data.login_status) {
+    //     // alert("LOGIN_SUCCESS");
+    //     setContext({
+    //       id: res.data.result,
+    //       type: "tenant",
+    //       name: "name",
+    //     });
+    //   } else {
+    //     alert(res.data.reason);
+    //   }
+    // });
+    setContext({
+      id: 1,
+      type: "tenant",
+      name: "name",
     });
   };
 
