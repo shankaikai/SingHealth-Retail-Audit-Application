@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../config/DatabaseConfig");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 router.get("/:tenantID", (req, res) => {
   let details;
@@ -68,9 +70,9 @@ router.get("/issue/:issueID", (req, res) => {
     WHERE i.id = ${issueID}`,
     (err, result) => {
       if (err) {
-        console.log(err)
+        console.log(err);
       } else {
-        console.log(issueID)
+        console.log(issueID);
         let issueBase = result;
         db.query(
           `SELECT m.*, s.name as staffName, t.name as tenantName FROM messages m
@@ -79,69 +81,102 @@ router.get("/issue/:issueID", (req, res) => {
           WHERE m.issueID = ${issueID}`,
           (err, result) => {
             if (err) {
-              console.log(err)
+              console.log(err);
             } else {
               let issueMessages = result;
-              console.log(result)
+              console.log(result);
               res.send({
                 issue: issueBase,
                 messages: issueMessages,
-              })
+              });
             }
           }
-        )
+        );
       }
     }
   );
 });
 
-router.post("/issue/reply", (req,res) => {
+router.post("/issue/reply", (req, res) => {
   let insert = req.body;
   insert.dateSent = new Date(Date.now());
-  const messages = []
+  const messages = [];
   messages.push(
     insert.issueID,
     insert.staffID,
     insert.tenantID,
     insert.dateSent,
     insert.reply,
-    insert.imageUrl,
-  )
+    insert.imageUrl
+  );
   console.log(insert);
   console.log(messages);
   db.query(
     "INSERT INTO messages (issueID, staffID, tenantID, dateSent, body, photoUrl) VALUES (?,?,?,?,?)",
-    messages, 
-    (err,result) => {
-      if(err) {
+    messages,
+    (err, result) => {
+      if (err) {
         console.log(err);
       } else {
         console.log("Inserted Message: " + insert);
-        res.send({message: "insert successful"})
+        res.send({ message: "insert successful" });
       }
     }
-  )
-})
+  );
+});
 
 router.post("/issue/:issueID", (req, res) => {
   const issueID = req.params.issueID;
   console.log(req.body);
-  if(req.body.closed){
+  if (req.body.closed) {
     db.query(
       `UPDATE scratch_issues SET closed = 1 WHERE id = ${issueID}`,
-      (err,result) => {
-        if(err){
-          console.log(err)
-        }
-        else{
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
           console.log("Closed issue " + issueID);
-          res.send({message: "update successful"})
+          res.send({ message: "update successful" });
         }
       }
-    )
+    );
   }
 });
 
+const hashPassword = (password) => {
+  return new Promise((resolve, reject) => {
+    bcrypt.hash(password, saltRounds, (err, hash) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(hash);
+      }
+    });
+  });
+};
 
+router.post("/create", (req, res) => {
+  console.log("creating new tenant");
+  const name = req.body.name;
+  const cluster = req.body.cluster;
+  const type = req.body.type;
+  const location = req.body.location;
+  const email = req.body.email;
+  const password = req.body.password;
+  const imageUrl = req.body.imageUrl;
+  hashPassword(password).then((hash) => {
+    db.query(
+      "INSERT INTO scratch_tenants (cluster, name, location, imageUrl, usertype, type, password, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+      [cluster, name, location, imageUrl, "tenant", type, hash, email],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send({ message: "Tenant registration success!" });
+        }
+      }
+    );
+  });
+});
 
 module.exports = router;

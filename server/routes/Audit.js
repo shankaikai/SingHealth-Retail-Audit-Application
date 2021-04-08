@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../config/DatabaseConfig");
 
+// GET for viewing audit detailss!
 router.get("/:auditID", (req, res) => {
   let audits;
   let issues;
@@ -9,7 +10,6 @@ router.get("/:auditID", (req, res) => {
 
   db.query(
     `SELECT * from scratch_audits WHERE id = ${auditID}`,
-    [audits],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -34,6 +34,24 @@ router.get("/:auditID", (req, res) => {
   );
 });
 
+// GET for ongoing audits
+router.get("/ongoing/:id", (req, res) => {
+  console.log("ongoing endpoint called");
+  const auditID = req.params.id;
+  db.query(
+    "SELECT * FROM scratch_audits WHERE id = ?",
+    [auditID],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Ongoing audit id " + auditID + " sent!");
+        res.send(result);
+      }
+    }
+  );
+});
+
 // Helper function to create array of issues
 const createIssuesArray = (
   issues,
@@ -42,6 +60,9 @@ const createIssuesArray = (
   staffID,
   dateCompleted
 ) => {
+  if (issues.length === 0) {
+    return null;
+  }
   out = [];
   for (let i = 0; i < issues.length; i++) {
     var issue = issues[i];
@@ -61,8 +82,8 @@ const createIssuesArray = (
 };
 
 // POST req for new audits
-router.post("/complete", (req, res) => {
-  console.log("complete endpoint called");
+router.post("/newcomplete", (req, res) => {
+  console.log("new complete endpoint called");
   const tenantID = req.body.tenantID;
   const staffID = req.body.staffID;
   const dateStarted = req.body.dateStarted;
@@ -97,29 +118,38 @@ router.post("/complete", (req, res) => {
           staffID,
           dateCompleted
         );
-        db.query(
-          "INSERT INTO scratch_issues (tenantID, auditID, staffID, date, location, closed, title, description, imageUrl) VALUES ?",
-          [issues],
-          (err, result) => {
-            if (err) {
-              console.log(err);
-            } else {
-              console.log(
-                result.affectedRows +
-                  " issues inserted for audit ID: " +
-                  auditID
-              );
-              res.send({ messageSuccess: "Upload of complete audit success!" });
+        if (issues) {
+          db.query(
+            "INSERT INTO scratch_issues (tenantID, auditID, staffID, date, location, closed, title, description, imageUrl) VALUES ?",
+            [issues],
+            (err, result) => {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log(
+                  issues.length + " issues inserted for audit ID: " + auditID
+                );
+                res.send({
+                  message: "Upload of complete audit success!",
+                  auditID: auditID,
+                });
+              }
             }
-          }
-        );
+          );
+        } else {
+          res.send({
+            message: "Upload of complete audit success!",
+            auditID: auditID,
+          });
+        }
       }
     }
   );
 });
 
-router.post("/partial", (req, res) => {
-  console.log("partial endpoint called");
+// POST req for new to partial audits
+router.post("/newpartial", (req, res) => {
+  console.log("new to partial endpoint called");
   const tenantID = req.body.tenantID;
   const staffID = req.body.staffID;
   const dateStarted = req.body.dateStarted;
@@ -155,33 +185,39 @@ router.post("/partial", (req, res) => {
           dateCompleted
         );
         db.query(
-          "INSERT INTO scratch_issues (tenantID, auditID, staffID, date, location, closed, title, description, imageUrl) VALUES ?",
-          [issues],
+          `UPDATE scratch_tenants SET onGoingAuditID = ${auditID} WHERE id = ${tenantID}`,
           (err, result) => {
             if (err) {
               console.log(err);
             } else {
               console.log(
-                result.affectedRows +
-                  " issues inserted for audit ID: " +
+                "tenant " +
+                  tenantID +
+                  " has been updated with onGoingAuditID " +
                   auditID
               );
-              db.query(
-                `UPDATE scratch_tenants SET onGoingAuditID = ${auditID} WHERE id = ${tenantID}`,
-                (err, result) => {
-                  if (err) {
-                    console.log(err);
-                  } else {
+              if (issues) {
+                db.query(
+                  "INSERT INTO scratch_issues (tenantID, auditID, staffID, date, location, closed, title, description, imageUrl) VALUES ?",
+                  [issues],
+                  (err, result) => {
                     console.log(
-                      "tenant " +
-                        tenantID +
-                        " has been updated with onGoingAuditID " +
+                      issues.length +
+                        " issues inserted for audit ID: " +
                         auditID
                     );
-                    res.send({ message: "Upload of partial audit success!" });
+                    res.send({
+                      message: "Upload of partial audit success!",
+                      auditID: auditID,
+                    });
                   }
-                }
-              );
+                );
+              } else {
+                res.send({
+                  message: "Upload of partial audit success!",
+                  auditID: auditID,
+                });
+              }
             }
           }
         );
@@ -190,18 +226,123 @@ router.post("/partial", (req, res) => {
   );
 });
 
-// GET for ongoing audits
-router.get("/ongoing/:id", (req, res) => {
-  const auditID = req.params.id;
-  db.query(`SELECT * FROM scratch_audits WHERE id = ${auditID}`),
+// POST req for partial to partial audits
+router.post("/partial", (req, res) => {
+  console.log("partial to partial endpoint called");
+  const data = JSON.stringify(req.body.data);
+  const scores = JSON.stringify(req.body.scores);
+  const score = req.body.score;
+  const auditID = req.body.auditID;
+  const staffID = req.body.staffID;
+  const tenantID = req.body.tenantID;
+  db.query(
+    `UPDATE scratch_audits SET scores = ?, score = ?, data = ? WHERE id = ?`,
+    [scores, score, data, auditID],
     (err, result) => {
       if (err) {
         console.log(err);
       } else {
-        console.log("Ongoing audit id " + auditID + " details: " + result);
-        res.send(result);
+        console.log("update audit success with audit id: " + auditID);
+        // Insert issues
+        const issues = createIssuesArray(
+          req.body.issues,
+          tenantID,
+          auditID,
+          staffID,
+          new Date(Date.now())
+        );
+
+        if (issues) {
+          db.query(
+            "INSERT INTO scratch_issues (tenantID, auditID, staffID, date, location, closed, title, description, imageUrl) VALUES ?",
+            [issues],
+            (err, result) => {
+              console.log(
+                result.affectedRows +
+                  " issues inserted for audit ID: " +
+                  auditID
+              );
+              res.send({
+                message: "Update of partial audit success!",
+                auditID: auditID,
+              });
+            }
+          );
+        } else {
+          res.send({
+            message: "Update of partial audit success!",
+            auditID: auditID,
+          });
+        }
       }
-    };
+    }
+  );
+});
+
+// POST req for partial to complete
+router.post("/partialcomplete", (req, res) => {
+  console.log("partial to complete endpoint called");
+  const data = JSON.stringify(req.body.data);
+  const scores = JSON.stringify(req.body.scores);
+  const score = req.body.score;
+  const auditID = req.body.auditID;
+  const staffID = req.body.staffID;
+  const tenantID = req.body.tenantID;
+  const dateCompleted = req.body.dateCompleted;
+  db.query(
+    "UPDATE scratch_audits SET scores = ?, score = ?, data = ?, dateCompleted = ?, completed = 1 WHERE id = ?",
+    [scores, score, data, dateCompleted, auditID],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("update audit success with audit id: " + auditID);
+        // Insert issues
+        const issues = createIssuesArray(
+          req.body.issues,
+          tenantID,
+          auditID,
+          staffID,
+          new Date(Date.now())
+        );
+        db.query(
+          "UPDATE scratch_tenants SET onGoingAuditID = ? WHERE id = ?",
+          [null, tenantID],
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(
+                "Tenant id " + tenantID + "'s onGingAuditID set to null"
+              );
+              if (issues) {
+                db.query(
+                  "INSERT INTO scratch_issues (tenantID, auditID, staffID, date, location, closed, title, description, imageUrl) VALUES ?",
+                  [issues],
+                  (err, result) => {
+                    console.log(
+                      issues.length +
+                        " issues inserted for audit ID: " +
+                        auditID
+                    );
+                    res.send({
+                      message: "Update of complete audit success!",
+                      auditID: auditID,
+                    });
+                  }
+                );
+              } else {
+                res.send({
+                  message: "Update of complete audit success!",
+                  auditID: auditID,
+                });
+              }
+            }
+          }
+        );
+      }
+    }
+  );
 });
 
 module.exports = router;

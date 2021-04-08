@@ -23,17 +23,18 @@ const useStyles = makeStyles({
   },
 });
 
-const Navbar = (props) => {
+const NavbarTenant = (props) => {
   // Use State
   const [value, setValue] = useState(props.route);
   const classes = useStyles();
   let history = useHistory();
 
+
   // Function to handle changing of tabs
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    // Push the value to the parent container through props
     history.push(`/${newValue}`);
+
   };
 
   return (
@@ -44,14 +45,8 @@ const Navbar = (props) => {
       onChange={handleChange}
     >
       <BottomNavigationAction
-        label="Tenants"
-        value=""
-        icon={<Store />}
-        className={classes.icons}
-      />
-      <BottomNavigationAction
         label="Outstanding"
-        value="outstanding"
+        value=""
         icon={<PlaylistAddCheck />}
         className={classes.icons}
       />
@@ -65,4 +60,4 @@ const Navbar = (props) => {
   );
 };
 
-export default Navbar;
+export default NavbarTenant;

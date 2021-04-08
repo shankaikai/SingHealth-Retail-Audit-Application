@@ -38,45 +38,57 @@ const HASH_ERROR = "HASH_ERROR";
 router.post("/login", (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-  console.log(email);
-  console.log(password);
-
-  db.query(`SELECT * from staff where email = ?`, [email], (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
-      // Check whether email is in database
-      console.log(result);
-      if (result.length > 0) {
-        bcrypt.compare(password, result[0].password, (error, response) => {
-          if (response) {
-            // Grab the user's id on the db
-            const id = result[0].id;
-
-            // Create a session and place the id into it
-            req.session.userID = id;
-
-            req.session.userName = result[0].name;
-
-            req.session.userType = result[0].type;
-
-            res.json({ login_status: true, result: id });
-
-            // prompt user to next page
-
-            console.log(`${email} logged in!`);
-          } else {
-            // Invalid Password
-            res.json({ login_status: false, reason: INVALID_PASSWORD });
-            // prompt user to re-enter the password
-          }
-        });
+  console.log(email + " is attempting to log in...");
+  db.query(
+    `SELECT * FROM (SELECT id, name, email, usertype, password, imageUrl FROM escdb.scratch_tenants
+    UNION
+    SELECT id, name, email, usertype, password, imageUrl FROM escdb.staff) AS x WHERE email = ?`,
+    [email],
+    (err, result) => {
+      if (err) {
+        console.log(err);
       } else {
-        res.json({ login_status: false, reason: INVALID_USERNAME });
-        // prompt user to register
+        console.log(result);
+        // Check whether email is in database
+        if (result.length > 0) {
+          bcrypt.compare(password, result[0].password, (error, response) => {
+            if (response) {
+              // Grab the user's id on the db
+              const id = result[0].id;
+              const name = result[0].name;
+              const usertype = result[0].usertype;
+              const imageUrl = result[0].imageUrl;
+
+              // Create a session and place the id into it
+              req.session.userID = id;
+              req.session.userName = name;
+              req.session.userType = usertype;
+              req.session.imageUrl = imageUrl;
+
+              res.send({
+                login_status: true,
+                id: id,
+                name: name,
+                type: usertype,
+                imageUrl: imageUrl,
+              });
+
+              // prompt user to next page
+
+              console.log(`${email} logged in!`);
+            } else {
+              // Invalid Password
+              res.json({ login_status: false, reason: INVALID_PASSWORD });
+              // prompt user to re-enter the password
+            }
+          });
+        } else {
+          res.json({ login_status: false, reason: INVALID_USERNAME });
+          // prompt user to register
+        }
       }
     }
-  });
+  );
 });
 
 const hashPassword = (password) => {

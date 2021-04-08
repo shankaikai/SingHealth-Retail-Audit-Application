@@ -1,12 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Button, makeStyles, Typography } from "@material-ui/core";
-
-const temp = {
-  name: "Tenant Name Here",
-  type: "F&B",
-  location: "#10-25",
-  dateStarted: new Date(Date.now()).toDateString(),
-};
 
 const useStyles = makeStyles((theme) => ({
   root: {

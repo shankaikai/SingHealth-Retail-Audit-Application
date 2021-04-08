@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
-import Navbar from "../../components/common/Navbar";
+import { useHistory } from "react-router-dom";
+import Navbar from "../../components/common/NavbarTenant";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { LoginContext } from "../../context/LoginContext";
-import { useContext } from "react";
 
 const useStyles = makeStyles({
   root: {
@@ -25,11 +26,14 @@ const useStyles = makeStyles({
   },
 });
 
-const AccountPage = () => {
+const TenantProfilePage = () => {
+  let history = useHistory();
+
   const { context, setContext } = useContext(LoginContext);
 
+  // Function to handle logouts
   const handleLogout = () => {
-    // TODO: Release session from node
+    // TODO: Release session
     setContext({});
   };
 
@@ -54,4 +58,4 @@ const AccountPage = () => {
   );
 };
 
-export default AccountPage;
+export default TenantProfilePage;

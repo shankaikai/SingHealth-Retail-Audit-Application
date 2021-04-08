@@ -2,15 +2,13 @@ import { TextField, makeStyles, Button } from "@material-ui/core";
 import Header from "../../components/common/Header";
 import Axios from "axios";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { useState, useContext } from "react";
-import { useParams, useHistory } from "react-router-dom";
-import { LoginContext } from "../../context/LoginContext";
+import { useState } from "react";
 
 const useStyles = makeStyles({
   root: {
     position: "fixed",
     height: "100vh",
-    width: "100%",
+    width: "100%"
   },
   form: {
     width: "80%",
@@ -52,10 +50,10 @@ const useStyles = makeStyles({
   },
 });
 
-const AddIssuePage = () => {
+
+
+const TenantNewMessagePage = () => {
   const classes = useStyles();
-  const { issueid } = useParams();
-  let history = useHistory();
 
   // State to store values
   const [values, setValues] = useState({
@@ -65,20 +63,9 @@ const AddIssuePage = () => {
   // State to store the current selected image
   const [imageSelected, setImageSelected] = useState(null);
 
-  // Set identifying values in the post request data
-  values.issueID = issueid;
-  const { context } = useContext(LoginContext);
-  if (context.type == "staff") {
-    values.staffID = context.id;
-    values.tenantID = null;
-  } else {
-    values.tenantID = context.id;
-    values.staffID = null;
-  }
-
-  const handleTyping = (e) => {
-    setValues({ ...values, reply: e.target.value });
-  };
+const handleTyping = (e) => {
+  setValues({...values, reply: e.target.value});
+}
 
   // Upload Photo Handler
   const handlePhoto = (e) => {
@@ -103,14 +90,14 @@ const AddIssuePage = () => {
 
   // Submit handler
   const handleSubmit = () => {
-    Axios.post("http://localhost:3001/api/tenant/issue/reply", values).then(
-      (response) => {
-        console.log(response);
-        history.goBack();
-      }
-    );
+    //TODO: Axios post req
+    // let toUpload = {
+      
+    // }
     console.log(values);
   };
+
+
 
   return (
     <div className={classes.root}>
@@ -134,7 +121,7 @@ const AddIssuePage = () => {
           className={classes.submit}
         >
           Upload Photo
-          <input type="file" hidden onChange={handlePhoto} accept="image/*" />
+        <input type="file" hidden onChange={handlePhoto} accept="image/*" />
         </Button>
         <div className={classes.imageHolder}>
           {imageSelected ? (
@@ -156,10 +143,10 @@ const AddIssuePage = () => {
           onClick={handleSubmit}
         >
           Submit
-        </Button>
+      </Button>
       </div>
     </div>
   );
 };
 
-export default AddIssuePage;
+export default TenantNewMessagePage;

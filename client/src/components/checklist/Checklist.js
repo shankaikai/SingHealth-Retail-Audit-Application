@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import { makeStyles, Paper, List, Typography, Button } from "@material-ui/core";
+import React, { useRef } from "react";
+import { makeStyles, Paper, Typography, Button } from "@material-ui/core";
 import ChecklistItem from "./ChecklistItem";
 
 const useStyles = makeStyles((theme) => ({

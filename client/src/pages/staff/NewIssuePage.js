@@ -1,14 +1,14 @@
 import { makeStyles, TextField, Button } from "@material-ui/core";
 import Header from "../../components/common/Header";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import Axios from "axios";
-import { Image } from "cloudinary-react";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { LoginContext } from "../../context/LoginContext";
 
 const useStyles = makeStyles({
   root: {
@@ -50,6 +50,7 @@ const useStyles = makeStyles({
 const NewIssuePage = (props) => {
   const classes = useStyles();
 
+  const { setSpinner } = useContext(LoginContext);
   // Submit handler
   const handleSubmit = () => {
     console.log("Submit New Issue");
@@ -67,6 +68,7 @@ const NewIssuePage = (props) => {
 
   // Upload Photo Handler
   const handlePhoto = (e) => {
+    setSpinner(true);
     setImageSelected(e.target.files[0]);
 
     const formData = new FormData();
@@ -83,6 +85,7 @@ const NewIssuePage = (props) => {
         ...values,
         imageUrl: res.data.url,
       });
+      setSpinner(false);
     });
   };
 

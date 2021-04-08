@@ -7,8 +7,7 @@ import {
   Divider,
 } from "@material-ui/core";
 import Header from "../../components/common/Header";
-import { useLocation, useParams, useHistory } from "react-router-dom";
-import IssueItem from "../../components/tenantView/IssueItem";
+import { useParams, useHistory } from "react-router-dom";
 import { LoginContext } from "../../context/LoginContext";
 import { useContext } from "react";
 import React, { useState, useEffect } from "react";
@@ -99,7 +98,7 @@ const AddIssuePage = () => {
         console.log(response.data);
 
         let closed;
-        if (response.data.issue[0].closed == 0) {
+        if (response.data.issue[0].closed === 0) {
           closed = false;
         } else {
           closed = true;
@@ -118,7 +117,7 @@ const AddIssuePage = () => {
         setIssueDataTranslated(issueMessageTranslate);
       }
     );
-  }, []);
+  }, [id]);
 
   const handleReply = () => {
     history.push({
