@@ -8,7 +8,8 @@ import StaffMain from "./pages/StaffMain";
 import { LoginContext } from "./context/LoginContext";
 import { useState } from "react";
 import LoadingOverlay from "react-loading-overlay";
-
+import ResetEnterUsernamePage from "./pages/ResetEnterUsernamePage";
+import ResetEnterNewPasswordPage from "./pages/ResetEnterNewPasswordPage";
 // Creating a custom theme
 const theme = createMuiTheme({
   palette: {
@@ -32,8 +33,7 @@ const App = () => {
       <div className="App">
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-
-        <LoginContext.Provider value={{ context, setContext, setSpinner }}>
+        <LoginContext.Provider value={{ context, setContext }}>
           <ThemeProvider theme={theme}>
             <Router>
               <Route exact path="/login">
@@ -41,6 +41,12 @@ const App = () => {
               </Route>
               <Route exact path="/register">
                 <RegisterPage />
+              </Route>
+              <Route exact path="/resetenterusername">
+                <ResetEnterUsernamePage />
+              </Route>
+              <Route exact path="/resetenternewpassword">
+                <ResetEnterNewPasswordPage />
               </Route>
               <Route path="/">
                 {!context.id ? (
