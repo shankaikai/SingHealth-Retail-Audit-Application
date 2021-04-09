@@ -95,12 +95,7 @@ const AddIssuePage = () => {
       (response) => {
         setIssueData(response.data.issue);
         setMessageData(response.data.messages.reverse());
-        console.log(response.data.issue);
-
-        let users = {
-          tenant: response.data.tenant,
-          staff: response.data.staff,
-        };
+        console.log(response.data);
 
         let closed;
         if (response.data.issue[0].closed === 0) {
@@ -110,7 +105,7 @@ const AddIssuePage = () => {
         }
 
         let issueMessageTranslate = {
-          isStaff: 1,
+          staffName: response.data.issue[0].staffName,
           dateSent: response.data.issue[0].date,
           body: response.data.issue[0].description,
           photoUrl: response.data.issue[0].imageUrl,
@@ -118,7 +113,7 @@ const AddIssuePage = () => {
           closed: closed,
         };
 
-        setUserNames(users);
+        // setUserNames(users);
         setIssueDataTranslated(issueMessageTranslate);
       }
     );
@@ -136,7 +131,7 @@ const AddIssuePage = () => {
     }).then((response) => {
       console.log(response.data);
       if (response.data.message) {
-        setIssueDataTranslated({ ...issueDataTranslated, closed: 1 });
+        setIssueDataTranslated({ ...issueData, closed: 1 });
       }
     });
   };
@@ -152,7 +147,7 @@ const AddIssuePage = () => {
         </div>
       ) : (
         <div className={classes.root}>
-          <Header back title={context.name} noDivider />
+          <Header back title={issueData[0].title} noDivider />
           {issueDataTranslated ? (
             <div className={classes.subheaderContainer}>
               <div className={classes.subheader}>
@@ -201,11 +196,11 @@ const AddIssuePage = () => {
             <List>
               {messageData
                 ? messageData.map((data) => (
-                    <MessageItem key={data.id} data={data} users={userNames} />
+                    <MessageItem key={data.id} data={data} />
                   ))
                 : null}
               {issueDataTranslated ? (
-                <MessageItem data={issueDataTranslated} users={userNames} />
+                <MessageItem data={issueDataTranslated}/>
               ) : null}
             </List>
           </div>
