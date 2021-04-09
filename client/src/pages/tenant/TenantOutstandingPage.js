@@ -12,12 +12,8 @@ const useStyles = makeStyles({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-<<<<<<< HEAD
     marginTop: "64px",
     height: "calc(100vh - 119px)",
-=======
-    marginTop: "62px",
->>>>>>> 95af014cbdab109377f83ebeb3ef57b022269f06
   },
   skeletons: {
     width: "100%",
