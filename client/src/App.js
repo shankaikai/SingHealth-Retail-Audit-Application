@@ -6,16 +6,10 @@ import { Route, BrowserRouter as Router, Redirect } from "react-router-dom";
 import TenantMain from "./pages/TenantMain";
 import StaffMain from "./pages/StaffMain";
 import { LoginContext } from "./context/LoginContext";
-<<<<<<< HEAD
-import Axios from "axios";
-import { useEffect, useState } from "react";
-
-=======
 import { useState } from "react";
 import LoadingOverlay from "react-loading-overlay";
 import ResetEnterUsernamePage from "./pages/ResetEnterUsernamePage";
 import ResetEnterNewPasswordPage from "./pages/ResetEnterNewPasswordPage";
->>>>>>> f3e4b7cd51ce8c7fab8dcb5375f548c3ff5e42d5
 // Creating a custom theme
 const theme = createMuiTheme({
   palette: {

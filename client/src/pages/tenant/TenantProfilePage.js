@@ -1,17 +1,9 @@
-<<<<<<< HEAD
-import React from "react";
-import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
-import Navbar from "../../components/common/Navbar";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-=======
 import React, { useContext } from "react";
 import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import Navbar from "../../components/common/NavbarTenant";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { LoginContext } from "../../context/LoginContext";
->>>>>>> f3e4b7cd51ce8c7fab8dcb5375f548c3ff5e42d5
 
 const useStyles = makeStyles({
   root: {
@@ -36,12 +28,6 @@ const useStyles = makeStyles({
 
 const TenantProfilePage = () => {
   let history = useHistory();
-<<<<<<< HEAD
-  // Function to handle logouts
-  const handleLogout = () => {
-    // TODO: Release session
-    history.push("/");
-=======
 
   const { context, setContext } = useContext(LoginContext);
 
@@ -49,22 +35,15 @@ const TenantProfilePage = () => {
   const handleLogout = () => {
     // TODO: Release session
     setContext({});
->>>>>>> f3e4b7cd51ce8c7fab8dcb5375f548c3ff5e42d5
   };
 
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-<<<<<<< HEAD
-      <Avatar src={<AccountCircleIcon />} className={classes.avatar} />
-      <Typography variant="h5" className={classes.name}>
-        Tenant Name
-=======
       <Avatar src={context.imageUrl} className={classes.avatar} />
       <Typography variant="h5" className={classes.name}>
         {context.name}
->>>>>>> f3e4b7cd51ce8c7fab8dcb5375f548c3ff5e42d5
       </Typography>
       <Button
         variant="contained"
