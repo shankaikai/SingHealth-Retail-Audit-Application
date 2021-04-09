@@ -10,6 +10,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import NewMessagePage from "./staff/NewMessagePage";
 import AuditIssuePage from "./staff/AuditIssuePage";
 import { LoginContext } from "../context/LoginContext";
+import EditTenantPage from "./staff/EditTenantPage";
 
 export default function StaffMain(props) {
   const { context } = useContext(LoginContext);
@@ -46,6 +47,9 @@ export default function StaffMain(props) {
           </Route>
           <Route exact path="/issue/:id">
             <AuditIssuePage />
+          </Route>
+          <Route exact path="/edittenant/:id">
+            <EditTenantPage />
           </Route>
         </Switch>
       )}

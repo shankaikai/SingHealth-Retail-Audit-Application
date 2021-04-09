@@ -90,6 +90,10 @@ const AddTenantPage = () => {
   };
 
   const handlePhoto = (e) => {
+    setDetails({
+      ...details,
+      imageUrl: null,
+    });
     setSpinner(true);
     setImageSelected(e.target.files[0]);
 

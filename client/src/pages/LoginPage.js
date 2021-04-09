@@ -53,18 +53,22 @@ const LoginPage = (props) => {
   const [showPassword, setShowPassword] = useState(false);
 
   // Grab setContext and setSpinner from LoginContext
-  const { setContext, setSpinner } = useContext(LoginContext);
+  const { spinner, setContext, setSpinner } = useContext(LoginContext);
 
   // Function to handle a login request
   const handleLogin = () => {
     setSpinner(true);
     console.log("here");
-    Axios.post("http://localhost:3001/api/auth/login", {
-      email,
-      password,
-    }).then((res) => {
+    Axios.post(
+      "http://localhost:3001/api/auth/login",
+      {
+        email,
+        password,
+      },
+      { withCredentials: true }
+    ).then((res) => {
       if (res.data.login_status) {
-        console.log(res.data);
+        console.log(spinner);
         setContext(res.data);
       } else {
         alert(res.data.reason);
@@ -140,8 +144,6 @@ const LoginPage = (props) => {
             color="primary"
             fullWidth
             onClick={handleLogin}
-            onSubmit={handleLogin}
-            type="submit"
           >
             Login
           </Button>

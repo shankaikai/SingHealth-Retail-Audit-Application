@@ -44,8 +44,6 @@ const TenantItem = (props) => {
     console.log(issueID);
     history.push({
       pathname: `/issue/${issueID}`,
-      // state: { issueID: issueID },
-      state: { issueName: issueName }, //change this later
     });
   };
   return (

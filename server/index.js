@@ -36,14 +36,13 @@ const IN_PROD = NODE_ENV === "production";
 // Enable session
 app.use(
   session({
-    name: SESS_NAME,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     secret: SESS_SECRET,
     cookie: {
       maxAge: SESS_LIFETIME,
-      sameSite: true,
-      secure: IN_PROD,
+      secure: false,
+      httpOnly: false,
     },
   })
 );
@@ -71,13 +70,13 @@ app.use("/api/audit", audit);
 var rootDir = path.dirname(__dirname);
 console.log("Root Directory: " + rootDir);
 
-app.use(express.static(path.join(rootDir, "/client/build")));
-app.use(express.static(path.join(rootDir, "/client/build/static/media")));
+// app.use(express.static(path.join(rootDir, "/client/build")));
+// app.use(express.static(path.join(rootDir, "/client/build/static/media")));
 
 // only get request from react component through #fetch or redirect by node server
-app.get("*", (req, res) => {
-  res.sendFile(path.join(rootDir + "/client/build/index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(rootDir + "/client/build/index.html"));
+// });
 
 // app.get("*", (req, res) => {
 //   res.send(` <h2> Oops! 404 Not Found </h2> `);

@@ -8,6 +8,7 @@ import {
   Divider,
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,9 +56,13 @@ const useStyles = makeStyles((theme) => ({
 const OutstandingItem = (props) => {
   const classes = useStyles();
 
+  let history = useHistory();
+
   //Function to handle onClick issue
   const handleIssueClick = (id) => {
-    console.log(id);
+    history.push({
+      pathname: `/issue/${id}`,
+    });
   };
 
   return (

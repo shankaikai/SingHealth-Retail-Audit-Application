@@ -6,10 +6,19 @@ import { Route, BrowserRouter as Router, Redirect } from "react-router-dom";
 import TenantMain from "./pages/TenantMain";
 import StaffMain from "./pages/StaffMain";
 import { LoginContext } from "./context/LoginContext";
+<<<<<<< HEAD
 import { useState } from "react";
 import LoadingOverlay from "react-loading-overlay";
 import ResetEnterUsernamePage from "./pages/ResetEnterUsernamePage";
 import ResetEnterNewPasswordPage from "./pages/ResetEnterNewPasswordPage";
+=======
+import Axios from "axios";
+import { useEffect, useState, useMemo } from "react";
+import LoadingOverlay from "react-loading-overlay";
+import ResetEnterUsernamePage from "./pages/ResetEnterUsernamePage";
+import ResetEnterNewPasswordPage from "./pages/ResetEnterNewPasswordPage";
+
+>>>>>>> 95af014cbdab109377f83ebeb3ef57b022269f06
 // Creating a custom theme
 const theme = createMuiTheme({
   palette: {
@@ -26,14 +35,30 @@ const theme = createMuiTheme({
 const App = () => {
   // Create states to store context variables
   const [context, setContext] = useState({});
-  const [spinner, setSpinner] = useState(false);
+  const [spinner, setSpinner] = useState(true);
+
+  const providerValue = useMemo(
+    () => ({ context, setContext, spinner, setSpinner }),
+    [context, setContext, spinner, setSpinner]
+  );
+
+  useEffect(() => {
+    Axios.get("http://localhost:3001/api/auth/login", {
+      withCredentials: true,
+    }).then((response) => {
+      if (response.data.login_status) {
+        setContext(response.data.user);
+      }
+      setSpinner(false);
+    });
+  }, []);
 
   return (
     <LoadingOverlay active={spinner} spinner styles={{ zIndex: 100000 }}>
       <div className="App">
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <LoginContext.Provider value={{ context, setContext, setSpinner }}>
+        <LoginContext.Provider value={providerValue}>
           <ThemeProvider theme={theme}>
             <Router>
               <Route exact path="/login">

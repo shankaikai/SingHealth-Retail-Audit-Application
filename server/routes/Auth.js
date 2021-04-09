@@ -17,14 +17,17 @@ const redirectToLogin = (req, res, next) => {
 };
 
 router.get("/login", (req, res) => {
+  console.log(req.session);
   if (req.session.userID) {
     var user = {
-      userID: req.session.userID,
-      userName: req.session.userName,
-      userType: req.session.userType,
+      id: req.session.userID,
+      name: req.session.userName,
+      type: req.session.userType,
+      imageUrl: req.session.imageUrl,
     };
-    res.json({ cookie_status: true, result: user });
+    res.send({ login_status: true, user });
   } else {
+    res.send({ login_status: false });
   }
 });
 
@@ -48,7 +51,6 @@ router.post("/login", (req, res, next) => {
       if (err) {
         console.log(err);
       } else {
-        console.log(result);
         // Check whether email is in database
         if (result.length > 0) {
           bcrypt.compare(password, result[0].password, (error, response) => {
@@ -64,6 +66,8 @@ router.post("/login", (req, res, next) => {
               req.session.userName = name;
               req.session.userType = usertype;
               req.session.imageUrl = imageUrl;
+              // console.log(req.session);
+              req.session.save();
 
               res.send({
                 login_status: true,
@@ -205,15 +209,15 @@ router.post("/resetpassword", (req, res) => {
     });
 });
 
-router.get("/logout", redirectToLogin, (req, res) => {
+router.post("/logout", (req, res) => {
+  console.log("user attemping to log out");
   req.session.destroy((err) => {
     if (err) {
       console.log(err);
-      return res.send({ logout_status: false });
+    } else {
+      res.clearCookie("SID");
+      res.send({ logout_status: true });
     }
-    res.clearCookie("SID");
-    res.send({ logout_status: true });
-    // prompt user to login
   });
 });
 

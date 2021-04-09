@@ -41,6 +41,7 @@ const TenantItem = (props) => {
   const tenantID = props.data.id;
   const imageUrl = props.data.imageUrl;
   const cluster = props.data.cluster;
+  const score = props.data.score;
 
   const handleOnClick = (name) => {
     console.log(tenantID);
@@ -85,7 +86,13 @@ const TenantItem = (props) => {
                 </Box>
               </Typography>
             </div>
-            <div display="inline">
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-end",
+              }}
+            >
               <img
                 alt="check"
                 src={tick}
@@ -107,7 +114,7 @@ const TenantItem = (props) => {
                   m={1}
                   style={{ textAlign: "center" }}
                 >
-                  95%
+                  {score ? score.toFixed(1) + "%" : "-"}
                 </Box>
               </Typography>
             </div>

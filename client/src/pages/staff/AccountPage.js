@@ -3,6 +3,7 @@ import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
 import Navbar from "../../components/common/Navbar";
 import { LoginContext } from "../../context/LoginContext";
 import { useContext } from "react";
+import Axios from "axios";
 
 const useStyles = makeStyles({
   root: {
@@ -30,7 +31,11 @@ const AccountPage = () => {
 
   const handleLogout = () => {
     // TODO: Release session from node
-    setContext({});
+    Axios.post("http://localhost:3001/api/auth/logout", {
+      withCredentials: true,
+    }).then(() => {
+      setContext({});
+    });
   };
 
   const classes = useStyles();

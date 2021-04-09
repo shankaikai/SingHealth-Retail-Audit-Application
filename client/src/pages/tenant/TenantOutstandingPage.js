@@ -10,11 +10,14 @@ import { LoginContext } from "../../context/LoginContext";
 const useStyles = makeStyles({
   root: {
     width: "100%",
-    height: "100%",
     display: "flex",
     flexDirection: "column",
+<<<<<<< HEAD
     marginTop: "64px",
     height: "calc(100vh - 119px)",
+=======
+    marginTop: "62px",
+>>>>>>> 95af014cbdab109377f83ebeb3ef57b022269f06
   },
   skeletons: {
     width: "100%",
@@ -31,7 +34,7 @@ const useStyles = makeStyles({
 });
 
 const TenantOutstandingPage = () => {
-  const { context } = useContext(LoginContext);
+  const { context, setContext } = useContext(LoginContext);
   const classes = useStyles();
 
   const [data, setData] = useState([]);
