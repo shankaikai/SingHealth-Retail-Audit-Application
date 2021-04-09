@@ -1,4 +1,4 @@
-import { List, makeStyles } from "@material-ui/core";
+import { List, makeStyles, Typography } from "@material-ui/core";
 import AuditItem from "./AuditItem";
 import Divider from "@material-ui/core/Divider";
 
@@ -19,21 +19,25 @@ const AuditList = (props) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <List className={classes.list}>
-        {props.audits.map((audit) => (
-          <div key={audit.id}>
-            <AuditItem
-              data={audit}
-              completedDate={audit.dateCompleted}
-              score={Math.round(audit.score * 10) / 10}
-              auditNumber={audit.id}
-              tenantID={audit.tenantID}
-              id={audit.id}
-            />
-            <Divider light />
-          </div>
-        ))}
-      </List>
+      {props.audits.length === 0 ? (
+        <Typography>No audits yet</Typography>
+      ) : (
+        <List className={classes.list}>
+          {props.audits.map((audit) => (
+            <div key={audit.id}>
+              <AuditItem
+                data={audit}
+                completedDate={audit.dateCompleted}
+                score={Math.round(audit.score * 10) / 10}
+                auditNumber={audit.id}
+                tenantID={audit.tenantID}
+                id={audit.id}
+              />
+              <Divider light />
+            </div>
+          ))}
+        </List>
+      )}
     </div>
   );
 };

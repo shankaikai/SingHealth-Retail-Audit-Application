@@ -18,7 +18,7 @@ const redirectToLogin = (req, res, next) => {
 
 router.get("/login", (req, res) => {
   console.log(req.session);
-  if (req.session) {
+  if (req.session.userID) {
     var user = {
       id: req.session.userID,
       name: req.session.userName,

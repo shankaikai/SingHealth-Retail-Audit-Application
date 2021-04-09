@@ -118,30 +118,48 @@ router.post("/newcomplete", (req, res) => {
           staffID,
           dateCompleted
         );
-        if (issues) {
-          db.query(
-            "INSERT INTO scratch_issues (tenantID, auditID, staffID, date, location, closed, title, description, imageUrl) VALUES ?",
-            [issues],
-            (err, result) => {
-              if (err) {
-                console.log(err);
-              } else {
-                console.log(
-                  issues.length + " issues inserted for audit ID: " + auditID
+        db.query(
+          "UPDATE scratch_tenants SET onGoingAuditID = ?, score = ?, WHERE id = ?",
+          [null, score, tenantID],
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(
+                "tenant " +
+                  tenantID +
+                  " has been updated with onGoingAuditID " +
+                  auditID
+              );
+              if (issues) {
+                db.query(
+                  "INSERT INTO scratch_issues (tenantID, auditID, staffID, date, location, closed, title, description, imageUrl) VALUES ?",
+                  [issues],
+                  (err, result) => {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      console.log(
+                        issues.length +
+                          " issues inserted for audit ID: " +
+                          auditID
+                      );
+                      res.send({
+                        message: "Upload of complete audit success!",
+                        auditID: auditID,
+                      });
+                    }
+                  }
                 );
+              } else {
                 res.send({
                   message: "Upload of complete audit success!",
                   auditID: auditID,
                 });
               }
             }
-          );
-        } else {
-          res.send({
-            message: "Upload of complete audit success!",
-            auditID: auditID,
-          });
-        }
+          }
+        );
       }
     }
   );
@@ -306,8 +324,8 @@ router.post("/partialcomplete", (req, res) => {
           new Date(Date.now())
         );
         db.query(
-          "UPDATE scratch_tenants SET onGoingAuditID = ? WHERE id = ?",
-          [null, tenantID],
+          "UPDATE scratch_tenants SET onGoingAuditID = ?, score = ?, WHERE id = ?",
+          [null, score, tenantID],
           (err, result) => {
             if (err) {
               console.log(err);

@@ -28,7 +28,7 @@ const theme = createMuiTheme({
 const App = () => {
   // Create states to store context variables
   const [context, setContext] = useState({});
-  const [spinner, setSpinner] = useState(false);
+  const [spinner, setSpinner] = useState(true);
 
   const providerValue = useMemo(
     () => ({ context, setContext, spinner, setSpinner }),
@@ -42,6 +42,7 @@ const App = () => {
       if (response.data.login_status) {
         setContext(response.data.user);
       }
+      setSpinner(false);
     });
   }, []);
 
