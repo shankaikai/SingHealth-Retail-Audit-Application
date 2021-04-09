@@ -85,7 +85,6 @@ const AddIssuePage = () => {
   const { id } = useParams();
   const [issueData, setIssueData] = useState(0);
   const [messageData, setMessageData] = useState(0);
-  const [userNames, setUserNames] = useState(0);
   const [issueDataTranslated, setIssueDataTranslated] = useState(0);
 
   let history = useHistory();
@@ -199,9 +198,9 @@ const AddIssuePage = () => {
                     <MessageItem key={data.id} data={data} />
                   ))
                 : null}
-              {/* {issueDataTranslated ? (
-                <MessageItem data={issueDataTranslated}/>
-              ) : null} */}
+              {issueDataTranslated ? (
+                <MessageItem data={issueDataTranslated} />
+              ) : null}
             </List>
           </div>
         </div>

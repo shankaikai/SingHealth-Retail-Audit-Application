@@ -101,7 +101,7 @@ export default function AuditResults(props) {
       <TabPanel value={value} index={1}>
         <div className={classes.scores}>
           {issues.length === 0 ? (
-            <Typography className={classes.noIssues}>No issues :)</Typography>
+            <Typography className={classes.noIssues}>No issues :</Typography>
           ) : (
             issues.map((issue) => (
               <div key={issue.id}>

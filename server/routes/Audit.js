@@ -324,14 +324,14 @@ router.post("/partialcomplete", (req, res) => {
           new Date(Date.now())
         );
         db.query(
-          "UPDATE scratch_tenants SET onGoingAuditID = ?, score = ?, WHERE id = ?",
-          [null, score, tenantID],
+          "UPDATE scratch_tenants SET onGoingAuditID = ? WHERE id = ?",
+          [null, parseInt(tenantID)],
           (err, result) => {
             if (err) {
               console.log(err);
             } else {
               console.log(
-                "Tenant id " + tenantID + "'s onGingAuditID set to null"
+                "Tenant id " + tenantID + "'s onGoingAuditID set to null"
               );
               if (issues) {
                 db.query(

@@ -1,6 +1,6 @@
 import Header from "../../components/common/Header";
 import ChecklistHeader from "../../components/checklist/ChecklistHeader";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Button } from "@material-ui/core";
 import Checklist from "../../components/checklist/Checklist";
 import { useState, useEffect, useContext } from "react";
 import NewIssuePage from "./NewIssuePage";
@@ -19,10 +19,18 @@ const useStyles = makeStyles({
     marginLeft: "20px",
     marginRight: "20px",
   },
+  hack: {
+    zIndex: 100,
+    fontSize: "5px",
+  },
 });
 
 // Importing the template json file
 const checklist = require("../../assets/checklist_with_scores.json");
+
+// Hacker checklist for 100 marksss
+const checklist_hack = require("../../assets/checklist_hack.json");
+const scores_hack = require("../../assets/scores_hack.json");
 
 // Import scores template json
 const scoresTemplate = require("../../assets/scores_template.json");
@@ -117,7 +125,7 @@ const AuditChecklistPage = (props) => {
   // To update the current total score whenever the scores state changes
   useEffect(() => {
     setCurrentScore(calculateWeightedTotal(scores));
-  }, [scores]);
+  }, [scores, auditChecklist]);
 
   // Handle next press
   const handleNext = () => {
@@ -248,6 +256,16 @@ const AuditChecklistPage = (props) => {
         <NewIssuePage handleIssues={handleIssues} handleBack={setNewIssue} />
       ) : loaded ? (
         <div className={classes.root}>
+          <Button
+            onClick={() => {
+              console.log("hacking checklist");
+              setAuditCheckList(checklist_hack[type]);
+              setScores(scores_hack[type]);
+            }}
+            className={classes.hack}
+          >
+            Hack
+          </Button>
           <Header
             back
             title={"Audit - " + dateStarted.toDateString()}

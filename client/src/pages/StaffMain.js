@@ -12,9 +12,8 @@ import AuditIssuePage from "./staff/AuditIssuePage";
 import { LoginContext } from "../context/LoginContext";
 import EditTenantPage from "./staff/EditTenantPage";
 
-export default function StaffMain(props) {
+export default function StaffMain() {
   const { context } = useContext(LoginContext);
-  console.log(context);
   return (
     <div>
       {!context.id ? (
