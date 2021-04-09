@@ -59,10 +59,14 @@ const LoginPage = (props) => {
   const handleLogin = () => {
     setSpinner(true);
     console.log("here");
-    Axios.post("http://localhost:3001/api/auth/login", {
-      email,
-      password,
-    }).then((res) => {
+    Axios.post(
+      "http://localhost:3001/api/auth/login",
+      {
+        email,
+        password,
+      },
+      { withCredentials: true }
+    ).then((res) => {
       if (res.data.login_status) {
         console.log(spinner);
         setContext(res.data);
@@ -140,8 +144,6 @@ const LoginPage = (props) => {
             color="primary"
             fullWidth
             onClick={handleLogin}
-            onSubmit={handleLogin}
-            type="submit"
           >
             Login
           </Button>

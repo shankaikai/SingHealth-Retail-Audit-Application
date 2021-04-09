@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
 import Navbar from "../../components/common/NavbarTenant";
 import { LoginContext } from "../../context/LoginContext";
+import Axios from "axios";
 
 const useStyles = makeStyles({
   root: {
@@ -30,8 +30,12 @@ const TenantProfilePage = () => {
 
   // Function to handle logouts
   const handleLogout = () => {
-    // TODO: Release session
-    setContext({});
+    // TODO: Release session from node
+    Axios.post("http://localhost:3001/api/auth/logout", {
+      withCredentials: true,
+    }).then(() => {
+      setContext({});
+    });
   };
 
   const classes = useStyles();

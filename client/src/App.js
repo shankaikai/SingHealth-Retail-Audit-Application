@@ -11,7 +11,6 @@ import { useEffect, useState, useMemo } from "react";
 import LoadingOverlay from "react-loading-overlay";
 import ResetEnterUsernamePage from "./pages/ResetEnterUsernamePage";
 import ResetEnterNewPasswordPage from "./pages/ResetEnterNewPasswordPage";
-import { set } from "date-fns";
 
 // Creating a custom theme
 const theme = createMuiTheme({
@@ -35,6 +34,16 @@ const App = () => {
     () => ({ context, setContext, spinner, setSpinner }),
     [context, setContext, spinner, setSpinner]
   );
+
+  useEffect(() => {
+    Axios.get("http://localhost:3001/api/auth/login", {
+      withCredentials: true,
+    }).then((response) => {
+      if (response.data.login_status) {
+        setContext(response.data.user);
+      }
+    });
+  }, []);
 
   return (
     <LoadingOverlay active={spinner} spinner styles={{ zIndex: 100000 }}>
