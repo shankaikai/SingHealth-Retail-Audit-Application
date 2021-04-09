@@ -65,8 +65,8 @@ router.get("/issue/:issueID", (req, res) => {
   db.query(
     `SELECT i.*, t.name as tenantName, s.name as staffName
     FROM scratch_issues i
-    INNER JOIN scratch_tenants t ON t.id = i.tenantID
-    INNER join staff s ON s.id = i.staffID
+    LEFT JOIN scratch_tenants t ON t.id = i.tenantID
+    LEFT join staff s ON s.id = i.staffID
     WHERE i.id = ${issueID}`,
     (err, result) => {
       if (err) {

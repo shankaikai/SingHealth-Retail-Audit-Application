@@ -59,7 +59,9 @@ const MessageItem = (props) => {
                         <Box fontWeight="fontWeightBold" fontSize={20}>
                             {data.staffName ? 
                             data.staffName :
-                            data.tenantName}
+                            data.tenantName?
+                            data.tenantName:
+                            "Deleted User"}
                         </Box>
                     </Typography>
                     <Typography color="textSecondary" style={{ paddingLeft: "20px" }}>
