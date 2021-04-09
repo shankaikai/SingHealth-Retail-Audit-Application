@@ -105,7 +105,7 @@ const AuditChecklistPage = (props) => {
       Axios.get(
         `http://localhost:3001/api/audit/ongoing/${onGoingAuditID}`
       ).then((response) => {
-        const res = response.data[0];
+        const res = response.data;
         setScores(JSON.parse(res.scores));
         setAuditCheckList(JSON.parse(res.data));
         setCurrentScore(res.score);

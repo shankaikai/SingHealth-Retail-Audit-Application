@@ -46,7 +46,7 @@ router.get("/ongoing/:id", (req, res) => {
         console.log(err);
       } else {
         console.log("Ongoing audit id " + auditID + " sent!");
-        res.send(result);
+        res.send(result[0]);
       }
     }
   );
