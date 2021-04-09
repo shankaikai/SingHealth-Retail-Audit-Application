@@ -100,7 +100,7 @@ router.get("/issue/:issueID", (req, res) => {
           `SELECT m.*, s.name as staffName, t.name as tenantName FROM messages m
           LEFT JOIN staff s ON s.id = m.staffID
           LEFT JOIN scratch_tenants t ON t.id = m.tenantID
-          WHERE m.issueID = ${issueID}`,
+          WHERE m.issueID = ${issueID} ORDER BY dateSent`,
           (err, result) => {
             if (err) {
               console.log(err);

@@ -199,9 +199,9 @@ const AddIssuePage = () => {
                     <MessageItem key={data.id} data={data} />
                   ))
                 : null}
-              {issueDataTranslated ? (
+              {/* {issueDataTranslated ? (
                 <MessageItem data={issueDataTranslated}/>
-              ) : null}
+              ) : null} */}
             </List>
           </div>
         </div>
