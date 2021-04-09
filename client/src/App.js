@@ -49,6 +49,7 @@ const App = () => {
       if (response.data.login_status) {
         setContext(response.data.user);
       }
+      console.log(response.data);
       setSpinner(false);
     });
   }, []);
