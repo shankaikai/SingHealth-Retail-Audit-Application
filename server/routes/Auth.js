@@ -219,7 +219,6 @@ router.post("/logout", (req, res) => {
       res.send({ logout_status: true });
     }
   });
-  console.log(req.session);
 });
 
 module.exports = router;
