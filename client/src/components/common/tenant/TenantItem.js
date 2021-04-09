@@ -60,7 +60,6 @@ const TenantItem = (props) => {
               <Typography
                 style={{ marginBottom: "0" }}
                 className={classes.title}
-                color="textPrimary"
                 display="inline"
                 gutterBottom
               >

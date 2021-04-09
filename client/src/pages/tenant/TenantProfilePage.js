@@ -44,7 +44,7 @@ const TenantProfilePage = () => {
     <div className={classes.root}>
       <Avatar src={context.imageUrl} className={classes.avatar} />
       <Typography variant="h5" className={classes.name}>
-        {context.name}
+        {context.name}{" "}
       </Typography>
       <Button
         variant="contained"
