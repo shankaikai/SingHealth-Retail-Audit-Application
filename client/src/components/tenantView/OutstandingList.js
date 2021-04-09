@@ -13,7 +13,10 @@ const useStyles = makeStyles({
     padding: 0,
     overflow: "auto",
   },
-  noIssues: {},
+  noIssues: {
+    alignSelf: "center",
+    justifySelf: "center",
+  },
 });
 
 const OutstandingList = (props) => {

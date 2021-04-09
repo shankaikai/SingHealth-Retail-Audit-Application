@@ -53,7 +53,7 @@ const LoginPage = (props) => {
   const [showPassword, setShowPassword] = useState(false);
 
   // Grab setContext and setSpinner from LoginContext
-  const { setContext, setSpinner } = useContext(LoginContext);
+  const { spinner, setContext, setSpinner } = useContext(LoginContext);
 
   // Function to handle a login request
   const handleLogin = () => {
@@ -64,7 +64,7 @@ const LoginPage = (props) => {
       password,
     }).then((res) => {
       if (res.data.login_status) {
-        console.log(res.data);
+        console.log(spinner);
         setContext(res.data);
       } else {
         alert(res.data.reason);

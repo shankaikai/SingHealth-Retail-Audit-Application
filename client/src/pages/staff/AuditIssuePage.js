@@ -181,15 +181,17 @@ const AddIssuePage = () => {
                   >
                     NEW REPLY
                   </Button>
-                  <Button
-                    color="primary"
-                    variant="outlined"
-                    className={classes.button}
-                    onClick={() => handleClose()}
-                    disabled={issueDataTranslated.closed}
-                  >
-                    CLOSE ISSUE
-                  </Button>
+                  {context.type === "staff" ? (
+                    <Button
+                      color="primary"
+                      variant="outlined"
+                      className={classes.button}
+                      onClick={() => handleClose()}
+                      disabled={issueDataTranslated.closed}
+                    >
+                      CLOSE ISSUE
+                    </Button>
+                  ) : null}
                 </div>
               </div>
               <Divider style={{ width: "100%" }} />

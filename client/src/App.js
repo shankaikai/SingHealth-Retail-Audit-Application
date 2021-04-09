@@ -6,16 +6,13 @@ import { Route, BrowserRouter as Router, Redirect } from "react-router-dom";
 import TenantMain from "./pages/TenantMain";
 import StaffMain from "./pages/StaffMain";
 import { LoginContext } from "./context/LoginContext";
-<<<<<<< HEAD
 import Axios from "axios";
-import { useEffect, useState } from "react";
-
-=======
-import { useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import LoadingOverlay from "react-loading-overlay";
 import ResetEnterUsernamePage from "./pages/ResetEnterUsernamePage";
 import ResetEnterNewPasswordPage from "./pages/ResetEnterNewPasswordPage";
->>>>>>> f3e4b7cd51ce8c7fab8dcb5375f548c3ff5e42d5
+import { set } from "date-fns";
+
 // Creating a custom theme
 const theme = createMuiTheme({
   palette: {
@@ -34,12 +31,17 @@ const App = () => {
   const [context, setContext] = useState({});
   const [spinner, setSpinner] = useState(false);
 
+  const providerValue = useMemo(
+    () => ({ context, setContext, spinner, setSpinner }),
+    [context, setContext, spinner, setSpinner]
+  );
+
   return (
     <LoadingOverlay active={spinner} spinner styles={{ zIndex: 100000 }}>
       <div className="App">
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <LoginContext.Provider value={{ context, setContext, setSpinner }}>
+        <LoginContext.Provider value={providerValue}>
           <ThemeProvider theme={theme}>
             <Router>
               <Route exact path="/login">
