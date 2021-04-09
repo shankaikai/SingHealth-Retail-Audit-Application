@@ -57,8 +57,6 @@ const LoginPage = (props) => {
 
   // Function to handle a login request
   const handleLogin = () => {
-    setSpinner(true);
-    console.log("here");
     Axios.post(
       "http://localhost:3001/api/auth/login",
       {
@@ -74,7 +72,6 @@ const LoginPage = (props) => {
         alert(res.data.reason);
       }
     });
-    setSpinner(false);
   };
 
   const handleForgetPassword = () => {

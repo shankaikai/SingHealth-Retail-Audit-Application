@@ -27,14 +27,18 @@ const useStyles = makeStyles({
 });
 
 const AccountPage = () => {
-  const { context, setContext } = useContext(LoginContext);
+  const { context, setContext, setSpinner } = useContext(LoginContext);
 
   const handleLogout = () => {
+    setSpinner(true);
     // TODO: Release session from node
     Axios.post("http://localhost:3001/api/auth/logout", {
       withCredentials: true,
-    }).then(() => {
-      setContext({});
+    }).then((response) => {
+      if (!response.data.login_status) {
+        setContext({});
+        setSpinner(false);
+      }
     });
   };
 

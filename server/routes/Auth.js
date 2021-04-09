@@ -211,14 +211,8 @@ router.post("/resetpassword", (req, res) => {
 
 router.post("/logout", (req, res) => {
   console.log("user attemping to log out");
-  req.session.destroy((err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.clearCookie("SID");
-      res.send({ logout_status: true });
-    }
-  });
+  req.session = null;
+  res.send({ login_status: false });
 });
 
 module.exports = router;
