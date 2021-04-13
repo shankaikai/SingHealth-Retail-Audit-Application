@@ -37,7 +37,7 @@ const TenantItem = (props) => {
   let history = useHistory();
   const classes = useStyles();
   const storeName = props.data.name;
-  const completedDate = props.data.lastAudit;
+  const completedDate = props.data.dateCompleted;
   const tenantID = props.data.id;
   const imageUrl = props.data.imageUrl;
   const cluster = props.data.cluster;

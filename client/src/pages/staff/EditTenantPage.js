@@ -27,8 +27,9 @@ const useStyles = makeStyles({
     flexDirection: "column",
     width: "100%",
     alignItems: "center",
-    height: "calc(100vh - 63px)",
+    height: "calc(100vh - 83px)",
     marginTop: "63px",
+    paddingBottom: "20px",
   },
   form: {
     width: "80%",
