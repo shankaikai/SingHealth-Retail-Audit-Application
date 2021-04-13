@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const cors = require("cors");
+// const cors = require("cors");
 const path = require("path");
 require("dotenv/config");
 
@@ -39,14 +39,14 @@ app.use(
 );
 
 // Enable cross platform information transfer
-app.use(
-  cors({
-    origin: [process.env.SERVER_HOST],
-    methods: ["GET", "POST"],
-    credentials: true,
-  })
-);
-console.log(process.env.SERVER_HOST);
+// app.use(
+//   cors({
+//     origin: [process.env.SERVER_HOST],
+//     methods: ["GET", "POST"],
+//     credentials: true,
+//   })
+// );
+// console.log(process.env.SERVER_HOST);
 // Routes
 const auth = require("./routes/Auth");
 const tenant = require("./routes/Tenant");
