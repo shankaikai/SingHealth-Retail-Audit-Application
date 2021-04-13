@@ -13,15 +13,6 @@ app.use(express.urlencoded({ extended: true }));
 // IMPORTANT!! parse application/json
 app.use(express.json());
 
-// Enable cross platform information transfer
-// app.use(
-//   cors({
-//     origin: [process.env.HOST_ORIGIN],
-//     methods: ["GET", "POST"],
-//     credentials: true,
-//   })
-// );
-
 const TWO_HOURS = 1000 * 60 * 60 * 2;
 
 const {
@@ -67,8 +58,7 @@ app.use("/api/tenants", tenants);
 app.use("/api/tenant", tenant);
 app.use("/api/audit", audit);
 
-var rootDir = path.dirname(__dirname);
-console.log("Root Directory: " + rootDir);
+// console.log("Root Directory: " + rootDir);
 
 // app.use(express.static(path.join(rootDir, "/client/build")));
 // app.use(express.static(path.join(rootDir, "/client/build/static/media")));
@@ -85,15 +75,3 @@ console.log("Root Directory: " + rootDir);
 app.listen(PORT, () => {
   console.log(`Server starting on port ${PORT}`);
 });
-
-const db = require("./config/DatabaseConfig");
-/*
-db.connect((err) => {
-  if (err) {
-    console.log(err);
-    return;
-  }
-  console.log("Connecting to MySQL Database ..");
-});
-*/
-//const db = require("./config/SQLiteConfig");

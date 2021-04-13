@@ -43,16 +43,14 @@ const TenantItem = (props) => {
   const cluster = props.data.cluster;
   const score = props.data.score;
 
-  const handleOnClick = (name) => {
-    console.log(tenantID);
+  const handleOnClick = () => {
     history.push({
       pathname: `/tenant/${tenantID}`,
-      // state: { storeName: name },
     });
   };
   return (
     <div className={classes.root}>
-      <Card square onClick={() => handleOnClick(storeName)}>
+      <Card square onClick={handleOnClick}>
         <CardContent>
           <div className={classes.content}>
             <Avatar alt="logo" src={imageUrl} style={{ marginRight: "10px" }} />

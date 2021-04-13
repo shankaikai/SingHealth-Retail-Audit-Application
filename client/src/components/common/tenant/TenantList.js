@@ -19,12 +19,17 @@ const useStyles = makeStyles({
 const TenantList = (props) => {
   const classes = useStyles();
   const search = props.searchValue;
+  const cluster = props.clusterValue;
 
   return (
     <div className={classes.root}>
       <List className={classes.list}>
         {props.data
-          .filter((tenant) => tenant.name.toLowerCase().includes(search))
+          .filter(
+            (tenant) =>
+              tenant.name.toLowerCase().includes(search) &&
+              tenant.cluster.includes(cluster)
+          )
           .map((filteredTenant) => (
             <TenantItem data={filteredTenant} key={filteredTenant.id} />
           ))}

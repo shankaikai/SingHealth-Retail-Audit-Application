@@ -194,10 +194,24 @@ router.post("/create", (req, res) => {
         if (err) {
           console.log(err);
         } else {
+          console.log(name + " tenant created successfuly!");
           res.send({ message: "Tenant registration success!" });
         }
       }
     );
+  });
+});
+
+router.post("/delete/:id", (req, res) => {
+  const id = req.params.id;
+  console.log("deleting tenant id " + id + "...");
+  db.query("DELETE from scratch_tenants WHERE id = ?", [id], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send({ message: "Delete success" });
+      console.log(" deleted tenant id " + id);
+    }
   });
 });
 

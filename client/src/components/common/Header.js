@@ -1,10 +1,21 @@
-import { Divider, makeStyles, Typography, IconButton } from "@material-ui/core";
+import {
+  Divider,
+  makeStyles,
+  Typography,
+  IconButton,
+  FormControl,
+  Select,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  InputAdornment,
+} from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import React from "react";
 import { useHistory } from "react-router-dom";
-import Searchbar from "./Searchbar";
 import Avatar from "@material-ui/core/Avatar";
 import HeaderDetails from "./HeaderDetails";
+import { Search } from "@material-ui/icons";
 
 const useStyles = makeStyles({
   root: {
@@ -33,6 +44,20 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
+  },
+  filter: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    alignContent: "center",
+    justifyContent: "space-evenly",
+    marginBottom: "20px",
+  },
+  formControl: {
+    width: "25%",
+  },
+  searchbar: {
+    width: "55%",
   },
 });
 
@@ -76,10 +101,40 @@ const Header = (props) => {
       </div>
       {props.details ? <HeaderDetails details={props.details} /> : null}
       {props.searchbar ? (
-        <Searchbar
-          setSearch={props.setSearch}
-          searchValue={props.searchValue}
-        />
+        <div className={classes.filter}>
+          <FormControl className={classes.searchbar} variant="outlined">
+            <InputLabel>Search Tenant</InputLabel>
+            <OutlinedInput
+              id="search"
+              label="Search Tenant"
+              value={props.searchValue}
+              onChange={(e) => {
+                props.setSearch(e.target.value);
+              }}
+              endAdornment={
+                <InputAdornment position="end">
+                  <Search />
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel>Cluster</InputLabel>
+            <Select
+              value={props.clusterValue}
+              onChange={(e) => {
+                props.setCluster(e.target.value);
+              }}
+              label="Cluster"
+            >
+              <MenuItem value=""></MenuItem>
+              <MenuItem value={"CGH"}>CGH</MenuItem>
+              <MenuItem value={"SGH"}>SGH</MenuItem>
+              <MenuItem value={"SKGH"}>SKGH</MenuItem>
+              <MenuItem value={"KKH"}>KKH</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
       ) : null}
       {props.noDivider ? null : <Divider />}
     </div>

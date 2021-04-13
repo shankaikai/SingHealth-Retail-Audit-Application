@@ -60,7 +60,12 @@ const ViewTenant = (props) => {
     },
     {
       header: "Last Audit Date",
-      text: props.data.lastAudit,
+      text: new Date(
+        props.data.audits[props.data.audits.length - 1].dateCompleted.slice(
+          0,
+          10
+        )
+      ).toDateString(),
     },
   ];
 
@@ -90,7 +95,11 @@ const ViewTenant = (props) => {
       <HeaderDetails details={lines} />
       <div className={classes.buttons}>
         <div className={classes.container}>
-          <IconButton aria-label="delete" className={classes.icon}>
+          <IconButton
+            aria-label="delete"
+            className={classes.icon}
+            onClick={props.handleDeleteButton}
+          >
             <DeleteIcon />
           </IconButton>
           <IconButton
