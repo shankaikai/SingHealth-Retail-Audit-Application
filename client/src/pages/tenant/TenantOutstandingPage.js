@@ -30,20 +30,18 @@ const useStyles = makeStyles({
 });
 
 const TenantOutstandingPage = () => {
-  const { context, setContext } = useContext(LoginContext);
+  const { context } = useContext(LoginContext);
   const classes = useStyles();
 
   const [data, setData] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/tenant/${context.id}`).then(
-      (response) => {
-        console.log(response.data);
-        setData(response.data);
-        setLoaded(true);
-      }
-    );
+    Axios.get(`/api/tenant/${context.id}`).then((response) => {
+      console.log(response.data);
+      setData(response.data);
+      setLoaded(true);
+    });
   }, []);
 
   return (

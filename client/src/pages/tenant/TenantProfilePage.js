@@ -31,7 +31,7 @@ const TenantProfilePage = () => {
   // Function to handle logouts
   const handleLogout = () => {
     // TODO: Release session from node
-    Axios.post("http://localhost:3001/api/auth/logout", {
+    Axios.post("/api/auth/logout", {
       withCredentials: true,
     }).then(() => {
       setContext({});

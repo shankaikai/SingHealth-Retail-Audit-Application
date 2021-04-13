@@ -16,7 +16,7 @@ app.use(express.json());
 const TWO_HOURS = 1000 * 60 * 60 * 2;
 
 const {
-  PORT = 3001,
+  PORT = 5000,
   NODE_ENV = "development",
   SESS_NAME = "SID",
   SESS_SECRET = "sutdsux",
@@ -58,15 +58,13 @@ app.use("/api/tenants", tenants);
 app.use("/api/tenant", tenant);
 app.use("/api/audit", audit);
 
-// console.log("Root Directory: " + rootDir);
-
-// app.use(express.static(path.join(rootDir, "/client/build")));
+app.use(express.static(path.join(__dirname, "../client/build")));
 // app.use(express.static(path.join(rootDir, "/client/build/static/media")));
 
 // only get request from react component through #fetch or redirect by node server
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(rootDir + "/client/build/index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
 
 // app.get("*", (req, res) => {
 //   res.send(` <h2> Oops! 404 Not Found </h2> `);

@@ -37,7 +37,7 @@ const TenantsPage = () => {
   const [cluster, setCluster] = useState("");
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/api/tenants/all").then((response) => {
+    Axios.get("/api/tenants/all").then((response) => {
       setData(response.data);
       setLoaded(true);
     });

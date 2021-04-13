@@ -34,12 +34,10 @@ const OutstandingPage = () => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/api/tenants/outstanding").then(
-      (response) => {
-        setData(response.data);
-        setLoaded(true);
-      }
-    );
+    Axios.get("/api/tenants/outstanding").then((response) => {
+      setData(response.data);
+      setLoaded(true);
+    });
   }, []);
 
   return (

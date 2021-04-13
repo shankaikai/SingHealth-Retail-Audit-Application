@@ -35,15 +35,13 @@ export default function AuditEndPage() {
   // Display loading screen when the data is not loaded yet
 
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/audit/${auditID}`).then((res) => {
+    Axios.get(`/api/audit/${auditID}`).then((res) => {
       setData(res.data);
-      Axios.get(`http://localhost:3001/api/tenant/${tenantID}`).then(
-        (response) => {
-          setTenantData(response.data);
-          console.log(response.data);
-          setLoaded(true);
-        }
-      );
+      Axios.get(`/api/tenant/${tenantID}`).then((response) => {
+        setTenantData(response.data);
+        console.log(response.data);
+        setLoaded(true);
+      });
     });
   }, [tenantID, auditID]);
 

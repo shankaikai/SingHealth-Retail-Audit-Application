@@ -103,12 +103,10 @@ const AddIssuePage = () => {
 
   // Submit handler
   const handleSubmit = () => {
-    Axios.post("http://localhost:3001/api/tenant/issue/reply", values).then(
-      (response) => {
-        console.log(response);
-        history.goBack();
-      }
-    );
+    Axios.post("/api/tenant/issue/reply", values).then((response) => {
+      console.log(response);
+      history.goBack();
+    });
     console.log(values);
   };
 

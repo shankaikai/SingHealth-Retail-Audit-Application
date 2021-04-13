@@ -99,20 +99,16 @@ const AuditChecklistPage = (props) => {
 
   // Grab tenant data from database to update UI
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/tenant/${tenantID}`).then(
-      (response) => {
-        setTenantData(response.data);
-        setLoaded(true);
-      }
-    );
+    Axios.get(`/api/tenant/${tenantID}`).then((response) => {
+      setTenantData(response.data);
+      setLoaded(true);
+    });
   }, [tenantID]);
 
   // Conditional grabbing of ongoing audit data if there is any
   useEffect(() => {
     if (onGoingAuditID) {
-      Axios.get(
-        `http://localhost:3001/api/audit/ongoing/${onGoingAuditID}`
-      ).then((response) => {
+      Axios.get(`/api/audit/ongoing/${onGoingAuditID}`).then((response) => {
         const res = response.data;
         setScores(JSON.parse(res.scores));
         setAuditCheckList(JSON.parse(res.data));
@@ -168,37 +164,28 @@ const AuditChecklistPage = (props) => {
     };
     // new to complete insert
     if (complete && !onGoingAuditID) {
-      Axios.post("http://localhost:3001/api/audit/newcomplete", toUpload).then(
-        (response) => {
-          console.log(response.data);
-          setSpinner(false);
-          history.push(`/auditend/${tenantID}/${response.data.auditID}`);
-        }
-      );
+      Axios.post("/api/audit/newcomplete", toUpload).then((response) => {
+        console.log(response.data);
+        setSpinner(false);
+        history.push(`/auditend/${tenantID}/${response.data.auditID}`);
+      });
       // new to partial insert
     } else if (!complete && !onGoingAuditID) {
-      Axios.post("http://localhost:3001/api/audit/newpartial", toUpload).then(
-        (response) => {
-          console.log(response.data);
-          setSpinner(false);
-          history.push(`/tenant/${tenantID}`);
-        }
-      );
+      Axios.post("/api/audit/newpartial", toUpload).then((response) => {
+        console.log(response.data);
+        setSpinner(false);
+        history.push(`/tenant/${tenantID}`);
+      });
       // partial to partial update
     } else if (!complete && onGoingAuditID) {
-      Axios.post("http://localhost:3001/api/audit/partial", toUpload).then(
-        (response) => {
-          console.log(response.data);
-          setSpinner(false);
-          history.push(`/tenant/${tenantID}`);
-        }
-      );
+      Axios.post("/api/audit/partial", toUpload).then((response) => {
+        console.log(response.data);
+        setSpinner(false);
+        history.push(`/tenant/${tenantID}`);
+      });
       // partial to complete update
     } else if (complete && onGoingAuditID) {
-      Axios.post(
-        "http://localhost:3001/api/audit/partialcomplete",
-        toUpload
-      ).then((response) => {
+      Axios.post("/api/audit/partialcomplete", toUpload).then((response) => {
         console.log(response.data);
         setSpinner(false);
         history.push(`/auditend/${tenantID}/${response.data.auditID}`);

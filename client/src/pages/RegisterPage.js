@@ -92,7 +92,7 @@ const RegisterPage = () => {
     }
 */
     if (password === repeatPassword) {
-      Axios.post("http://localhost:3000/auth/register", {
+      Axios.post("/auth/register", {
         email: email,
         password: password,
         name: name,

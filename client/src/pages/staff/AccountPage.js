@@ -32,7 +32,7 @@ const AccountPage = () => {
   const handleLogout = () => {
     setSpinner(true);
     // TODO: Release session from node
-    Axios.post("http://localhost:3001/api/auth/logout", {
+    Axios.post("/api/auth/logout", {
       withCredentials: true,
     }).then((response) => {
       if (!response.data.login_status) {

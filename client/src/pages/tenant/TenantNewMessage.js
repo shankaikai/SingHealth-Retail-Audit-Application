@@ -8,7 +8,7 @@ const useStyles = makeStyles({
   root: {
     position: "fixed",
     height: "100vh",
-    width: "100%"
+    width: "100%",
   },
   form: {
     width: "80%",
@@ -50,8 +50,6 @@ const useStyles = makeStyles({
   },
 });
 
-
-
 const TenantNewMessagePage = () => {
   const classes = useStyles();
 
@@ -63,9 +61,9 @@ const TenantNewMessagePage = () => {
   // State to store the current selected image
   const [imageSelected, setImageSelected] = useState(null);
 
-const handleTyping = (e) => {
-  setValues({...values, reply: e.target.value});
-}
+  const handleTyping = (e) => {
+    setValues({ ...values, reply: e.target.value });
+  };
 
   // Upload Photo Handler
   const handlePhoto = (e) => {
@@ -92,12 +90,10 @@ const handleTyping = (e) => {
   const handleSubmit = () => {
     //TODO: Axios post req
     // let toUpload = {
-      
+
     // }
     console.log(values);
   };
-
-
 
   return (
     <div className={classes.root}>
@@ -121,7 +117,7 @@ const handleTyping = (e) => {
           className={classes.submit}
         >
           Upload Photo
-        <input type="file" hidden onChange={handlePhoto} accept="image/*" />
+          <input type="file" hidden onChange={handlePhoto} accept="image/*" />
         </Button>
         <div className={classes.imageHolder}>
           {imageSelected ? (
@@ -143,7 +139,7 @@ const handleTyping = (e) => {
           onClick={handleSubmit}
         >
           Submit
-      </Button>
+        </Button>
       </div>
     </div>
   );

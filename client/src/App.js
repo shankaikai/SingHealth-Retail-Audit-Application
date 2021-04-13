@@ -36,7 +36,7 @@ const App = () => {
   );
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/api/auth/login", {
+    Axios.get("/api/auth/login", {
       withCredentials: true,
     }).then((response) => {
       if (response.data.login_status) {

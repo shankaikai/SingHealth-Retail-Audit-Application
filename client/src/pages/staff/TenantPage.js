@@ -48,18 +48,16 @@ const TenantPage = () => {
   const handleDelete = () => {
     setDeleteConfirm(false);
     setSpinner(true);
-    Axios.post(`http://localhost:3001/api/tenant/delete/${id}`).then(
-      (response) => {
-        if (response.data.message) {
-          setSpinner(false);
+    Axios.post(`/api/tenant/delete/${id}`).then((response) => {
+      if (response.data.message) {
+        setSpinner(false);
 
-          history.push("/");
-        } else {
-          setSpinner(false);
-          alert("Delete failed");
-        }
+        history.push("/");
+      } else {
+        setSpinner(false);
+        alert("Delete failed");
       }
-    );
+    });
   };
 
   let { id } = useParams();

@@ -74,7 +74,7 @@ const EditTenantPage = () => {
     //TODO: Axios post req
     console.log("Editing tenant");
 
-    Axios.post(`http://localhost:3001/api/tenant/edit/${id}`, values, {
+    Axios.post(`/api/tenant/edit/${id}`, values, {
       withCredentials: true,
     }).then((response) => {
       console.log(response.data);
@@ -109,7 +109,7 @@ const EditTenantPage = () => {
   };
 
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/tenant/edit/${id}`, {
+    Axios.get(`/api/tenant/edit/${id}`, {
       withCredentials: true,
     }).then((response) => {
       setValues({

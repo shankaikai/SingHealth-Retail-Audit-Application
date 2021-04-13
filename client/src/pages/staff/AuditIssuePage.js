@@ -90,32 +90,30 @@ const AddIssuePage = () => {
   let history = useHistory();
 
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/tenant/issue/${id}`).then(
-      (response) => {
-        setIssueData(response.data.issue);
-        setMessageData(response.data.messages.reverse());
-        console.log(response.data);
+    Axios.get(`/api/tenant/issue/${id}`).then((response) => {
+      setIssueData(response.data.issue);
+      setMessageData(response.data.messages.reverse());
+      console.log(response.data);
 
-        let closed;
-        if (response.data.issue[0].closed === 0) {
-          closed = false;
-        } else {
-          closed = true;
-        }
-
-        let issueMessageTranslate = {
-          staffName: response.data.issue[0].staffName,
-          dateSent: response.data.issue[0].date,
-          body: response.data.issue[0].description,
-          photoUrl: response.data.issue[0].imageUrl,
-          location: response.data.issue[0].location,
-          closed: closed,
-        };
-
-        // setUserNames(users);
-        setIssueDataTranslated(issueMessageTranslate);
+      let closed;
+      if (response.data.issue[0].closed === 0) {
+        closed = false;
+      } else {
+        closed = true;
       }
-    );
+
+      let issueMessageTranslate = {
+        staffName: response.data.issue[0].staffName,
+        dateSent: response.data.issue[0].date,
+        body: response.data.issue[0].description,
+        photoUrl: response.data.issue[0].imageUrl,
+        location: response.data.issue[0].location,
+        closed: closed,
+      };
+
+      // setUserNames(users);
+      setIssueDataTranslated(issueMessageTranslate);
+    });
   }, [id]);
 
   const handleReply = () => {
@@ -125,7 +123,7 @@ const AddIssuePage = () => {
   };
 
   const handleClose = () => {
-    Axios.post(`http://localhost:3001/api/tenant/issue/${id}`, {
+    Axios.post(`/api/tenant/issue/${id}`, {
       closed: "1",
     }).then((response) => {
       console.log(response.data);

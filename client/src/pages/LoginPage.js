@@ -59,7 +59,7 @@ const LoginPage = (props) => {
   const handleLogin = () => {
     setSpinner(true);
     Axios.post(
-      "http://localhost:3001/api/auth/login",
+      "/api/auth/login",
       {
         email,
         password,
@@ -76,12 +76,12 @@ const LoginPage = (props) => {
   };
 
   const handleForgetPassword = () => {
-    Axios.post("http://localhost:3001/api/auth/login", {
+    Axios.post("/api/auth/login", {
       email,
       password,
     }).then((res) => {
       if (res.data.reason !== "INVALID_EMAIL") {
-        Axios.post("http://localhost:3001/auth/resetpassword", { email })
+        Axios.post("/auth/resetpassword", { email })
           .then((res) => {
             alert("PLEASE_CHECK_YOUR_EMAIL");
           })

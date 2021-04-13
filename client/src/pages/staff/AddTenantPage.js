@@ -71,16 +71,14 @@ const AddTenantPage = () => {
   // Submit handler
   const handleSubmit = () => {
     setSpinner(true);
-    Axios.post("http://localhost:3001/api/tenant/create", values).then(
-      (response) => {
-        setSpinner(false);
-        if (response.data.message) {
-          history.push("/");
-        } else {
-          alert("Add tenant failed. Please try again.");
-        }
+    Axios.post("/api/tenant/create", values).then((response) => {
+      setSpinner(false);
+      if (response.data.message) {
+        history.push("/");
+      } else {
+        alert("Add tenant failed. Please try again.");
       }
-    );
+    });
   };
 
   const handleChange = (e) => {
