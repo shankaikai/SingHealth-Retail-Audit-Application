@@ -3,6 +3,7 @@ const router = express.Router();
 const db = require("../config/DatabaseConfig");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
+const sendMail = require("../helpers/emails/EmailerPrompt");
 
 router.get("/:tenantID", (req, res) => {
   let details;
@@ -215,4 +216,20 @@ router.post("/delete/:id", (req, res) => {
   });
 });
 
+router.post("/issue/prompt/:id", (req, res) => {
+  const id = req.params.id;
+  console.log("prompting issue id " + id + "...");
+  db.query(`SELECT * FROM escdb.scratch_tenants t JOIN escdb.scratch_issues i ON i.tenantID = t.id WHERE i.id = ${id}`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ message: "prompt success" });
+        // var email = result[0].email;
+        var email = "ongkahyuan@gmail.com";
+        sendMail("hotmail",email,result);
+        console.log(result);
+      }
+    })
+});
 module.exports = router;
