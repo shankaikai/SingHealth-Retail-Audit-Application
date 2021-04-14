@@ -16,7 +16,6 @@ app.use(express.json());
 const TWO_HOURS = 1000 * 60 * 60 * 2;
 
 const {
-  PORT = 5000,
   NODE_ENV = "development",
   SESS_NAME = "SID",
   SESS_SECRET = "sutdsux",
@@ -70,6 +69,6 @@ app.get("*", (req, res) => {
 //   res.send(` <h2> Oops! 404 Not Found </h2> `);
 // });
 
-app.listen(PORT, () => {
-  console.log(`Server starting on port ${PORT}`);
+app.listen(process.env.PORT || 5000, () => {
+  console.log(`Server starting...`);
 });
