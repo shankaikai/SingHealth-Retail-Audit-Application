@@ -60,12 +60,14 @@ const ViewTenant = (props) => {
     },
     {
       header: "Last Audit Date",
-      text: new Date(
-        props.data.audits[props.data.audits.length - 1].dateCompleted.slice(
-          0,
-          10
-        )
-      ).toDateString(),
+      text:
+        props.data.audits.length === 0
+          ? "No audits yet"
+          : new Date(
+              props.data.audits[
+                props.data.audits.length - 1
+              ].dateCompleted.slice(0, 10)
+            ).toDateString(),
     },
   ];
 
