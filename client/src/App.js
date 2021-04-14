@@ -48,7 +48,11 @@ const App = () => {
   }, []);
 
   return (
-    <LoadingOverlay active={spinner} spinner styles={{ zIndex: 100000 }}>
+    <LoadingOverlay
+      active={spinner}
+      spinner
+      styles={{ zIndex: 10000, position: "sticky", top: 0 }}
+    >
       <div className="App">
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

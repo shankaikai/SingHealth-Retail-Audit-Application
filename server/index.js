@@ -1,12 +1,24 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const session = require("cookie-session");
+const session = require("express-session");
 const cors = require("cors");
 const path = require("path");
+var MySQLStore = require("express-mysql-session")(session);
+
 require("dotenv/config");
 
 // Create express server
 const app = express();
+
+var options = {
+  host: process.env.DATABASE_HOST,
+  port: process.env.DATABASE_PORT,
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_NAME,
+};
+
+var sessionStore = new MySQLStore(options);
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -27,9 +39,11 @@ const IN_PROD = NODE_ENV === "production";
 // Enable session
 app.use(
   session({
+    key: "session_singhealth",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     secret: SESS_SECRET,
+    store: sessionStore,
     cookie: {
       maxAge: SESS_LIFETIME,
       secure: false,
