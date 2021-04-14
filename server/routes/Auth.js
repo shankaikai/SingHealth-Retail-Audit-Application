@@ -16,6 +16,42 @@ const redirectToLogin = (req, res, next) => {
   }
 };
 
+// GET for edit staff profile
+router.get("/edit/:id", (req, res) => {
+  const id = req.params.id;
+  db.query("SELECT * from staff WHERE id = ?", [id], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result[0]);
+    }
+  });
+});
+
+// POST for updating staff profile
+router.post("/edit", (req, res) => {
+  const id = req.body.id;
+  const email = req.body.email;
+  const password = req.body.password;
+  const name = req.body.name;
+  const cluster = req.body.cluster;
+  const imageUrl = req.body.imageUrl;
+
+  if (password !== "" || password !== null) {
+    db.query(
+      "UPDATE staff SET email = ?, name = ?, cluster = ?, imageUrl = ? WHERE id = ?",
+      [email, password, name, cluster, imageUrl, id],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send({ message: "Update success!" });
+        }
+      }
+    );
+  }
+});
+
 router.get("/login", (req, res) => {
   console.log(req.session);
   if (req.session.userID) {
@@ -211,7 +247,9 @@ router.post("/resetpassword", (req, res) => {
 
 router.post("/logout", (req, res) => {
   console.log("user attemping to log out");
+  // req.session.destroy();
   req.session = null;
+  // res.end();
   res.send({ login_status: false });
 });
 

@@ -11,6 +11,7 @@ import NewMessagePage from "./staff/NewMessagePage";
 import AuditIssuePage from "./staff/AuditIssuePage";
 import { LoginContext } from "../context/LoginContext";
 import EditTenantPage from "./staff/EditTenantPage";
+import EditProfilePage from "./staff/EditProfilePage";
 
 export default function StaffMain() {
   const { context } = useContext(LoginContext);
@@ -49,6 +50,9 @@ export default function StaffMain() {
           </Route>
           <Route exact path="/edittenant/:id">
             <EditTenantPage />
+          </Route>
+          <Route exact path="/editprofile">
+            <EditProfilePage />
           </Route>
         </Switch>
       )}
