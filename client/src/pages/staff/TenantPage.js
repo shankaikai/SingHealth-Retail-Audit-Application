@@ -64,7 +64,7 @@ const TenantPage = () => {
 
   // add axios function to get the tenant details using the id
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/tenant/${id}`).then((response) => {
+    Axios.get(`/api/tenant/${id}`).then((response) => {
       setData(response.data);
       setLoaded(true);
     });
