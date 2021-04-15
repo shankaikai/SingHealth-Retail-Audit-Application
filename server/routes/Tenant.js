@@ -70,17 +70,34 @@ router.post("/edit/:tenantID", (req, res) => {
   const location = req.body.location;
   const email = req.body.email;
   const imageUrl = req.body.imageUrl;
-  db.query(
-    "UPDATE scratch_tenants SET name = ?, cluster = ?, location = ?, imageUrl = ?, type = ?, email = ? WHERE id = ?",
-    [name, cluster, location, imageUrl, type, email, tenantID],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send({ message: "update success" });
+  const password = req.body.password;
+  if (password === "" || password === null || password === undefined) {
+    db.query(
+      "UPDATE scratch_tenants SET name = ?, cluster = ?, location = ?, imageUrl = ?, type = ?, email = ? WHERE id = ?",
+      [name, cluster, location, imageUrl, type, email, tenantID],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("update completed");
+          res.send({ message: "update success" });
+        }
       }
-    }
-  );
+    );
+  } else {
+    hashPassword(password).then((hash) => {
+      "UPDATE scratch_tenants SET name = ?, cluster = ?, location = ?, imageUrl = ?, type = ?, email = ?, password = ? WHERE id = ?",
+        [name, cluster, location, imageUrl, type, email, hash, tenantID],
+        (err, result) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log("update completed");
+            res.send({ message: "update success" });
+          }
+        };
+    });
+  }
 });
 
 router.get("/issue/:issueID", (req, res) => {
@@ -219,7 +236,8 @@ router.post("/delete/:id", (req, res) => {
 router.post("/issue/prompt/:id", (req, res) => {
   const id = req.params.id;
   console.log("prompting issue id " + id + "...");
-  db.query(`SELECT * FROM escdb.scratch_tenants t JOIN escdb.scratch_issues i ON i.tenantID = t.id WHERE i.id = ${id}`,
+  db.query(
+    `SELECT * FROM escdb.scratch_tenants t JOIN escdb.scratch_issues i ON i.tenantID = t.id WHERE i.id = ${id}`,
     (err, result) => {
       if (err) {
         console.log(err);
@@ -227,9 +245,10 @@ router.post("/issue/prompt/:id", (req, res) => {
         res.send({ message: "prompt success" });
         // var email = result[0].email;
         var email = "ongkahyuan@gmail.com";
-        sendMail("hotmail",email,result);
+        sendMail("hotmail", email, result);
         console.log(result);
       }
-    })
+    }
+  );
 });
 module.exports = router;
