@@ -187,11 +187,12 @@ const getStaff = (email) => {
   });
 };
 
-const insertStaff = (password, cluster, email, name, type) => {
+// Function to insert new staff into db
+const insertStaff = (password, cluster, email, name, imageUrl) => {
   return new Promise((resolve, reject) => {
     var query_string =
-      "INSERT INTO staff (password, cluster, email, name, type) VALUES (?,?,?,?,?)";
-    var query_var = [password, cluster, email, name, type];
+      "INSERT INTO staff (password, cluster, email, name, usertype, imageUrl) VALUES (?,?,?,?,?,?)";
+    var query_var = [password, cluster, email, name, "staff", imageUrl];
 
     db.query(query_string, query_var, (err) => {
       if (err) {
@@ -209,7 +210,7 @@ router.post("/register", (req, res) => {
   const password = req.body.password;
   const name = req.body.name;
   const cluster = req.body.cluster;
-  const type = req.body.type;
+  const imageUrl = req.body.imageUrl;
 
   getStaff(email)
     .then((result) => {
@@ -220,7 +221,7 @@ router.post("/register", (req, res) => {
         hashPassword(password)
           .then((hash) => {
             console.log(hash);
-            insertStaff(hash, cluster, email, name, type)
+            insertStaff(hash, cluster, email, name, imageUrl)
               .then((result) => {
                 res.send({ register_status: true });
                 console.log("Register Success");

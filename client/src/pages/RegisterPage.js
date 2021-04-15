@@ -8,13 +8,17 @@ import {
   InputLabel,
   OutlinedInput,
   TextField,
+  Select,
+  MenuItem,
+  Typography,
 } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Header from "../components/common/Header";
 import Axios from "axios";
-require("dotenv/config");
+import { LoginContext } from "../context/LoginContext";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 const useStyle = makeStyles({
   root: {
@@ -23,181 +27,239 @@ const useStyle = makeStyles({
     alignItems: "center",
     width: "100%",
     height: "100%",
-    marginTop: "100px",
   },
-  form: {
+  formContainer: {
+    overflowY: "auto",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
-    width: "70%",
+    width: "100%",
+    height: "calc(100vh - 83px)",
+    marginTop: "63px",
+    paddingBottom: "20px",
+  },
+  form: {
+    width: "80%",
+    paddingBottom: "20px",
   },
   marginMax: {
     width: "100%",
   },
+  imageHolder: {
+    width: "100%",
+    marginTop: "10px",
+  },
+  image: {
+    width: "100%",
+  },
+  submit: {
+    marginTop: "20px",
+    marginBottom: "20px",
+  },
 });
+
 const RegisterPage = () => {
   const classes = useStyle();
   let history = useHistory();
 
+  const { setSpinner } = useContext(LoginContext);
+
   // States to store username and password
-  const [password, setPassword] = useState("");
-  const [cluster, setCluster] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [values, setValues] = useState({
+    name: "",
+    cluster: "",
+    email: "",
+    password: "",
+  });
+
   const [repeatPassword, setRepeatPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
 
-  // Function to handle a register request
+  const [imageSelected, setImageSelected] = useState(false);
 
-  const REGISTER_SUCCESS = "REGISTER_SUCCESS";
-  const handleRegister = () => {
-    /*
-    // TODO: POST request to '/register'
-    if (password === repeatPassword) {
-      console.log("react: password: " + password);
-      const user = { username, password };
+  const handlePhoto = (e) => {
+    setValues({
+      ...values,
+      imageUrl: null,
+    });
+    setSpinner(true);
+    setImageSelected(true);
 
-      fetch("http://localhost:3000/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.register_status) {
-            alert("REGISTER_SUCCESS");
-            history.push("/");
-          } else {
-            if (data.reason === DUPLICATED_USERNAME) {
-              alert(DUPLICATED_USERNAME);
-            } else if (data.reason === DATABASE_ERROR) {
-              alert(DATABASE_ERROR);
-            }
-          }
-        }
-      })
-      .catch((err) => {
-        console.log(err)
+    const formData = new FormData();
+    formData.append("file", e.target.files[0]);
+    formData.append("upload_preset", "esc-image-bucket");
+
+    // Push image to cloud and grab the image url
+    Axios.post(
+      "https://api.cloudinary.com/v1_1/esc-singhealth/image/upload",
+      formData
+    ).then((res) => {
+      console.log(res.data.url);
+      setValues({
+        ...values,
+        imageUrl: res.data.url,
       });
+      setSpinner(false);
+    });
+  };
 
-    } 
-    
-    else {
-      alert("PASSWORD_NOT_MATCHING");
-    // TODO: Add proper authencation here
-    if (email === "" || password === "") {
-      alert("Email/Password cannot be blank!");
+  const handleChange = (e) => {
+    setValues({
+      ...values,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSelect = (e) => {
+    setValues({
+      ...values,
+      cluster: e.target.value,
+    });
+  };
+
+  const handleSubmit = () => {
+    setSpinner(true);
+    // Check if passwords match
+    if (repeatPassword !== values.password) {
+      setSpinner(false);
+      alert("Passwords do not match!");
+      return;
     }
-*/
-    if (password === repeatPassword) {
-      Axios.post("http://localhost:3000/auth/register", {
-        email: email,
-        password: password,
-        name: name,
-        cluster: "SGH",
-        type: "staff",
-      }).then((response) => {
-        console.log(response);
-        if (response.data.register_status === true) {
-          alert(REGISTER_SUCCESS);
+    // Axios post
+    Axios.post(`http://localhost:3001/api/auth/register/`, values).then(
+      (response) => {
+        setSpinner(false);
+        if (response.data.register_status) {
+          alert("Registration successful!");
           history.push("/login");
-        } else {
-          alert(response.data.reason);
-          console.log("register status: ", response.data.register_status);
         }
-      });
-    } else {
-      alert("PASSWORD_NOT_MATCHED");
-    }
+      }
+    );
   };
 
   return (
     <div className={classes.root}>
-      <Header back title="Register" />
-      <FormControl className={classes.form}>
-        <Box m={1} className={classes.marginMax}>
-          <TextField
-            id="name"
-            label="Name"
-            variant="outlined"
-            fullWidth="true"
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-          />
-        </Box>
-        <Box m={1} className={classes.marginMax}>
-          <TextField
-            id="email"
-            label="Email"
-            variant="outlined"
-            fullWidth="true"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-        </Box>
-        <Box m={1} className={classes.marginMax}>
-          <FormControl variant="outlined" fullWidth="true">
-            <InputLabel>Password</InputLabel>
-            <OutlinedInput
-              id="password"
-              type={showPassword ? "text" : "password"}
-              label="Password"
+      <Header title="Register" />
+      <div className={classes.formContainer}>
+        <form className={classes.form}>
+          <Box m={1}>
+            <TextField
+              id="name"
+              label="Name"
               variant="outlined"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => setShowPassword(!showPassword)}
-                    edge="end"
-                  >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            ></OutlinedInput>
-          </FormControl>
-        </Box>
-        <Box m={1} className={classes.marginMax}>
-          <FormControl variant="outlined" fullWidth="true">
-            <InputLabel> Repeat Password</InputLabel>
-            <OutlinedInput
-              id="repeatpassword"
-              type={showPassword2 ? "text" : "password"}
-              label="Repeat Password"
+              onChange={handleChange}
+              value={values.name}
+              fullWidth
+            />
+          </Box>
+          <Box m={1}>
+            <TextField
+              id="email"
+              label="Email"
               variant="outlined"
-              onChange={(e) => {
-                setRepeatPassword(e.target.value);
-              }}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => setShowPassword2(!showPassword2)}
-                    edge="end"
-                  >
-                    {showPassword2 ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            ></OutlinedInput>
-          </FormControl>
-        </Box>
-        <Box m={1} className={classes.marginMax}>
+              onChange={handleChange}
+              value={values.email}
+              fullWidth
+            />
+          </Box>
+          <Box m={1}>
+            <FormControl variant="outlined" fullWidth>
+              <InputLabel>Cluster</InputLabel>
+              <Select
+                onChange={handleSelect}
+                label="Cluster"
+                value={values.cluster}
+              >
+                <MenuItem value={"CGH"}>CGH</MenuItem>
+                <MenuItem value={"SGH"}>SGH</MenuItem>
+                <MenuItem value={"SKGH"}>SKGH</MenuItem>
+                <MenuItem value={"KKH"}>KKH</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+
+          <Box m={1}>
+            <FormControl variant="outlined" fullWidth>
+              <InputLabel>Password</InputLabel>
+              <OutlinedInput
+                id="password"
+                type={showPassword ? "text" : "password"}
+                label="Password"
+                variant="outlined"
+                onChange={handleChange}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              ></OutlinedInput>
+            </FormControl>
+          </Box>
+          <Box m={1}>
+            <FormControl variant="outlined" fullWidth>
+              <InputLabel>Repeat Password</InputLabel>
+              <OutlinedInput
+                type={showPassword2 ? "text" : "password"}
+                label="Password"
+                variant="outlined"
+                onChange={(e) => {
+                  setRepeatPassword(e.target.value);
+                }}
+                value={repeatPassword}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword2(!showPassword2)}
+                      edge="end"
+                    >
+                      {showPassword2 ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              ></OutlinedInput>
+            </FormControl>
+          </Box>
+          <Button
+            variant="outlined"
+            color="primary"
+            component="label"
+            fullWidth
+            className={classes.submit}
+          >
+            Upload Photo
+            <input type="file" hidden onChange={handlePhoto} accept="image/*" />
+          </Button>
+
+          <div className={classes.imageHolder}>
+            {imageSelected ? (
+              values.imageUrl ? (
+                <img
+                  alt="issue"
+                  className={classes.image}
+                  src={values.imageUrl}
+                ></img>
+              ) : (
+                <Skeleton height={80} />
+              )
+            ) : null}
+          </div>
           <Button
             variant="contained"
             color="primary"
-            fullWidth="true"
-            onClick={handleRegister}
+            fullWidth
+            onClick={handleSubmit}
+            className={classes.submit}
           >
-            Register
+            Submit
           </Button>
-        </Box>
-      </FormControl>
+        </form>
+      </div>
     </div>
   );
 };

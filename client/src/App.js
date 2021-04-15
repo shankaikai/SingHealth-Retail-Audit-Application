@@ -2,7 +2,12 @@ import "./App.css";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-import { Route, BrowserRouter as Router, Redirect } from "react-router-dom";
+import {
+  Route,
+  BrowserRouter as Router,
+  Redirect,
+  Switch,
+} from "react-router-dom";
 import TenantMain from "./pages/TenantMain";
 import StaffMain from "./pages/StaffMain";
 import { LoginContext } from "./context/LoginContext";
@@ -28,7 +33,7 @@ const theme = createMuiTheme({
 const App = () => {
   // Create states to store context variables
   const [context, setContext] = useState({});
-  const [spinner, setSpinner] = useState(true);
+  const [spinner, setSpinner] = useState(false);
 
   const providerValue = useMemo(
     () => ({ context, setContext, spinner, setSpinner }),
@@ -43,7 +48,6 @@ const App = () => {
         setContext(response.data.user);
       }
       console.log(response.data);
-      setSpinner(false);
     });
   }, []);
 
@@ -59,27 +63,29 @@ const App = () => {
         <LoginContext.Provider value={providerValue}>
           <ThemeProvider theme={theme}>
             <Router>
-              <Route exact path="/login">
-                {context.id ? <Redirect to="/" /> : <LoginPage />}
-              </Route>
-              <Route exact path="/register">
-                <RegisterPage />
-              </Route>
-              <Route exact path="/resetenterusername">
-                <ResetEnterUsernamePage />
-              </Route>
-              <Route exact path="/resetenternewpassword">
-                <ResetEnterNewPasswordPage />
-              </Route>
-              <Route path="/">
-                {!context.id ? (
-                  <Redirect to="/login" />
-                ) : context.type === "staff" ? (
-                  <StaffMain />
-                ) : (
-                  <TenantMain />
-                )}
-              </Route>
+              <Switch>
+                <Route exact path="/login">
+                  {context.id ? <Redirect to="/" /> : <LoginPage />}
+                </Route>
+                <Route exact path="/register">
+                  <RegisterPage />
+                </Route>
+                <Route exact path="/resetenterusername">
+                  <ResetEnterUsernamePage />
+                </Route>
+                <Route exact path="/resetenternewpassword">
+                  <ResetEnterNewPasswordPage />
+                </Route>
+                <Route path="/">
+                  {!context.id ? (
+                    <Redirect to="/login" />
+                  ) : context.type === "staff" ? (
+                    <StaffMain />
+                  ) : (
+                    <TenantMain />
+                  )}
+                </Route>
+              </Switch>
             </Router>
           </ThemeProvider>
         </LoginContext.Provider>
