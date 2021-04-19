@@ -5,10 +5,18 @@ const session = require("express-session");
 const path = require("path");
 require("dotenv/config");
 var redis = require("redis");
-var client  = redis.createClient();
+// var client  = redis.createClient();
 var RedisStore = require('connect-redis')(session);
 const bcrypt = require('bcrypt');
 module.exports.bcrypt = bcrypt;
+
+let client;
+if(process.env.REDIS_URL){
+    let redisURL = url.parse(process.env.REDIS_URL);
+    client = redis.createClient(redisURL)
+} else {
+    client = redis.createClient()
+}
 
 // Create express server
 const app = express();
