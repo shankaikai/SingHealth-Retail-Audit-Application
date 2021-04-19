@@ -11,7 +11,7 @@ import {
   } from "@material-ui/core";
   import { Visibility, VisibilityOff } from "@material-ui/icons";
   import React, { useState } from "react";
-  import { useHistory } from "react-router-dom";
+  import {  useParams, useHistory } from "react-router-dom";
   import Header from "../components/common/Header";
   import Axios from "axios";
 import LoginPage from "./LoginPage";
@@ -40,6 +40,7 @@ import LoginPage from "./LoginPage";
   const RegisterPage = () => {
     const classes = useStyle();
     let history = useHistory();
+    let { email } = useParams();
   
     // States to store username and password
     const [password, setPassword] = useState("");
@@ -47,11 +48,23 @@ import LoginPage from "./LoginPage";
     const [showPassword, setShowPassword] = useState(false);
     const [showPassword2, setShowPassword2] = useState(false);
   
-    // Function to handle a register request
+    // Function to handle update password
   
     const REGISTER_SUCCESS = "REGISTER_SUCCESS";
-    const handleLogin = () => {
-        history.push("login")}
+    const handleResetPassword = () => {
+        //history.push("login")
+        if(password === repeatPassword) {
+          Axios.post("http://localhost:3001/api/auth/resetpassword", { email, password })
+          .then((res) => {
+            alert("Password reset");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        } else {
+          alert("Password not matched")
+        }
+      }
   
     return (
       <div className={classes.root}>
@@ -110,7 +123,7 @@ import LoginPage from "./LoginPage";
               variant="contained"
               color="primary"
               fullWidth="true"
-              onClick={handleLogin}
+              onClick={handleResetPassword}
             >
               Reset password
             </Button>

@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import logo from "../assets/Singhealth-logo.png";
+import { useHistory } from "react-router-dom";
 import {
   Button,
   TextField,
@@ -46,6 +47,7 @@ const useStyles = makeStyles({
 const LoginPage = (props) => {
   // Create a style object
   const classes = useStyles();
+  let history = useHistory();
 
   // States to store username and password
   const [email, setEmail] = useState("");
@@ -76,6 +78,8 @@ const LoginPage = (props) => {
   };
 
   const handleForgetPassword = () => {
+    history.push("/resetenterusername");
+    /*
     Axios.post("http://localhost:3001/api/auth/login", {
       email,
       password,
@@ -94,6 +98,7 @@ const LoginPage = (props) => {
     });
 
     console.log("Handle forget");
+    */
   };
 
   return (

@@ -10,7 +10,7 @@ const sendMailResetPassword = (service, email, name) => {
   });
 
 
-  ejs.renderFile(__dirname + "/templates/test.ejs", { name: 'Stranger' }, function (err, data) {
+  ejs.renderFile(__dirname + "/templates/resetpassword.ejs", { name: name, email:email }, function (err, data) {
     if (err) {
         console.log(err);
     } else {
@@ -34,4 +34,4 @@ const sendMailResetPassword = (service, email, name) => {
 
   
 };
-module.exports = sendMailResetPassword
+module.exports.sendMailResetPassword = sendMailResetPassword

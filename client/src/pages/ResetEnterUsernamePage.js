@@ -61,45 +61,16 @@ const ResetEnterUsernamePage = (props) => {
   const INVALID_USERNAME = "Username does not exist!"; // check on login && register
   const INVALID_PASSWORD = "Incorrect password!"; // check on valid username
 
+  // Send email that contains link that redirect to * a new tab * that shows the enterpassword component
   const handleSendResetLink = (e) => {
-    history.push("resetenternewpassword")
-    // Axios.post("http://localhost:3001/api/auth/login", {
-    //   email,
-    //   password,
-    // }).then((res) => {
-    //   if (res.data.login_status) {
-    //     // alert("LOGIN_SUCCESS");
-    //     setContext({
-    //       id: res.data.result,
-    //       type: "tenant",
-    //       name: "name",
-    //     });
-    //   } else {
-    //     alert(res.data.reason);
-    //   }
-    // });
-
-
-  // const handleForgetPassword = () => {
-  //   Axios.post("http://localhost:3000/auth/login", {
-  //     email,
-  //     password,
-  //   }).then((res) => {
-  //     if (res.data.reason !== "INVALID_EMAIL") {
-  //       Axios.post("http://localhost:3000/auth/resetpassword", { email })
-  //         .then((res) => {
-  //           alert("PLEASE_CHECK_YOUR_EMAIL");
-  //         })
-  //         .catch((err) => {
-  //           console.log(err);
-  //         });
-  //     } else {
-  //       alert(res.data.reason);
-  //     }
-  //   });
-
-  //   console.log("Handle forget");
-};
+    Axios.post("http://localhost:3001/api/auth/sendemailresetpassword", { email })
+      .then((res) => {
+        alert("PLEASE_CHECK_YOUR_EMAIL");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className={classes.login}>
@@ -133,4 +104,3 @@ const ResetEnterUsernamePage = (props) => {
 };
 
 export default ResetEnterUsernamePage;
-  

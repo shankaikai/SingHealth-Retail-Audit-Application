@@ -5,7 +5,7 @@ const db = require("../config/DatabaseConfig");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-const sendMail = require("../helpers/emails/Emailer");
+const sendMail = require("../helpers/emails/Emailer").sendMailResetPassword;
 
 // Route protector
 const redirectToLogin = (req, res, next) => {
@@ -248,7 +248,7 @@ router.post("/register", (req, res) => {
     });
 });
 
-router.post("/resetpassword", (req, res) => {
+router.post("/sendemailresetpassword", (req, res) => {
   const email = req.body.email;
   // TODO: Extract service from email
   const service = "hotmail";
@@ -261,6 +261,12 @@ router.post("/resetpassword", (req, res) => {
       console.log(err);
     });
 });
+
+router.post("/resetpassword", (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  console.log(`Request to reset password for email ${email}, password ${password}`)
+})
 
 router.post("/logout", (req, res) => {
   console.log("user attemping to log out");

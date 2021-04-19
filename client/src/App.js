@@ -72,7 +72,7 @@ const App = () => {
                 <Route exact path="/resetenterusername">
                   <ResetEnterUsernamePage />
                 </Route>
-                <Route exact path="/resetenternewpassword">
+                <Route exact path="/resetenternewpassword/:email">
                   <ResetEnterNewPasswordPage />
                 </Route>
                 <Route path="/">
