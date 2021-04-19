@@ -390,7 +390,7 @@ router.get("/export/:auditID/:email", (req, res) => {
               issues = result;
               // Generate pdf from the data
               const scores = JSON.parse(audits.scores);
-              await sendMail(
+              sendMail(
                 "hotmail",
                 toSend,
                 {
