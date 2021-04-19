@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../config/DatabaseConfig");
 //const db = require("../config/SQLiteConfig");
-const bcrypt = require("bcrypt");
+const bcrypt = require("../index").bcrypt;
 const saltRounds = 10;
 
 const sendMail = require("../helpers/emails/Emailer");

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../config/DatabaseConfig");
-const bcrypt = require("bcrypt");
+const bcrypt = require("../index").bcrypt;
 const saltRounds = 10;
 
 router.get("/:tenantID", (req, res) => {
