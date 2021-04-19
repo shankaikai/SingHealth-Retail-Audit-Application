@@ -9,6 +9,7 @@ var redis = require("redis");
 var RedisStore = require('connect-redis')(session);
 const bcrypt = require('bcrypt');
 module.exports.bcrypt = bcrypt;
+var url = require('url');
 
 let client;
 if(process.env.REDIS_URL){
