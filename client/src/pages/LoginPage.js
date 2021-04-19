@@ -23,8 +23,8 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    width: "100%",
-    height: "100%",
+    width: "100vw",
+    height: "100vh",
     paddingTop: "90px",
   },
   logo: {
@@ -53,10 +53,11 @@ const LoginPage = (props) => {
   const [showPassword, setShowPassword] = useState(false);
 
   // Grab setContext and setSpinner from LoginContext
-  const { spinner, setContext, setSpinner } = useContext(LoginContext);
+  const { setContext, setSpinner } = useContext(LoginContext);
 
   // Function to handle a login request
   const handleLogin = () => {
+    setSpinner(true);
     Axios.post(
       "http://localhost:3001/api/auth/login",
       {
@@ -66,11 +67,11 @@ const LoginPage = (props) => {
       { withCredentials: true }
     ).then((res) => {
       if (res.data.login_status) {
-        console.log(spinner);
         setContext(res.data);
       } else {
         alert(res.data.reason);
       }
+      setSpinner(false);
     });
   };
 

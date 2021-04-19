@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
 import Navbar from "../../components/common/Navbar";
 import { LoginContext } from "../../context/LoginContext";
-import { useContext } from "react";
 import Axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -23,11 +23,13 @@ const useStyles = makeStyles({
   },
   logout: {
     width: "70%",
+    marginBottom: "20px",
   },
 });
 
 const AccountPage = () => {
   const { context, setContext, setSpinner } = useContext(LoginContext);
+  let history = useHistory();
 
   const handleLogout = () => {
     setSpinner(true);
@@ -42,14 +44,27 @@ const AccountPage = () => {
     });
   };
 
+  const handleEdit = () => {
+    history.push(`/editprofile`);
+  };
+
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <Avatar src={context.imageUrl} className={classes.avatar} />
+
       <Typography variant="h5" className={classes.name}>
         {context.name}
       </Typography>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleEdit}
+        className={classes.logout}
+      >
+        Edit Profile
+      </Button>
       <Button
         variant="contained"
         color="primary"

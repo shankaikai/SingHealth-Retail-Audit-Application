@@ -12,6 +12,7 @@ import TenantOutstandingPage from "./tenant/TenantOutstandingPage";
 import TenantProfilePage from "./tenant/TenantProfilePage";
 import AuditIssuePage from "./staff/AuditIssuePage";
 import NewMessagePage from "./staff/NewMessagePage";
+import EditTenantProfilePage from "./tenant/EditTenantProfilePage";
 
 export default function TenantMain(props) {
   const { context } = useContext(LoginContext);
@@ -33,6 +34,9 @@ export default function TenantMain(props) {
           </Route>
           <Route exact path="/newmessage/:issueid">
             <NewMessagePage />
+          </Route>
+          <Route exact path="/editprofile">
+            <EditTenantProfilePage />
           </Route>
         </Switch>
       )}

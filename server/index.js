@@ -3,24 +3,27 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const cors = require("cors");
 const path = require("path");
+var MySQLStore = require("express-mysql-session")(session);
+
 require("dotenv/config");
 
 // Create express server
 const app = express();
 
+var options = {
+  host: process.env.DATABASE_HOST,
+  port: process.env.DATABASE_PORT,
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_NAME,
+};
+
+var sessionStore = new MySQLStore(options);
+
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 // IMPORTANT!! parse application/json
 app.use(express.json());
-
-// Enable cross platform information transfer
-// app.use(
-//   cors({
-//     origin: [process.env.HOST_ORIGIN],
-//     methods: ["GET", "POST"],
-//     credentials: true,
-//   })
-// );
 
 const TWO_HOURS = 1000 * 60 * 60 * 2;
 
@@ -36,9 +39,11 @@ const IN_PROD = NODE_ENV === "production";
 // Enable session
 app.use(
   session({
+    key: "session_singhealth",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     secret: SESS_SECRET,
+    store: sessionStore,
     cookie: {
       maxAge: SESS_LIFETIME,
       secure: false,
@@ -67,8 +72,7 @@ app.use("/api/tenants", tenants);
 app.use("/api/tenant", tenant);
 app.use("/api/audit", audit);
 
-var rootDir = path.dirname(__dirname);
-console.log("Root Directory: " + rootDir);
+// console.log("Root Directory: " + rootDir);
 
 // app.use(express.static(path.join(rootDir, "/client/build")));
 // app.use(express.static(path.join(rootDir, "/client/build/static/media")));
@@ -85,15 +89,3 @@ console.log("Root Directory: " + rootDir);
 app.listen(PORT, () => {
   console.log(`Server starting on port ${PORT}`);
 });
-
-const db = require("./config/DatabaseConfig");
-/*
-db.connect((err) => {
-  if (err) {
-    console.log(err);
-    return;
-  }
-  console.log("Connecting to MySQL Database ..");
-});
-*/
-//const db = require("./config/SQLiteConfig");

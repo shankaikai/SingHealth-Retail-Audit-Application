@@ -5,6 +5,12 @@ import {
   Box,
   Button,
   Divider,
+  IconButton,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogContentText,
+  DialogActions,
 } from "@material-ui/core";
 import Header from "../../components/common/Header";
 import { useParams, useHistory } from "react-router-dom";
@@ -14,6 +20,7 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import MessageItem from "../../components/issueHandling/MessageItem";
 import Skeleton from "@material-ui/lab/Skeleton";
+import NotificationImportantIcon from '@material-ui/icons/NotificationImportant';
 
 const useStyles = makeStyles({
   root: {
@@ -64,12 +71,19 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
   },
+  buttonGroup: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   subheaderButtons: {
     display: "flex",
     flexDirection: "column",
   },
   buttons: {
     marginBottom: "10px",
+    padding: "6px",
   },
   skeletons: {
     padding: "10px",
@@ -81,12 +95,12 @@ const useStyles = makeStyles({
 
 const AddIssuePage = () => {
   const classes = useStyles();
-  const { context } = useContext(LoginContext);
+  const { context, setSpinner } = useContext(LoginContext);
   const { id } = useParams();
   const [issueData, setIssueData] = useState(0);
   const [messageData, setMessageData] = useState(0);
-  const [userNames, setUserNames] = useState(0);
   const [issueDataTranslated, setIssueDataTranslated] = useState(0);
+  const [promptConfirm, setPromptConfirm] = useState(false);
 
   let history = useHistory();
 
@@ -125,6 +139,25 @@ const AddIssuePage = () => {
     });
   };
 
+const initPrompt = () => {
+  setPromptConfirm(true);
+}
+
+  const handlePrompt = () => {
+    setPromptConfirm(false);
+    setSpinner(true);
+    Axios.post(`http://localhost:3001/api/tenant/issue/prompt/${id}`).then(
+      (response) => {
+        if (response.data.message) {
+          setSpinner(false);
+        } else {
+          setSpinner(false);
+          alert("prompt failed");
+        }
+      }
+    );
+  };
+
   const handleClose = () => {
     Axios.post(`http://localhost:3001/api/tenant/issue/${id}`, {
       closed: "1",
@@ -147,6 +180,23 @@ const AddIssuePage = () => {
         </div>
       ) : (
         <div className={classes.root}>
+          <Dialog open={promptConfirm} onClose={() => setPromptConfirm(false)}>
+            <DialogTitle>{`Prompt ${issueData[0].title}?`}</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Prompting a tenant sends an email to remind them to rectify this issue. 
+                Would you like to prompt this tennant?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => setPromptConfirm(false)} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={handlePrompt} color="primary" autoFocus>
+                Confirm
+              </Button>
+            </DialogActions>
+          </Dialog>
           <Header back title={issueData[0].title} noDivider />
           {issueDataTranslated ? (
             <div className={classes.subheaderContainer}>
@@ -167,15 +217,24 @@ const AddIssuePage = () => {
                   </Typography>
                 </div>
                 <div className={classes.subheaderButtons}>
-                  <Button
-                    color="primary"
-                    className={classes.buttons}
-                    variant="outlined"
-                    onClick={() => handleReply()}
-                    disabled={issueDataTranslated.closed}
-                  >
-                    NEW REPLY
-                  </Button>
+                  <div className={classes.buttonGroup}>
+                    <IconButton
+                      color="primary"
+                      className={classes.buttons}
+                      variant="outlined"
+                      onClick={() => initPrompt()}
+                      disabled={issueDataTranslated.closed}>
+                      <NotificationImportantIcon />
+                    </IconButton>
+                    <Button
+                      color="primary"
+                      className={classes.buttons}
+                      variant="outlined"
+                      onClick={() => handleReply()}
+                      disabled={issueDataTranslated.closed}>
+                      REPLY
+                    </Button>
+                  </div>
                   {context.type === "staff" ? (
                     <Button
                       color="primary"
@@ -196,12 +255,12 @@ const AddIssuePage = () => {
             <List>
               {messageData
                 ? messageData.map((data) => (
-                    <MessageItem key={data.id} data={data} />
-                  ))
+                  <MessageItem key={data.id} data={data} />
+                ))
                 : null}
-              {/* {issueDataTranslated ? (
-                <MessageItem data={issueDataTranslated}/>
-              ) : null} */}
+              {issueDataTranslated ? (
+                <MessageItem data={issueDataTranslated} />
+              ) : null}
             </List>
           </div>
         </div>

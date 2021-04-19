@@ -81,7 +81,11 @@ export default function SimpleTabs(props) {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0} className={classes.list}>
-        <AuditList audits={props.audits} />
+        <AuditList
+          audits={props.audits}
+          setToExport={props.setToExport}
+          setExportData={props.setExportData}
+        />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <OutstandingList outstanding={props.outstanding} />

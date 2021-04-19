@@ -37,7 +37,6 @@ const OutstandingPage = () => {
     Axios.get("http://localhost:3001/api/tenants/outstanding").then(
       (response) => {
         setData(response.data);
-        console.log(response.data);
         setLoaded(true);
       }
     );

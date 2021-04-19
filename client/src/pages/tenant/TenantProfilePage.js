@@ -3,6 +3,7 @@ import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
 import Navbar from "../../components/common/NavbarTenant";
 import { LoginContext } from "../../context/LoginContext";
 import Axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -22,11 +23,17 @@ const useStyles = makeStyles({
   },
   logout: {
     width: "70%",
+    marginBottom: "20px",
   },
 });
 
 const TenantProfilePage = () => {
   const { context, setContext } = useContext(LoginContext);
+  let history = useHistory();
+
+  const handleEdit = () => {
+    history.push(`/editprofile`);
+  };
 
   // Function to handle logouts
   const handleLogout = () => {
@@ -46,6 +53,14 @@ const TenantProfilePage = () => {
       <Typography variant="h5" className={classes.name}>
         {context.name}{" "}
       </Typography>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleEdit}
+        className={classes.logout}
+      >
+        Edit Profile
+      </Button>
       <Button
         variant="contained"
         color="primary"

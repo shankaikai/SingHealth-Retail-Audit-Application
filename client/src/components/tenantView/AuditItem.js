@@ -52,6 +52,17 @@ const TenantItem = (props) => {
       pathname: `/auditend/${tenantID}/${auditID}`,
     });
   };
+
+  // Calling the export function GET call to the backend
+  const handleExport = () => {
+    props.setExportData({
+      dateStarted: new Date(data.dateStarted.slice(0, 10))
+        .toDateString()
+        .slice(4),
+      id: auditID,
+    });
+    props.setToExport(true);
+  };
   return (
     <div className={classes.root}>
       <div className={classes.text} onClick={() => handleOnClick(auditID)}>
@@ -84,7 +95,7 @@ const TenantItem = (props) => {
             </Box>
           </Typography>
         )}
-        <IconButton className={classes.icon}>
+        <IconButton className={classes.icon} onClick={handleExport}>
           <ExportIcon />
         </IconButton>
       </div>

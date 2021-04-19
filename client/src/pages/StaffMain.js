@@ -11,10 +11,10 @@ import NewMessagePage from "./staff/NewMessagePage";
 import AuditIssuePage from "./staff/AuditIssuePage";
 import { LoginContext } from "../context/LoginContext";
 import EditTenantPage from "./staff/EditTenantPage";
+import EditProfilePage from "./staff/EditProfilePage";
 
-export default function StaffMain(props) {
+export default function StaffMain() {
   const { context } = useContext(LoginContext);
-  console.log(context);
   return (
     <div>
       {!context.id ? (
@@ -50,6 +50,9 @@ export default function StaffMain(props) {
           </Route>
           <Route exact path="/edittenant/:id">
             <EditTenantPage />
+          </Route>
+          <Route exact path="/editprofile">
+            <EditProfilePage />
           </Route>
         </Switch>
       )}

@@ -6,13 +6,14 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Typography,
 } from "@material-ui/core";
 import Header from "../../components/common/Header";
-import { useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { LoginContext } from "../../context/LoginContext";
+import { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { LoginContext } from "../../context/LoginContext";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -33,7 +34,7 @@ const useStyles = makeStyles({
   },
   form: {
     width: "80%",
-    paddingTop: "20px",
+    paddingBottom: "20px",
   },
   submit: {
     marginTop: "20px",
@@ -51,36 +52,41 @@ const useStyles = makeStyles({
   },
 });
 
-const AddTenantPage = () => {
+const EditTenantProfilePage = () => {
   const classes = useStyles();
   let history = useHistory();
-
   const [values, setValues] = useState({
     name: "",
     location: "",
     email: "",
+    type: "F&B",
+    cluster: "SGH",
     password: "",
-    type: "",
-    cluster: "",
   });
 
-  const { setSpinner } = useContext(LoginContext);
+  const [imageSelected, setImageSelected] = useState(true);
 
-  const [imageSelected, setImageSelected] = useState(null);
+  const { setSpinner, context, setContext } = useContext(LoginContext);
 
   // Submit handler
   const handleSubmit = () => {
     setSpinner(true);
-    Axios.post("http://localhost:3001/api/tenant/create", values).then(
-      (response) => {
+    //TODO: Axios post req
+    console.log("Editing tenant");
+
+    Axios.post(`http://localhost:3001/api/tenant/edit/${context.id}`, values, {
+      withCredentials: true,
+    }).then((response) => {
+      console.log(response.data);
+      if (response.data.message) {
         setSpinner(false);
-        if (response.data.message) {
-          history.push("/");
-        } else {
-          alert("Add tenant failed. Please try again.");
-        }
+        setContext({
+          ...context,
+          name: values.name,
+          imageUrl: values.imageUrl,
+        });
       }
-    );
+    });
   };
 
   const handleChange = (e) => {
@@ -88,6 +94,7 @@ const AddTenantPage = () => {
       ...values,
       [e.target.id]: e.target.value,
     });
+    console.log(values);
   };
 
   const handleSelect = (e) => {
@@ -95,6 +102,7 @@ const AddTenantPage = () => {
       ...values,
       cluster: e.target.value,
     });
+    console.log(values);
   };
 
   const handleType = (e) => {
@@ -104,13 +112,31 @@ const AddTenantPage = () => {
     });
   };
 
+  useEffect(() => {
+    setSpinner(true);
+    Axios.get(`http://localhost:3001/api/tenant/edit/${context.id}`, {
+      withCredentials: true,
+    }).then((response) => {
+      setValues({
+        ...values,
+        name: response.data.name,
+        location: response.data.location,
+        type: response.data.type,
+        cluster: response.data.cluster,
+        email: response.data.email ? response.data.email : null,
+        imageUrl: response.data.imageUrl,
+      });
+      setSpinner(false);
+    });
+  }, []);
+
   const handlePhoto = (e) => {
     setValues({
       ...values,
       imageUrl: null,
     });
     setSpinner(true);
-    setImageSelected(e.target.files[0]);
+    setImageSelected(true);
 
     const formData = new FormData();
     formData.append("file", e.target.files[0]);
@@ -121,6 +147,7 @@ const AddTenantPage = () => {
       "https://api.cloudinary.com/v1_1/esc-singhealth/image/upload",
       formData
     ).then((res) => {
+      console.log(res.data.url);
       setValues({
         ...values,
         imageUrl: res.data.url,
@@ -131,8 +158,7 @@ const AddTenantPage = () => {
 
   return (
     <div className={classes.root}>
-      <Header back title="Add New Tenant" />
-
+      <Header back title="Edit Tenant" />
       <div className={classes.formContainer}>
         <form className={classes.form}>
           <TextField
@@ -140,7 +166,7 @@ const AddTenantPage = () => {
             value={values.name}
             className={classes.field}
             fullWidth
-            variant="filled"
+            variant="outlined"
             label="Tenant Name"
             onChange={handleChange}
           />
@@ -149,18 +175,18 @@ const AddTenantPage = () => {
             value={values.location}
             className={classes.field}
             fullWidth
-            variant="filled"
+            variant="outlined"
             label="Location"
             onChange={handleChange}
           />
-          <FormControl variant="filled" className={classes.field} fullWidth>
+          <FormControl variant="outlined" className={classes.field} fullWidth>
             <InputLabel>Type</InputLabel>
             <Select onChange={handleType} label="Type" value={values.type}>
               <MenuItem value={"F&B"}>{"F&B"}</MenuItem>
               <MenuItem value={"Non-F&B"}>{"Non-F&B"}</MenuItem>
             </Select>
           </FormControl>
-          <FormControl variant="filled" className={classes.field} fullWidth>
+          <FormControl variant="outlined" className={classes.field} fullWidth>
             <InputLabel>Cluster</InputLabel>
             <Select
               onChange={handleSelect}
@@ -178,7 +204,7 @@ const AddTenantPage = () => {
             value={values.email}
             className={classes.field}
             fullWidth
-            variant="filled"
+            variant="outlined"
             label="Email Address"
             onChange={handleChange}
           />
@@ -187,10 +213,13 @@ const AddTenantPage = () => {
             value={values.password}
             className={classes.field}
             fullWidth
-            variant="filled"
+            variant="outlined"
             label="Password"
             onChange={handleChange}
           />
+          <Typography variant="caption">
+            Please leave password blank if you do not want to change it.
+          </Typography>
           <Button
             variant="outlined"
             color="primary"
@@ -229,4 +258,4 @@ const AddTenantPage = () => {
   );
 };
 
-export default AddTenantPage;
+export default EditTenantProfilePage;

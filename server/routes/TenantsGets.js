@@ -6,7 +6,12 @@ const db = require("../config/DatabaseConfig");
 router.get("/all", (req, res) => {
   //send all the tenant details + the most recent audit, along with when it was
   db.query(
-    "select * from escdb.scratch_tenants LEFT JOIN (SELECT MAX(dateCompleted) AS lastAudit, tenantID, score FROM escdb.scratch_audits GROUP BY tenantID) AS audits ON escdb.scratch_tenants.id = audits.tenantID;",
+    `SELECT * from escdb.scratch_tenants a
+    LEFT OUTER JOIN (SELECT dateCompleted, tenantID, score
+    FROM escdb.scratch_audits) b 
+    ON a.id = b.tenantID
+    AND b.dateCompleted = (SELECT MAX(dateCompleted) from scratch_audits WHERE tenantID = b.tenantID)
+    GROUP BY a.id ASC`,
     (err, result) => {
       if (err) {
         console.log(err);

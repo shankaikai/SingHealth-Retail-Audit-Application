@@ -34,6 +34,7 @@ const TenantsPage = () => {
   const [data, setData] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [search, setSearch] = useState("");
+  const [cluster, setCluster] = useState("");
 
   useEffect(() => {
     Axios.get("http://localhost:3001/api/tenants/all").then((response) => {
@@ -50,10 +51,12 @@ const TenantsPage = () => {
         searchbar
         searchValue={search}
         setSearch={setSearch}
+        clusterValue={cluster}
+        setCluster={setCluster}
         title="Tenants"
       />
       {loaded ? (
-        <TenantList data={data} searchValue={search} />
+        <TenantList data={data} searchValue={search} clusterValue={cluster} />
       ) : (
         <div className={classes.skeletons}>
           <Skeleton height={90} />

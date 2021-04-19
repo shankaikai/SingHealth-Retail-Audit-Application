@@ -13,11 +13,11 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import Header from "../components/common/Header";
+import Header from "../../components/common/Header";
 import Axios from "axios";
-import { LoginContext } from "../context/LoginContext";
+import { LoginContext } from "../../context/LoginContext";
 import Skeleton from "@material-ui/lab/Skeleton";
 
 const useStyle = makeStyles({
@@ -58,11 +58,11 @@ const useStyle = makeStyles({
   },
 });
 
-const RegisterPage = () => {
+const EditProfilePage = () => {
   const classes = useStyle();
   let history = useHistory();
 
-  const { setSpinner } = useContext(LoginContext);
+  const { context, setSpinner, setContext } = useContext(LoginContext);
 
   // States to store username and password
   const [values, setValues] = useState({
@@ -72,11 +72,9 @@ const RegisterPage = () => {
     password: "",
   });
 
-  const [repeatPassword, setRepeatPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [showPassword2, setShowPassword2] = useState(false);
 
-  const [imageSelected, setImageSelected] = useState(false);
+  const [imageSelected, setImageSelected] = useState(true);
 
   const handlePhoto = (e) => {
     setValues({
@@ -120,27 +118,40 @@ const RegisterPage = () => {
 
   const handleSubmit = () => {
     setSpinner(true);
-    // Check if passwords match
-    if (repeatPassword !== values.password) {
-      setSpinner(false);
-      alert("Passwords do not match!");
-      return;
-    }
     // Axios post
-    Axios.post(`http://localhost:3001/api/auth/register/`, values).then(
+    Axios.post(
+      `http://localhost:3001/api/auth/edit/${context.id}`,
+      values
+    ).then((response) => {
+      console.log(response.data);
+      setContext({
+        ...context,
+        name: values.name,
+        imageUrl: values.imageUrl,
+      });
+      history.goBack();
+      setSpinner(false);
+    });
+  };
+
+  useEffect(() => {
+    setSpinner(true);
+    Axios.get(`http://localhost:3001/api/auth/edit/${context.id}`).then(
       (response) => {
+        setValues({
+          name: response.data.name,
+          email: response.data.email,
+          cluster: response.data.cluster,
+          imageUrl: response.data.imageUrl,
+        });
         setSpinner(false);
-        if (response.data.register_status) {
-          alert("Registration successful!");
-          history.push("/login");
-        }
       }
     );
-  };
+  }, []);
 
   return (
     <div className={classes.root}>
-      <Header title="Register" />
+      <Header back title="Edit Profile" />
       <div className={classes.formContainer}>
         <form className={classes.form}>
           <Box m={1}>
@@ -200,30 +211,9 @@ const RegisterPage = () => {
                 }
               ></OutlinedInput>
             </FormControl>
-          </Box>
-          <Box m={1}>
-            <FormControl variant="outlined" fullWidth>
-              <InputLabel>Repeat Password</InputLabel>
-              <OutlinedInput
-                type={showPassword2 ? "text" : "password"}
-                label="Password"
-                variant="outlined"
-                onChange={(e) => {
-                  setRepeatPassword(e.target.value);
-                }}
-                value={repeatPassword}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={() => setShowPassword2(!showPassword2)}
-                      edge="end"
-                    >
-                      {showPassword2 ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              ></OutlinedInput>
-            </FormControl>
+            <Typography variant="caption">
+              Please leave password blank if you do not want to change it.
+            </Typography>
           </Box>
           <Button
             variant="outlined"
@@ -264,4 +254,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default EditProfilePage;

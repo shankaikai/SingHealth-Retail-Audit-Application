@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../config/DatabaseConfig");
+const sendMail = require("../helpers/emails/EmailerPDF");
 
 // GET for viewing audit detailss!
 router.get("/:auditID", (req, res) => {
@@ -116,10 +117,10 @@ router.post("/newcomplete", (req, res) => {
           tenantID,
           auditID,
           staffID,
-          dateCompleted
+          new Date(Date.now())
         );
         db.query(
-          "UPDATE scratch_tenants SET onGoingAuditID = ?, score = ?, WHERE id = ?",
+          "UPDATE scratch_tenants SET onGoingAuditID = ? WHERE id = ?",
           [null, score, tenantID],
           (err, result) => {
             if (err) {
@@ -200,8 +201,9 @@ router.post("/newpartial", (req, res) => {
           tenantID,
           auditID,
           staffID,
-          dateCompleted
+          new Date(Date.now())
         );
+        // console.log(issues);
         db.query(
           `UPDATE scratch_tenants SET onGoingAuditID = ${auditID} WHERE id = ${tenantID}`,
           (err, result) => {
@@ -219,11 +221,16 @@ router.post("/newpartial", (req, res) => {
                   "INSERT INTO scratch_issues (tenantID, auditID, staffID, date, location, closed, title, description, imageUrl) VALUES ?",
                   [issues],
                   (err, result) => {
-                    console.log(
-                      issues.length +
-                        " issues inserted for audit ID: " +
-                        auditID
-                    );
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      console.log(
+                        result.affectedRows +
+                          " issues inserted for audit ID: " +
+                          auditID
+                      );
+                    }
+
                     res.send({
                       message: "Upload of partial audit success!",
                       auditID: auditID,
@@ -324,25 +331,30 @@ router.post("/partialcomplete", (req, res) => {
           new Date(Date.now())
         );
         db.query(
-          "UPDATE scratch_tenants SET onGoingAuditID = ?, score = ?, WHERE id = ?",
-          [null, score, tenantID],
+          "UPDATE scratch_tenants SET onGoingAuditID = ? WHERE id = ?",
+          [null, parseInt(tenantID)],
           (err, result) => {
             if (err) {
               console.log(err);
             } else {
               console.log(
-                "Tenant id " + tenantID + "'s onGingAuditID set to null"
+                "Tenant id " + tenantID + "'s onGoingAuditID set to null"
               );
               if (issues) {
                 db.query(
                   "INSERT INTO scratch_issues (tenantID, auditID, staffID, date, location, closed, title, description, imageUrl) VALUES ?",
                   [issues],
                   (err, result) => {
-                    console.log(
-                      issues.length +
-                        " issues inserted for audit ID: " +
-                        auditID
-                    );
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      console.log(
+                        result.affectedRows +
+                          " issues inserted for audit ID: " +
+                          auditID
+                      );
+                    }
+
                     res.send({
                       message: "Update of complete audit success!",
                       auditID: auditID,
@@ -355,6 +367,51 @@ router.post("/partialcomplete", (req, res) => {
                   auditID: auditID,
                 });
               }
+            }
+          }
+        );
+      }
+    }
+  );
+});
+
+// GET req for export audit summary
+router.get("/export/:auditID/:email", (req, res) => {
+  const auditID = req.params.auditID;
+  const toSend = req.params.email;
+  console.log("Sending report to " + toSend);
+  let audits;
+  db.query(
+    `SELECT a.id as auditID, a.dateStarted, a.dateCompleted, a.scores, a.score, c.cluster, b.name as auditor, c.name as tenant, c.location, c.type 
+    from scratch_audits a
+    LEFT JOIN staff b ON a.staffID = b.id 
+    LEFT JOIN scratch_tenants c ON a.tenantID = c.id
+    WHERE a.id = ${auditID}`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        audits = result[0];
+        db.query(
+          `SELECT * from scratch_issues WHERE auditID = ${auditID}`,
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            } else {
+              issues = result;
+              // Generate pdf from the data
+              const scores = JSON.parse(audits.scores);
+              sendMail(
+                "hotmail",
+                toSend,
+                {
+                  scores: scores,
+                  audit: audits,
+                  issues: issues,
+                },
+                auditID
+              );
+              res.send({ message: "email sent" });
             }
           }
         );

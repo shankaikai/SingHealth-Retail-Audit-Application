@@ -16,6 +16,58 @@ const redirectToLogin = (req, res, next) => {
   }
 };
 
+// GET for edit staff profile
+router.get("/edit/:id", (req, res) => {
+  const id = req.params.id;
+  db.query("SELECT * from staff WHERE id = ?", [id], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result[0]);
+    }
+  });
+});
+
+// POST for updating staff profile
+router.post("/edit/:id", (req, res) => {
+  console.log("editing staff");
+  console.log(req.body);
+  const id = req.params.id;
+  const email = req.body.email;
+  const password = req.body.password;
+  const name = req.body.name;
+  const cluster = req.body.cluster;
+  const imageUrl = req.body.imageUrl;
+  if (password === undefined || password === "" || password === null) {
+    db.query(
+      "UPDATE staff SET email = ?, name = ?, cluster = ?, imageUrl = ? WHERE id = ?",
+      [email, name, cluster, imageUrl, id],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(result);
+          res.send({ message: "Update success!" });
+        }
+      }
+    );
+  } else {
+    hashPassword(password).then((hash) => {
+      db.query(
+        "UPDATE staff SET email = ?, password = ?, name = ?, cluster = ?, imageUrl = ? WHERE id = ?",
+        [email, hash, name, cluster, imageUrl, id],
+        (err, result) => {
+          if (err) {
+            console.log(err);
+          } else {
+            res.send({ message: "Update success!" });
+          }
+        }
+      );
+    });
+  }
+});
+
 router.get("/login", (req, res) => {
   console.log(req.session);
   if (req.session.userID) {
@@ -67,7 +119,7 @@ router.post("/login", (req, res, next) => {
               req.session.userType = usertype;
               req.session.imageUrl = imageUrl;
               // console.log(req.session);
-              req.session.save();
+              // req.session.save();
 
               res.send({
                 login_status: true,
@@ -135,11 +187,12 @@ const getStaff = (email) => {
   });
 };
 
-const insertStaff = (password, cluster, email, name, type) => {
+// Function to insert new staff into db
+const insertStaff = (password, cluster, email, name, imageUrl) => {
   return new Promise((resolve, reject) => {
     var query_string =
-      "INSERT INTO staff (password, cluster, email, name, type) VALUES (?,?,?,?,?)";
-    var query_var = [password, cluster, email, name, type];
+      "INSERT INTO staff (password, cluster, email, name, usertype, imageUrl) VALUES (?,?,?,?,?,?)";
+    var query_var = [password, cluster, email, name, "staff", imageUrl];
 
     db.query(query_string, query_var, (err) => {
       if (err) {
@@ -157,7 +210,7 @@ router.post("/register", (req, res) => {
   const password = req.body.password;
   const name = req.body.name;
   const cluster = req.body.cluster;
-  const type = req.body.type;
+  const imageUrl = req.body.imageUrl;
 
   getStaff(email)
     .then((result) => {
@@ -168,7 +221,7 @@ router.post("/register", (req, res) => {
         hashPassword(password)
           .then((hash) => {
             console.log(hash);
-            insertStaff(hash, cluster, email, name, type)
+            insertStaff(hash, cluster, email, name, imageUrl)
               .then((result) => {
                 res.send({ register_status: true });
                 console.log("Register Success");
@@ -211,8 +264,16 @@ router.post("/resetpassword", (req, res) => {
 
 router.post("/logout", (req, res) => {
   console.log("user attemping to log out");
-  req.session = null;
-  res.send({ login_status: false });
+  // req.session.destroy();
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send({ login_status: false });
+    }
+  });
+  // res.end();
+  // res.send({ login_status: false });
 });
 
 module.exports = router;
