@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        margin: 100px;
+        display: flex;
+        flex-direction: column;
+        font-family: Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+          "Helvetica Neue", sans-serif;
+        max-width: 2480;
+        min-width: 2480;
+      }
+      p {
+        margin: 0;
+        padding: 0;
+      }
+      .header {
+        width: 100%;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+      }
+      img {
+        width: 200px;
+      }
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      h3 {
+        padding: 0;
+        margin: 0;
+      }
+      .score {
+        border: 1px solid;
+        padding: 20px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="header">
+        <img
+          src="https://res.cloudinary.com/esc-singhealth/image/upload/v1618836683/Singhealth-logo_mj9leb.png"
+        />
+        <h1>Audit Report</h1>
+      </div>
+
+      <div class="auditDetails">
+        <h2>
+          <strong>Audit Details</strong>
+        </h2>
+        <p>Tenant Name: <%= audit.tenant %></p>
+        <p>Tenant Type: <%= audit.type %></p>
+        <p>Cluster: <%= audit.cluster %></p>
+        <p>Date Started: <%= dateStarted %></p>
+        <p>Date Completed: <%= dateCompleted %></p>
+        <p>Auditor: <%= audit.auditor %></p>
+      </div>
+      <div class="scoreBreakdown">
+        <h2>
+          <strong>Score Breakdown</strong>
+        </h2>
+        <ul>
+          <% scores.forEach(score => {%>
+          <li>
+            <div class="score">
+              <h3><%= score.title %></h3>
+              <p>Weighted Score: <%= score.weightedScore %></p>
+            </div>
+          </li>
+          <% });%>
+        </ul>
+      </div>
+      <div class="issues">
+        <h2>
+          <strong>Issues</strong>
+        </h2>
+        <% if (issues.length > 0) { %>
+        <ul>
+          <% issues.forEach(issue => {%>
+          <li>
+            <div class="score">
+              <h3><%= issue.title %></h3>
+              <p>Location: <%= issue.location %></p>
+              <p>Description:</p>
+              <p><%= issue.description %></p>
+              <p>Image:</p>
+              <img src="<%= issue.imageUrl %>" />
+            </div>
+          </li>
+          <% });%>
+        </ul>
+        <% } else {%>
+        <p>No issues.</p>
+        <%}%>
+      </div>
+    </div>
+  </body>
+</html>

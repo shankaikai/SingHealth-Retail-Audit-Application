@@ -34,7 +34,6 @@ const App = () => {
   // Create states to store context variables
   const [context, setContext] = useState({});
   const [spinner, setSpinner] = useState(false);
-
   const providerValue = useMemo(
     () => ({ context, setContext, spinner, setSpinner }),
     [context, setContext, spinner, setSpinner]

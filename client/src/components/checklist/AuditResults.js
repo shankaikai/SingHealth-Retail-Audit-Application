@@ -104,7 +104,7 @@ export default function AuditResults(props) {
             <Typography className={classes.noIssues}>No issues :</Typography>
           ) : (
             issues.map((issue) => (
-              <div key={issue.id}>
+              <div key={issue.title}>
                 <IssueItem data={issue} />
                 <Divider />
               </div>

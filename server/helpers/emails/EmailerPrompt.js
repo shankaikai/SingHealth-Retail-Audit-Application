@@ -9,29 +9,34 @@ const sendMailResetPassword = (service, email, issue) => {
     },
   });
 
-
-  ejs.renderFile(__dirname + "/templates/prompt.ejs", { name: issue[0].name, title: issue[0].title, description: issue[0].description, image: issue[0].imageUrl }, function (err, data) {
-    if (err) {
+  ejs.renderFile(
+    __dirname + "/templates/prompt.ejs",
+    {
+      name: issue[0].name,
+      title: issue[0].title,
+      description: issue[0].description,
+      image: issue[0].imageUrl,
+    },
+    function (err, data) {
+      if (err) {
         console.log(err);
-    } else {
+      } else {
         var mainOptions = {
-            from: "esccprojectt@hotmail.com",
-            to: email,
-            subject: `[ISSUE RECTIFICATION]: ${issue[0].title}`,
-            html: data
+          from: "esccprojectt@hotmail.com",
+          to: email,
+          subject: `[ISSUE RECTIFICATION]: ${issue[0].title}`,
+          html: data,
         };
         console.log("html data ======================>", mainOptions.html);
         transporter.sendMail(mainOptions, function (err, info) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log('Message sent: ' + info.response);
-            }
+          if (err) {
+            console.log(err);
+          } else {
+            console.log("Message sent: " + info.response);
+          }
         });
+      }
     }
-    
-    });
-
-  
+  );
 };
-module.exports = sendMailResetPassword
+module.exports = sendMailResetPassword;

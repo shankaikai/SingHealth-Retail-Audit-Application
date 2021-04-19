@@ -32,6 +32,8 @@ const AuditList = (props) => {
                 auditNumber={audit.id}
                 tenantID={audit.tenantID}
                 id={audit.id}
+                setToExport={props.setToExport}
+                setExportData={props.setExportData}
               />
               <Divider light />
             </div>
