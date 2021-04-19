@@ -48,7 +48,7 @@ app.use(
       secure: false,
       httpOnly: false,
     },
-    store: new RedisStore({ host: rocess.env.REDIS_URL, port: 6379, client: client,ttl :  260}),
+    store: new RedisStore({ host: process.env.REDIS_URL, port: 6379, client: client,ttl :  260}),
   })
 );
 
