@@ -5,19 +5,19 @@ const session = require("express-session");
 const path = require("path");
 require("dotenv/config");
 var redis = require("redis");
-// var client  = redis.createClient();
 var RedisStore = require('connect-redis')(session);
 const bcrypt = require('bcrypt');
 module.exports.bcrypt = bcrypt;
-var url = require('url');
 
-let client;
-if(process.env.REDIS_URL){
-    let redisURL = url.parse(process.env.REDIS_URL);
-    client = redis.createClient(redisURL)
-} else {
-    client = redis.createClient()
-}
+const client = redis.createClient(process.env.REDIS_URL)
+
+// let client;
+// if(process.env.REDIS_URL){
+//     let redisURL = url.parse(process.env.REDIS_URL);
+//     client = redis.createClient(redisURL)
+// } else {
+//     client = redis.createClient()
+// }
 
 // Create express server
 const app = express();
@@ -48,7 +48,7 @@ app.use(
       secure: false,
       httpOnly: false,
     },
-    store: new RedisStore({ host: 'localhost', port: 6379, client: client,ttl :  260}),
+    store: new RedisStore({ host: rocess.env.REDIS_URL, port: 6379, client: client,ttl :  260}),
   })
 );
 
@@ -66,6 +66,7 @@ const auth = require("./routes/Auth");
 const tenant = require("./routes/Tenant");
 const tenants = require("./routes/TenantsGets");
 const audit = require("./routes/Audit");
+const { env } = require("process");
 
 app.use("/api/auth", auth);
 app.use("/api/tenants", tenants);
