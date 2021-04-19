@@ -7,7 +7,7 @@
     "start": "npm start --prefix server",
     "build": "cd client && npm install && npm run build"
   },
-  "cacheDirectories":[
+  "cacheDirectories": [
     "node_modules",
     "react-ui/node_modules"
   ],
@@ -26,6 +26,7 @@
     "nodemailer": "^6.5.0",
     "npm-run-all": "^4.1.5",
     "pug": "^3.0.2",
+    "redis": "^3.1.1",
     "sqlite3": "^5.0.2"
   },
   "repository": {

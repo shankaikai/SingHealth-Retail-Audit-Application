@@ -4,6 +4,9 @@ const session = require("express-session");
 // const cors = require("cors");
 const path = require("path");
 require("dotenv/config");
+var redis = require("redis");
+var client  = redis.createClient();
+var RedisStore = require('connect-redis')(session);
 
 // Create express server
 const app = express();
@@ -34,6 +37,7 @@ app.use(
       secure: false,
       httpOnly: false,
     },
+    store: new RedisStore({ host: 'localhost', port: 6379, client: client,ttl :  260}),
   })
 );
 
