@@ -67,11 +67,11 @@ const LoginPage = (props) => {
       { withCredentials: true }
     ).then((res) => {
       if (res.data.login_status) {
-        setSpinner(false);
         setContext(res.data);
       } else {
         alert(res.data.reason);
       }
+      setSpinner(false);
     });
   };
 

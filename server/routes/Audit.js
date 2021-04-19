@@ -117,10 +117,10 @@ router.post("/newcomplete", (req, res) => {
           tenantID,
           auditID,
           staffID,
-          dateCompleted
+          new Date(Date.now())
         );
         db.query(
-          "UPDATE scratch_tenants SET onGoingAuditID = ?, score = ?, WHERE id = ?",
+          "UPDATE scratch_tenants SET onGoingAuditID = ? WHERE id = ?",
           [null, score, tenantID],
           (err, result) => {
             if (err) {
@@ -201,8 +201,9 @@ router.post("/newpartial", (req, res) => {
           tenantID,
           auditID,
           staffID,
-          dateCompleted
+          new Date(Date.now())
         );
+        // console.log(issues);
         db.query(
           `UPDATE scratch_tenants SET onGoingAuditID = ${auditID} WHERE id = ${tenantID}`,
           (err, result) => {
@@ -220,11 +221,16 @@ router.post("/newpartial", (req, res) => {
                   "INSERT INTO scratch_issues (tenantID, auditID, staffID, date, location, closed, title, description, imageUrl) VALUES ?",
                   [issues],
                   (err, result) => {
-                    console.log(
-                      issues.length +
-                        " issues inserted for audit ID: " +
-                        auditID
-                    );
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      console.log(
+                        result.affectedRows +
+                          " issues inserted for audit ID: " +
+                          auditID
+                      );
+                    }
+
                     res.send({
                       message: "Upload of partial audit success!",
                       auditID: auditID,
@@ -339,11 +345,16 @@ router.post("/partialcomplete", (req, res) => {
                   "INSERT INTO scratch_issues (tenantID, auditID, staffID, date, location, closed, title, description, imageUrl) VALUES ?",
                   [issues],
                   (err, result) => {
-                    console.log(
-                      issues.length +
-                        " issues inserted for audit ID: " +
-                        auditID
-                    );
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      console.log(
+                        result.affectedRows +
+                          " issues inserted for audit ID: " +
+                          auditID
+                      );
+                    }
+
                     res.send({
                       message: "Update of complete audit success!",
                       auditID: auditID,

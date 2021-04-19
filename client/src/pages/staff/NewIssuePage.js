@@ -14,11 +14,13 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "100%",
     alignItems: "center",
+    width: "100%",
+    height: "100%",
   },
   form: {
     width: "80%",
+    paddingBottom: "20px",
   },
   submit: {
     width: "80%",
@@ -38,11 +40,10 @@ const useStyles = makeStyles({
     overflowY: "auto",
     display: "flex",
     flexDirection: "column",
-    width: "100%",
     alignItems: "center",
+    width: "100%",
+    height: "calc(100vh - 83px)",
     marginTop: "63px",
-    height: "calc(100vh - 63px)",
-    paddingTop: "20px",
     paddingBottom: "20px",
   },
 });

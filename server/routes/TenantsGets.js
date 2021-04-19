@@ -10,7 +10,8 @@ router.get("/all", (req, res) => {
     LEFT OUTER JOIN (SELECT dateCompleted, tenantID, score
     FROM escdb.scratch_audits) b 
     ON a.id = b.tenantID
-    AND b.dateCompleted = (SELECT MAX(dateCompleted) from scratch_audits WHERE tenantID = b.tenantID)`,
+    AND b.dateCompleted = (SELECT MAX(dateCompleted) from scratch_audits WHERE tenantID = b.tenantID)
+    GROUP BY a.id ASC`,
     (err, result) => {
       if (err) {
         console.log(err);
