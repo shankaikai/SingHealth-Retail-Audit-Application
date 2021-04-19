@@ -7,6 +7,8 @@ require("dotenv/config");
 var redis = require("redis");
 var client  = redis.createClient();
 var RedisStore = require('connect-redis')(session);
+const bcrypt = require('bcrypt');
+module.exports.bcrypt = bcrypt;
 
 // Create express server
 const app = express();

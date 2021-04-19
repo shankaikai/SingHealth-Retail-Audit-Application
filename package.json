@@ -4,7 +4,7 @@
   "description": "Tiong Shan Kai <br>\r Amrish Sandhu <br>\r Joel Ong <br>\r Phan Vu Lan",
   "devDependencies": {},
   "scripts": {
-    "start": "npm start --prefix server",
+    "start": "redis-server && npm start --prefix server",
     "build": "cd client && npm install && npm run build"
   },
   "cacheDirectories": [
