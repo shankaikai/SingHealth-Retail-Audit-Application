@@ -52,7 +52,6 @@ import LoginPage from "./LoginPage";
   
     const REGISTER_SUCCESS = "REGISTER_SUCCESS";
     const handleResetPassword = () => {
-        //history.push("login")
         if(password === repeatPassword) {
           Axios.post("http://localhost:3001/api/auth/resetpassword", { email, password })
           .then((res) => {
@@ -64,6 +63,8 @@ import LoginPage from "./LoginPage";
         } else {
           alert("Password not matched")
         }
+        history.push("/login")
+
       }
   
     return (

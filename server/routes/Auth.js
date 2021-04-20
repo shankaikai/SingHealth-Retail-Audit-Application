@@ -204,6 +204,21 @@ const insertStaff = (password, cluster, email, name, imageUrl) => {
   });
 };
 
+const updatePassword = (email, password) => {
+  
+  return new Promise((resolve, reject) => {
+    var query_string = `UPDATE staff SET password = ? WHERE email = ?`;
+    var query_var = [password, email]
+    db.query(query_string, query_var, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(true);
+      }
+    })
+  })
+}
+
 // Register POST Request
 router.post("/register", (req, res) => {
   const email = req.body.email;
@@ -266,6 +281,13 @@ router.post("/resetpassword", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   console.log(`Request to reset password for email ${email}, password ${password}`)
+  hashPassword(password)
+  .then((hash) => {
+    updatePassword(email, hash)
+    .then(() => {console.log(`password for ${email} updated`)})
+    .catch((err) => {console.log(err)})
+  })
+  .catch((err) => {console.log(err)})
 })
 
 router.post("/logout", (req, res) => {
