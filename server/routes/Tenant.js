@@ -223,14 +223,22 @@ router.post("/create", (req, res) => {
 router.post("/delete/:id", (req, res) => {
   const id = req.params.id;
   console.log("deleting tenant id " + id + "...");
-  db.query("DELETE from scratch_tenants WHERE id = ?", [id], (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.send({ message: "Delete success" });
-      console.log(" deleted tenant id " + id);
+  db.query(
+    `DELETE from scratch_tenants WHERE id = ?;
+  DELETE from scratch_issues WHERE tenantID = ?;
+  DELETE from scratch_audits WHERE tenantID = ?;
+  DELETE from messages WHERE tenantID = ?;
+  `,
+    [id, id, id, id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ message: "Delete success" });
+        console.log(" deleted tenant id " + id);
+      }
     }
-  });
+  );
 });
 
 router.post("/issue/prompt/:id", (req, res) => {

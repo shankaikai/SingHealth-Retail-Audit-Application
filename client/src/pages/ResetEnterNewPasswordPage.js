@@ -9,10 +9,11 @@ import {
   OutlinedInput,
 } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import Header from "../components/common/Header";
 import Axios from "axios";
+import { LoginContext } from "../context/LoginContext";
 require("dotenv/config");
 
 const useStyle = makeStyles({
@@ -39,6 +40,7 @@ const RegisterPage = () => {
   const classes = useStyle();
   let history = useHistory();
   let { email } = useParams();
+  const { setSnackbar } = useContext(LoginContext);
 
   // States to store username and password
   const [password, setPassword] = useState("");
@@ -55,15 +57,23 @@ const RegisterPage = () => {
         password,
       })
         .then((res) => {
-          alert("Password reset");
+          setSnackbar({
+            status: true,
+            message: "Password reset successful!",
+            noBar: true,
+          });
+          history.push("/login");
         })
         .catch((err) => {
           console.log(err);
         });
     } else {
-      alert("Password not matched");
+      setSnackbar({
+        status: true,
+        message: "Passwords do not match!",
+        noBar: true,
+      });
     }
-    history.push("/login");
   };
 
   return (

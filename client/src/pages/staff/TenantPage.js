@@ -91,11 +91,13 @@ const TenantPage = () => {
       (response) => {
         if (response.data.message) {
           setSpinner(false);
-
           history.push("/");
         } else {
           setSpinner(false);
-          alert("Delete failed");
+          setSnackbar({
+            status: true,
+            message: "Delete failed. Please try again.",
+          });
         }
       }
     );

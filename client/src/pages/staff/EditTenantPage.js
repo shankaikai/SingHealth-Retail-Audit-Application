@@ -64,7 +64,7 @@ const EditTenantPage = () => {
 
   const [imageSelected, setImageSelected] = useState(true);
 
-  const { setSpinner } = useContext(LoginContext);
+  const { setSpinner, setSnackbar } = useContext(LoginContext);
 
   const { id } = useParams();
 
@@ -80,7 +80,11 @@ const EditTenantPage = () => {
       console.log(response.data);
       if (response.data.message) {
         setSpinner(false);
-        alert("Update successful!");
+        setSnackbar({
+          status: true,
+          message: "Tenant update successful!",
+          noBar: true,
+        });
       }
     });
   };
@@ -109,9 +113,11 @@ const EditTenantPage = () => {
   };
 
   useEffect(() => {
+    setSpinner(true);
     Axios.get(`http://localhost:3001/api/tenant/edit/${id}`, {
       withCredentials: true,
     }).then((response) => {
+      setSpinner(false);
       setValues({
         name: response.data.name,
         location: response.data.location,

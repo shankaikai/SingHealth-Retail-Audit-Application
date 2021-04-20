@@ -39,13 +39,9 @@ const useStyles = makeStyles({
 });
 
 const AccountPage = () => {
-  const {
-    context,
-    setContext,
-    setSpinner,
-    setSnackbar,
-    setSnackbarMessage,
-  } = useContext(LoginContext);
+  const { context, setContext, setSpinner, setSnackbar } = useContext(
+    LoginContext
+  );
   let history = useHistory();
 
   const [addStaff, setAddStaff] = useState(false);
@@ -85,7 +81,10 @@ const AccountPage = () => {
         `http://localhost:3001/api/auth/newstaff/${newStaffEmail}`
       ).then((response) => {
         if (response.data.message) {
-          setSnackbar({ status: false, message: "" });
+          setSnackbar({
+            status: true,
+            message: "New staff email sent successfully!",
+          });
         }
       });
     } else {

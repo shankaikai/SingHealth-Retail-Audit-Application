@@ -62,7 +62,7 @@ const RegisterPage = () => {
   const classes = useStyle();
   let history = useHistory();
 
-  const { setSpinner } = useContext(LoginContext);
+  const { setSpinner, setSnackbar } = useContext(LoginContext);
 
   // States to store username and password
   const [values, setValues] = useState({
@@ -75,7 +75,7 @@ const RegisterPage = () => {
   const [repeatPassword, setRepeatPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
-
+  const [error, setError] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
 
   const handlePhoto = (e) => {
@@ -120,10 +120,16 @@ const RegisterPage = () => {
 
   const handleSubmit = () => {
     setSpinner(true);
+    setError(false);
     // Check if passwords match
     if (repeatPassword !== values.password) {
       setSpinner(false);
-      alert("Passwords do not match!");
+      setError(true);
+      setSnackbar({
+        status: true,
+        message: "Passwords do not match!",
+        noBar: true,
+      });
       return;
     }
     // Axios post
@@ -131,7 +137,11 @@ const RegisterPage = () => {
       (response) => {
         setSpinner(false);
         if (response.data.register_status) {
-          alert("Registration successful!");
+          setSnackbar({
+            status: true,
+            message: "Registration successful!",
+            noBar: true,
+          });
           history.push("/login");
         }
       }
@@ -208,6 +218,7 @@ const RegisterPage = () => {
                 type={showPassword2 ? "text" : "password"}
                 label="Password"
                 variant="outlined"
+                error={error}
                 onChange={(e) => {
                   setRepeatPassword(e.target.value);
                 }}

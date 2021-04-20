@@ -75,7 +75,7 @@ const App = () => {
               autoHideDuration={3000}
               onClose={() => setSnackbar(false)}
               message={snackbar.message}
-              style={{ bottom: 80 }}
+              style={snackbar.noBar ? null : { bottom: 80 }}
             />
             <Router>
               <Switch>
