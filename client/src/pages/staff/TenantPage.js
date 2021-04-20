@@ -71,7 +71,6 @@ const TenantPage = () => {
     if (validateEmail(email)) {
       setInvalidEmail(false);
       setToExport(false);
-
       setEmail("");
       Axios.get(
         `http://localhost:3001/api/audit/export/${exportData.id}/${email}`
