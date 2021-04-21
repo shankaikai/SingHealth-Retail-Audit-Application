@@ -1,8 +1,8 @@
 const nodemailer = require("nodemailer");
 var ejs = require("ejs");
-const sendMailResetPassword = (service, email, name) => {
+const sendNewTenantMail = (email, name, password) => {
   const transporter = nodemailer.createTransport({
-    service: service,
+    service: "hotmail",
     auth: {
       user: "esccprojectt@hotmail.com",
       pass: "wearethebest123",
@@ -10,8 +10,8 @@ const sendMailResetPassword = (service, email, name) => {
   });
 
   ejs.renderFile(
-    __dirname + "/templates/resetpassword.ejs",
-    { name: name, email: email },
+    __dirname + "/templates/newtenantaccount.ejs",
+    { name: name, email: email, password: password },
     function (err, data) {
       if (err) {
         console.log(err);
@@ -19,7 +19,8 @@ const sendMailResetPassword = (service, email, name) => {
         var mainOptions = {
           from: "esccprojectt@hotmail.com",
           to: email,
-          subject: "Reset Password For SingHealth React-App",
+          subject:
+            "Temporary login credentials for SingHealth Retail Audit Application",
           html: data,
         };
         console.log("html data ======================>", mainOptions.html);
@@ -34,4 +35,4 @@ const sendMailResetPassword = (service, email, name) => {
     }
   );
 };
-module.exports.sendMailResetPassword = sendMailResetPassword;
+module.exports = sendNewTenantMail;

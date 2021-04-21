@@ -36,7 +36,7 @@ const scores_hack = require("../../assets/scores_hack.json");
 const scoresTemplate = require("../../assets/scores_template.json");
 
 // TODO: Implement real props from the tenant page
-const AuditChecklistPage = (props) => {
+const AuditChecklistPage = () => {
   const classes = useStyles();
   let history = useHistory();
 
@@ -45,7 +45,7 @@ const AuditChecklistPage = (props) => {
   const { type, tenantID, onGoingAuditID } = useParams();
 
   // Grab context
-  const { context, setSpinner } = useContext(LoginContext);
+  const { context, setSpinner, setSnackbar } = useContext(LoginContext);
 
   // Index counter
   const [index, setIndex] = useState(0);
@@ -137,7 +137,11 @@ const AuditChecklistPage = (props) => {
       let complete = true;
       for (let i = 0; i < scores.length; i++) {
         if (scores[i].numUnanswered !== 0) {
-          alert("Please complete all questions!");
+          setSnackbar({
+            status: true,
+            message: "Please complete all questions!",
+            noBar: true,
+          });
           complete = false;
           break;
         }
@@ -172,6 +176,11 @@ const AuditChecklistPage = (props) => {
         (response) => {
           console.log(response.data);
           setSpinner(false);
+          setSnackbar({
+            status: true,
+            message: "Audit saved successfully!",
+            noBar: true,
+          });
           history.push(`/auditend/${tenantID}/${response.data.auditID}`);
         }
       );
@@ -181,6 +190,7 @@ const AuditChecklistPage = (props) => {
         (response) => {
           console.log(response.data);
           setSpinner(false);
+          setSnackbar({ status: true, message: "Audit saved successfully!" });
           history.push(`/tenant/${tenantID}`);
         }
       );
@@ -190,6 +200,7 @@ const AuditChecklistPage = (props) => {
         (response) => {
           console.log(response.data);
           setSpinner(false);
+          setSnackbar({ status: true, message: "Audit saved successfully!" });
           history.push(`/tenant/${tenantID}`);
         }
       );
@@ -201,6 +212,11 @@ const AuditChecklistPage = (props) => {
       ).then((response) => {
         console.log(response.data);
         setSpinner(false);
+        setSnackbar({
+          status: true,
+          message: "Audit saved successfully!",
+          noBar: true,
+        });
         history.push(`/auditend/${tenantID}/${response.data.auditID}`);
       });
     }

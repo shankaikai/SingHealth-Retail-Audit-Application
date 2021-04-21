@@ -6,6 +6,8 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 const sendMail = require("../helpers/emails/Emailer").sendMailResetPassword;
+const sendNewStaffMail = require("../helpers/emails/EmailerNewStaff")
+  .sendNewStaffMail;
 
 // Route protector
 const redirectToLogin = (req, res, next) => {
@@ -205,19 +207,18 @@ const insertStaff = (password, cluster, email, name, imageUrl) => {
 };
 
 const updatePassword = (email, password) => {
-  
   return new Promise((resolve, reject) => {
     var query_string = `UPDATE staff SET password = ? WHERE email = ?`;
-    var query_var = [password, email]
+    var query_var = [password, email];
     db.query(query_string, query_var, (err) => {
       if (err) {
         reject(err);
       } else {
         resolve(true);
       }
-    })
-  })
-}
+    });
+  });
+};
 
 // Register POST Request
 router.post("/register", (req, res) => {
@@ -280,15 +281,23 @@ router.post("/sendemailresetpassword", (req, res) => {
 router.post("/resetpassword", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-  console.log(`Request to reset password for email ${email}, password ${password}`)
+  console.log(
+    `Request to reset password for email ${email}, password ${password}`
+  );
   hashPassword(password)
-  .then((hash) => {
-    updatePassword(email, hash)
-    .then(() => {console.log(`password for ${email} updated`)})
-    .catch((err) => {console.log(err)})
-  })
-  .catch((err) => {console.log(err)})
-})
+    .then((hash) => {
+      updatePassword(email, hash)
+        .then(() => {
+          console.log(`password for ${email} updated`);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 router.post("/logout", (req, res) => {
   console.log("user attemping to log out");
@@ -300,8 +309,13 @@ router.post("/logout", (req, res) => {
       res.send({ login_status: false });
     }
   });
-  // res.end();
-  // res.send({ login_status: false });
+});
+
+// GET for new staff registration
+router.get("/newstaff/:email", (req, res) => {
+  const email = req.params.email;
+  sendNewStaffMail(email);
+  res.send({ message: "new staff email send!" });
 });
 
 module.exports = router;

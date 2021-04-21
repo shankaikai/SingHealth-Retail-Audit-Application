@@ -12,11 +12,16 @@ import {
   IconButton,
   FormControl,
   InputLabel,
+  FormHelperText,
+  Dialog,
+  DialogContent,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { LoginContext } from "../context/LoginContext";
 import Axios from "axios";
+import config from "../App.config";
+import ReCAPTCHA from "react-google-recaptcha";
 require("dotenv/config");
 
 const useStyles = makeStyles({
@@ -44,7 +49,7 @@ const useStyles = makeStyles({
   },
 });
 
-const LoginPage = (props) => {
+const LoginPage = () => {
   // Create a style object
   const classes = useStyles();
   let history = useHistory();
@@ -57,53 +62,55 @@ const LoginPage = (props) => {
   // Grab setContext and setSpinner from LoginContext
   const { setContext, setSpinner } = useContext(LoginContext);
 
+  // Error states
+  const [error, setError] = useState(false);
+
+  // Failure counter
+  const [failCount, setFailCount] = useState(0);
+
+  function validateEmail(email) {
+    const illegalchars = /^[ A-Za-z0-9_@./#&+-]*$/;
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return (
+      re.test(String(email).toLowerCase()) &&
+      illegalchars.test(String(email).toLowerCase())
+    );
+  }
+
   // Function to handle a login request
   const handleLogin = () => {
-    setSpinner(true);
-    Axios.post(
-      "http://localhost:3001/api/auth/login",
-      {
-        email,
-        password,
-      },
-      { withCredentials: true }
-    ).then((res) => {
-      if (res.data.login_status) {
-        setContext(res.data);
-      } else {
-        alert(res.data.reason);
-      }
-      setSpinner(false);
-    });
+    if (validateEmail(email)) {
+      setSpinner(true);
+      Axios.post(
+        `${config.SERVERURL}/api/auth/login`,
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      ).then((res) => {
+        if (res.data.login_status) {
+          setContext(res.data);
+        } else {
+          setError(true);
+          setFailCount(failCount + 1);
+        }
+        setSpinner(false);
+      });
+    } else {
+      setError(true);
+      setFailCount(failCount + 1);
+    }
   };
 
   const handleForgetPassword = () => {
     history.push("/resetenterusername");
-    /*
-    Axios.post("http://localhost:3001/api/auth/login", {
-      email,
-      password,
-    }).then((res) => {
-      if (res.data.reason !== "INVALID_EMAIL") {
-        Axios.post("http://localhost:3001/auth/resetpassword", { email })
-          .then((res) => {
-            alert("PLEASE_CHECK_YOUR_EMAIL");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      } else {
-        alert(res.data.reason);
-      }
-    });
-
-    console.log("Handle forget");
-    */
   };
 
   return (
     <div className={classes.login}>
       <img src={logo} alt="Logo" className={classes.logo}></img>
+      <Typography variant="h6">Retail Audit</Typography>
       <FormControl className={classes.form} autoComplete="true">
         <Box m={1} className={classes.marginMax}>
           <TextField
@@ -111,6 +118,8 @@ const LoginPage = (props) => {
             label="Email"
             variant="outlined"
             fullWidth
+            disabled={failCount === 5}
+            error={error}
             onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -125,9 +134,11 @@ const LoginPage = (props) => {
               type={showPassword ? "text" : "password"}
               label="Password"
               variant="outlined"
+              error={error}
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
+              disabled={failCount === 5}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -139,26 +150,40 @@ const LoginPage = (props) => {
                 </InputAdornment>
               }
             ></OutlinedInput>
+            {error ? (
+              <FormHelperText error>Invalid email or password</FormHelperText>
+            ) : null}
           </FormControl>
         </Box>
+
         <Box m={1} className={classes.marginMax}>
           <Button
             variant="contained"
             color="primary"
             fullWidth
             onClick={handleLogin}
+            disabled={failCount === 5}
           >
             Login
           </Button>
         </Box>
-        <Typography className={classes.marginMax} align="left">
-          Dont have an account? <Link to="/register">Register</Link>
-        </Typography>
-        <Typography className={classes.marginMax} align="left">
+        <Typography className={classes.marginMax} align="right">
           <Link to="resetenterusername" onClick={handleForgetPassword}>
             Forgot Password?
           </Link>
         </Typography>
+        {failCount === 5 ? (
+          <div>
+            <ReCAPTCHA
+              sitekey={config.RECAPTCHA}
+              onChange={() => {
+                setFailCount(0);
+                setError(false);
+                console.log("captcha success");
+              }}
+            />
+          </div>
+        ) : null}
       </FormControl>
     </div>
   );

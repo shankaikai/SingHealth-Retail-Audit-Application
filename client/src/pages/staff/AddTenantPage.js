@@ -48,6 +48,7 @@ const useStyles = makeStyles({
   },
   image: {
     width: "100%",
+    marginBottom: "20px",
   },
 });
 
@@ -59,12 +60,11 @@ const AddTenantPage = () => {
     name: "",
     location: "",
     email: "",
-    password: "",
     type: "",
     cluster: "",
   });
 
-  const { setSpinner } = useContext(LoginContext);
+  const { setSpinner, setSnackbar } = useContext(LoginContext);
 
   const [imageSelected, setImageSelected] = useState(null);
 
@@ -75,9 +75,17 @@ const AddTenantPage = () => {
       (response) => {
         setSpinner(false);
         if (response.data.message) {
+          setSnackbar({
+            status: true,
+            message: "Added new tenant successfully!",
+          });
           history.push("/");
         } else {
-          alert("Add tenant failed. Please try again.");
+          setSnackbar({
+            status: true,
+            message: "Add tenant failed. Please try again.",
+            noBar: true,
+          });
         }
       }
     );
@@ -180,15 +188,6 @@ const AddTenantPage = () => {
             fullWidth
             variant="filled"
             label="Email Address"
-            onChange={handleChange}
-          />
-          <TextField
-            id="password"
-            value={values.password}
-            className={classes.field}
-            fullWidth
-            variant="filled"
-            label="Password"
             onChange={handleChange}
           />
           <Button

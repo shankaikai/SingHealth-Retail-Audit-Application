@@ -1,12 +1,11 @@
 import { makeStyles, List } from "@material-ui/core";
 import Header from "../../components/common/Header";
-import { useLocation, useParams } from "react-router-dom";
-import IssueItem from "../../components/tenantView/IssueItem";
+import { useParams } from "react-router-dom";
 import { LoginContext } from "../../context/LoginContext";
-import { useContext } from "react"
+import { useContext } from "react";
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import MessageItem from "../../components/issueHandling/MessageItem"
+import MessageItem from "../../components/issueHandling/MessageItem";
 
 const useStyles = makeStyles({
   root: {
@@ -52,52 +51,41 @@ const TenantAuditIssuePage = () => {
 
   useEffect(() => {
     Axios.get(`http://localhost:3001/tenant/issue/${id}`).then((response) => {
-
       setIssueData(response.data.issue);
-      setMessageData(response.data.messages.reverse()); 
+      setMessageData(response.data.messages.reverse());
       console.log(response.data.issue);
       // console.log(response.data.issue[0].description);
-      
+
       let users = {
-        "tenant":response.data.tenant,
-        "staff":response.data.staff,
+        tenant: response.data.tenant,
+        staff: response.data.staff,
       };
 
       let issueMessageTranslate = {
-        "isStaff":1,
-        "dateSent": response.data.issue[0].date,
-        "body": response.data.issue[0].description,
-        "photoUrl":response.data.issue[0].imageUrl,
-      }
-      
+        isStaff: 1,
+        dateSent: response.data.issue[0].date,
+        body: response.data.issue[0].description,
+        photoUrl: response.data.issue[0].imageUrl,
+      };
+
       setUserNames(users);
       setIssueDataTranslated(issueMessageTranslate);
     });
   }, []);
-
-  // Submit handler
-  const handleSubmit = () => {
-    //TODO: Axios post req
-    console.log("Submit");
-  };
 
   return (
     <div className={classes.root}>
       <Header back title={context.name} noDivider />
       <div className={classes.messageContainer}>
         <List>
-          {messageData ?
-            messageData.map((data) => (
-              <MessageItem
-                key={data.id}
-                data={data}
-                users={userNames}
-              />
-            ))
+          {messageData
+            ? messageData.map((data) => (
+                <MessageItem key={data.id} data={data} users={userNames} />
+              ))
             : null}
-            {issueDataTranslated?
-            <MessageItem data={issueDataTranslated} users={userNames}/>
-            :null}
+          {issueDataTranslated ? (
+            <MessageItem data={issueDataTranslated} users={userNames} />
+          ) : null}
         </List>
       </div>
     </div>
