@@ -4,6 +4,12 @@ const session = require("express-session");
 const cors = require("cors");
 const path = require("path");
 var MySQLStore = require("express-mysql-session")(session);
+const bcrypt = require("bcrypt");
+module.exports.bcrypt = bcrypt;
+var redis = require("redis");
+var RedisStore = require('connect-redis')(session);
+
+const client = redis.createClient(process.env.REDIS_URL);
 
 require("dotenv/config");
 
@@ -43,7 +49,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     secret: SESS_SECRET,
-    store: sessionStore,
+    store: new RedisStore({ host: process.env.REDIS_URL, port: 6379, client: client,ttl :  260}),
     cookie: {
       maxAge: SESS_LIFETIME,
       secure: false,

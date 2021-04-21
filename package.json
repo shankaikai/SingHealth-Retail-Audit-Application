@@ -1,0 +1,35 @@
+{
+    "name": "esc-singhealth",
+    "version": "1.0.0",
+    "description": "Tiong Shan Kai <br>\r Amrish Sandhu <br>\r Joel Ong <br>\r Phan Vu Lan",
+    "devDependencies": {},
+    "scripts": {
+      "start": "npm start --prefix server",
+      "build": "cd server && npm install && cd .. && cd client && npm install && npm run build"
+    },
+    "cacheDirectories": [
+      "node_modules",
+      "react-ui/node_modules"
+    ],
+    "dependencies": {
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/shankaikai/esc-singhealth.git"
+    },
+    "keywords": [
+      "node",
+      "heroku",
+      "create-react-app",
+      "react"
+    ],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/shankaikai/esc-singhealth/issues"
+    },
+    "engines": {
+      "node": "12.18.3"
+    },
+    "homepage": "https://github.com/shankaikai/esc-singhealth#readme"
+  }
