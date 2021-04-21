@@ -259,8 +259,8 @@ router.post("/issue/prompt/:id", (req, res) => {
         console.log(err);
       } else {
         res.send({ message: "prompt success" });
-        // var email = result[0].email;
-        var email = "ongkahyuan@gmail.com";
+        var email = result[0].email;
+        // var email = "ongkahyuan@gmail.com";
         sendMail("hotmail", email, result);
         console.log(result);
       }
