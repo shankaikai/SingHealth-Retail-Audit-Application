@@ -13,7 +13,7 @@ import {
   InputLabel,
 } from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom";
-import { SettingsInputAntennaTwoTone, Visibility, VisibilityOff } from "@material-ui/icons";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { LoginContext } from "../context/LoginContext";
 import Axios from "axios";
 require("dotenv/config");
@@ -51,6 +51,8 @@ const ResetEnterUsernamePage = (props) => {
 
   // States to store username and password
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   // Grab setContext from LoginContext
   const { setContext } = useContext(LoginContext);
@@ -63,12 +65,7 @@ const ResetEnterUsernamePage = (props) => {
   const handleSendResetLink = (e) => {
     Axios.post("http://localhost:3001/api/auth/sendemailresetpassword", { email })
       .then((res) => {
-        if(res.data.resetpassword_status) {
-          alert("PLEASE_CHECK_YOUR_EMAIL");
-          setEmail("")
-        } else {
-          alert("INVALID_EMAIL")
-        }
+        alert("PLEASE_CHECK_YOUR_EMAIL");
       })
       .catch((err) => {
         console.log(err);
