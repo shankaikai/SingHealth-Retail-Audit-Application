@@ -62,8 +62,12 @@ const LoginPage = () => {
   const [error, setError] = useState(false);
 
   function validateEmail(email) {
+    const illegalchars = /^[ A-Za-z0-9_@./#&+-]*$/;
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
+    return (
+      re.test(String(email).toLowerCase()) &&
+      illegalchars.test(String(email).toLowerCase())
+    );
   }
 
   // Function to handle a login request
