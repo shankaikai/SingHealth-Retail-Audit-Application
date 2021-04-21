@@ -13,11 +13,15 @@ import {
   FormControl,
   InputLabel,
   FormHelperText,
+  Dialog,
+  DialogContent,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { LoginContext } from "../context/LoginContext";
 import Axios from "axios";
+import config from "../App.config";
+import ReCAPTCHA from "react-google-recaptcha";
 require("dotenv/config");
 
 const useStyles = makeStyles({
@@ -61,6 +65,9 @@ const LoginPage = () => {
   // Error states
   const [error, setError] = useState(false);
 
+  // Failure counter
+  const [failCount, setFailCount] = useState(0);
+
   function validateEmail(email) {
     const illegalchars = /^[ A-Za-z0-9_@./#&+-]*$/;
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -75,7 +82,7 @@ const LoginPage = () => {
     if (validateEmail(email)) {
       setSpinner(true);
       Axios.post(
-        "http://localhost:3001/api/auth/login",
+        `${config.SERVERURL}/api/auth/login`,
         {
           email,
           password,
@@ -86,11 +93,13 @@ const LoginPage = () => {
           setContext(res.data);
         } else {
           setError(true);
+          setFailCount(failCount + 1);
         }
         setSpinner(false);
       });
     } else {
       setError(true);
+      setFailCount(failCount + 1);
     }
   };
 
@@ -109,6 +118,7 @@ const LoginPage = () => {
             label="Email"
             variant="outlined"
             fullWidth
+            disabled={failCount === 5}
             error={error}
             onChange={(e) => {
               setEmail(e.target.value);
@@ -128,6 +138,7 @@ const LoginPage = () => {
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
+              disabled={failCount === 5}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -151,6 +162,7 @@ const LoginPage = () => {
             color="primary"
             fullWidth
             onClick={handleLogin}
+            disabled={failCount === 5}
           >
             Login
           </Button>
@@ -160,6 +172,18 @@ const LoginPage = () => {
             Forgot Password?
           </Link>
         </Typography>
+        {failCount === 5 ? (
+          <div>
+            <ReCAPTCHA
+              sitekey={config.RECAPTCHA}
+              onChange={() => {
+                setFailCount(0);
+                setError(false);
+                console.log("captcha success");
+              }}
+            />
+          </div>
+        ) : null}
       </FormControl>
     </div>
   );

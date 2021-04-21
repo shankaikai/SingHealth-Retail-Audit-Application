@@ -13,6 +13,7 @@ import { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { LoginContext } from "../../context/LoginContext";
+import config from "../../App.config";
 
 const useStyles = makeStyles({
   root: {
@@ -74,7 +75,7 @@ const EditTenantPage = () => {
     //TODO: Axios post req
     console.log("Editing tenant");
 
-    Axios.post(`http://localhost:3001/api/tenant/edit/${id}`, values, {
+    Axios.post(`${config.SERVERURL}/api/tenant/edit/${id}`, values, {
       withCredentials: true,
     }).then((response) => {
       console.log(response.data);
