@@ -83,16 +83,16 @@ app.use("/api/tenants", tenants);
 app.use("/api/tenant", tenant);
 app.use("/api/audit", audit);
 
-console.log(
-  "Client Build Directory: " + path.join(__dirname, "../client/build")
-);
+const rootDir = path.join(__dirname, "../");
+console.log(rootDir);
+console.log("Build:" + path.join(rootDir, "/client/build/index.html"));
 
-app.use(express.static(path.join(__dirname, "../client/build")));
+app.use(express.static(path.join(rootDir, "/client/build")));
 // app.use(express.static(path.join(rootDir, "/client/build/static/media")));
 
 // only get request from react component through #fetch or redirect by node server
 app.get("*", (req, res) => {
-  res.sendFile("../client/build/index.html");
+  res.sendFile(path.join(rootDir, "/client/build/index.html"));
 });
 
 // app.get("*", (req, res) => {
