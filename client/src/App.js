@@ -1,7 +1,7 @@
 import "./App.css";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
-import { createMuiTheme, ThemeProvider, Snackbar } from "@material-ui/core";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import {
   Route,
   BrowserRouter as Router,
@@ -34,18 +34,9 @@ const App = () => {
   // Create states to store context variables
   const [context, setContext] = useState({});
   const [spinner, setSpinner] = useState(false);
-  const [snackbar, setSnackbar] = useState({ status: false, message: "" });
-
   const providerValue = useMemo(
-    () => ({
-      context,
-      setContext,
-      spinner,
-      setSpinner,
-      snackbar,
-      setSnackbar,
-    }),
-    [context, setContext, spinner, setSpinner, snackbar, setSnackbar]
+    () => ({ context, setContext, spinner, setSpinner }),
+    [context, setContext, spinner, setSpinner]
   );
 
   useEffect(() => {
@@ -70,13 +61,6 @@ const App = () => {
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <LoginContext.Provider value={providerValue}>
           <ThemeProvider theme={theme}>
-            <Snackbar
-              open={snackbar.status}
-              autoHideDuration={3000}
-              onClose={() => setSnackbar(false)}
-              message={snackbar.message}
-              style={snackbar.noBar ? null : { bottom: 80 }}
-            />
             <Router>
               <Switch>
                 <Route exact path="/login">

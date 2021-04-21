@@ -9,29 +9,29 @@ const sendMailResetPassword = (service, email, name) => {
     },
   });
 
-  ejs.renderFile(
-    __dirname + "/templates/resetpassword.ejs",
-    { name: name, email: email },
-    function (err, data) {
-      if (err) {
+
+  ejs.renderFile(__dirname + "/templates/resetpassword.ejs", { name: name, email:email }, function (err, data) {
+    if (err) {
         console.log(err);
-      } else {
+    } else {
         var mainOptions = {
-          from: "esccprojectt@hotmail.com",
-          to: email,
-          subject: "Reset Password For SingHealth React-App",
-          html: data,
+            from: "esccprojectt@hotmail.com",
+            to: email,
+            subject: "Reset Password For SingHealth React-App",
+            html: data
         };
         console.log("html data ======================>", mainOptions.html);
         transporter.sendMail(mainOptions, function (err, info) {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log("Message sent: " + info.response);
-          }
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('Message sent: ' + info.response);
+            }
         });
-      }
     }
-  );
+    
+    });
+
+  
 };
-module.exports.sendMailResetPassword = sendMailResetPassword;
+module.exports.sendMailResetPassword = sendMailResetPassword

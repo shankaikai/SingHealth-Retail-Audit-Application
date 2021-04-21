@@ -36,7 +36,7 @@ const scores_hack = require("../../assets/scores_hack.json");
 const scoresTemplate = require("../../assets/scores_template.json");
 
 // TODO: Implement real props from the tenant page
-const AuditChecklistPage = () => {
+const AuditChecklistPage = (props) => {
   const classes = useStyles();
   let history = useHistory();
 
@@ -45,7 +45,7 @@ const AuditChecklistPage = () => {
   const { type, tenantID, onGoingAuditID } = useParams();
 
   // Grab context
-  const { context, setSpinner, setSnackbar } = useContext(LoginContext);
+  const { context, setSpinner } = useContext(LoginContext);
 
   // Index counter
   const [index, setIndex] = useState(0);
@@ -137,11 +137,7 @@ const AuditChecklistPage = () => {
       let complete = true;
       for (let i = 0; i < scores.length; i++) {
         if (scores[i].numUnanswered !== 0) {
-          setSnackbar({
-            status: true,
-            message: "Please complete all questions!",
-            noBar: true,
-          });
+          alert("Please complete all questions!");
           complete = false;
           break;
         }
@@ -176,11 +172,6 @@ const AuditChecklistPage = () => {
         (response) => {
           console.log(response.data);
           setSpinner(false);
-          setSnackbar({
-            status: true,
-            message: "Audit saved successfully!",
-            noBar: true,
-          });
           history.push(`/auditend/${tenantID}/${response.data.auditID}`);
         }
       );
@@ -190,7 +181,6 @@ const AuditChecklistPage = () => {
         (response) => {
           console.log(response.data);
           setSpinner(false);
-          setSnackbar({ status: true, message: "Audit saved successfully!" });
           history.push(`/tenant/${tenantID}`);
         }
       );
@@ -200,7 +190,6 @@ const AuditChecklistPage = () => {
         (response) => {
           console.log(response.data);
           setSpinner(false);
-          setSnackbar({ status: true, message: "Audit saved successfully!" });
           history.push(`/tenant/${tenantID}`);
         }
       );
@@ -212,11 +201,6 @@ const AuditChecklistPage = () => {
       ).then((response) => {
         console.log(response.data);
         setSpinner(false);
-        setSnackbar({
-          status: true,
-          message: "Audit saved successfully!",
-          noBar: true,
-        });
         history.push(`/auditend/${tenantID}/${response.data.auditID}`);
       });
     }

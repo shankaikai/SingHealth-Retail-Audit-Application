@@ -71,6 +71,7 @@ const TenantPage = () => {
     if (validateEmail(email)) {
       setInvalidEmail(false);
       setToExport(false);
+
       setEmail("");
       Axios.get(
         `http://localhost:3001/api/audit/export/${exportData.id}/${email}`
@@ -91,13 +92,11 @@ const TenantPage = () => {
       (response) => {
         if (response.data.message) {
           setSpinner(false);
+
           history.push("/");
         } else {
           setSpinner(false);
-          setSnackbar({
-            status: true,
-            message: "Delete failed. Please try again.",
-          });
+          alert("Delete failed");
         }
       }
     );

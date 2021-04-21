@@ -51,18 +51,14 @@ const useStyles = makeStyles({
 const NewIssuePage = (props) => {
   const classes = useStyles();
 
-  const { setSpinner, setSnackbar } = useContext(LoginContext);
+  const { setSpinner } = useContext(LoginContext);
   // Submit handler
   const handleSubmit = () => {
     console.log("Submit New Issue");
     // Form validation
     for (var key in values) {
       if (values[key] === null || values[key] === "") {
-        setSnackbar({
-          status: true,
-          message: "Please fill in all the required details!",
-          noBar: true,
-        });
+        alert("Please fill in all the required details!");
         return;
       }
     }

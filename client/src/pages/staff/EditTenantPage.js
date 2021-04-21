@@ -13,7 +13,6 @@ import { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { LoginContext } from "../../context/LoginContext";
-import config from "../../App.config";
 
 const useStyles = makeStyles({
   root: {
@@ -65,7 +64,7 @@ const EditTenantPage = () => {
 
   const [imageSelected, setImageSelected] = useState(true);
 
-  const { setSpinner, setSnackbar } = useContext(LoginContext);
+  const { setSpinner } = useContext(LoginContext);
 
   const { id } = useParams();
 
@@ -75,17 +74,13 @@ const EditTenantPage = () => {
     //TODO: Axios post req
     console.log("Editing tenant");
 
-    Axios.post(`${config.SERVERURL}/api/tenant/edit/${id}`, values, {
+    Axios.post(`http://localhost:3001/api/tenant/edit/${id}`, values, {
       withCredentials: true,
     }).then((response) => {
       console.log(response.data);
       if (response.data.message) {
         setSpinner(false);
-        setSnackbar({
-          status: true,
-          message: "Tenant update successful!",
-          noBar: true,
-        });
+        alert("Update successful!");
       }
     });
   };
@@ -114,11 +109,9 @@ const EditTenantPage = () => {
   };
 
   useEffect(() => {
-    setSpinner(true);
     Axios.get(`http://localhost:3001/api/tenant/edit/${id}`, {
       withCredentials: true,
     }).then((response) => {
-      setSpinner(false);
       setValues({
         name: response.data.name,
         location: response.data.location,
