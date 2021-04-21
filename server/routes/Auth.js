@@ -267,14 +267,24 @@ router.post("/sendemailresetpassword", (req, res) => {
   const email = req.body.email;
   // TODO: Extract service from email
   const service = "hotmail";
-  getStaffName(email)
-    .then((result) => {
-      var name = result[0].name;
-      sendMail(service, email, name);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  getStaff(email)
+  .then((data) => {
+    if(data.length == 1) {
+      getStaffName(email)
+      .then((result) => {
+        var name = result[0].name;
+        sendMail(service, email, name);
+        res.send({resetpassword_status : true})
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    } else if(data.length == 0) {
+      res.send({resetpassword_status : false})
+    }
+  })
+  .catch((err) => {console.log(err)})
+  
 });
 
 router.post("/resetpassword", (req, res) => {
