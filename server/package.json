@@ -21,6 +21,7 @@
     "express": "^4.17.1",
     "express-mysql-session": "^2.1.5",
     "express-session": "^1.17.1",
+    "generate-password": "^1.6.0",
     "html-pdf": "^2.2.0",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",

@@ -49,7 +49,7 @@ const ResetEnterUsernamePage = (props) => {
   // Create a style object
   const classes = useStyles();
 
-  // States to store username
+  // States to store username and password
   const [email, setEmail] = useState("");
 
   // Grab setContext from LoginContext

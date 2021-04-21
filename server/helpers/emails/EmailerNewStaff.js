@@ -1,8 +1,8 @@
 const nodemailer = require("nodemailer");
 var ejs = require("ejs");
-const sendMailResetPassword = (service, email, name) => {
+const sendNewStaffMail = (email) => {
   const transporter = nodemailer.createTransport({
-    service: service,
+    service: "hotmail",
     auth: {
       user: "esccprojectt@hotmail.com",
       pass: "wearethebest123",
@@ -10,8 +10,7 @@ const sendMailResetPassword = (service, email, name) => {
   });
 
   ejs.renderFile(
-    __dirname + "/templates/resetpassword.ejs",
-    { name: name, email: email },
+    __dirname + "/templates/newstaffaccount.ejs",
     function (err, data) {
       if (err) {
         console.log(err);
@@ -19,7 +18,7 @@ const sendMailResetPassword = (service, email, name) => {
         var mainOptions = {
           from: "esccprojectt@hotmail.com",
           to: email,
-          subject: "Reset Password For SingHealth React-App",
+          subject: "Register for a new staff account",
           html: data,
         };
         console.log("html data ======================>", mainOptions.html);
@@ -34,4 +33,4 @@ const sendMailResetPassword = (service, email, name) => {
     }
   );
 };
-module.exports.sendMailResetPassword = sendMailResetPassword;
+module.exports.sendNewStaffMail = sendNewStaffMail;

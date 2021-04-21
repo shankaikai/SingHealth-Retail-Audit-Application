@@ -20,7 +20,7 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import MessageItem from "../../components/issueHandling/MessageItem";
 import Skeleton from "@material-ui/lab/Skeleton";
-import NotificationImportantIcon from '@material-ui/icons/NotificationImportant';
+import NotificationImportantIcon from "@material-ui/icons/NotificationImportant";
 
 const useStyles = makeStyles({
   root: {
@@ -95,7 +95,7 @@ const useStyles = makeStyles({
 
 const AddIssuePage = () => {
   const classes = useStyles();
-  const { context, setSpinner } = useContext(LoginContext);
+  const { context, setSpinner, setSnackbar } = useContext(LoginContext);
   const { id } = useParams();
   const [issueData, setIssueData] = useState(0);
   const [messageData, setMessageData] = useState(0);
@@ -139,9 +139,9 @@ const AddIssuePage = () => {
     });
   };
 
-const initPrompt = () => {
-  setPromptConfirm(true);
-}
+  const initPrompt = () => {
+    setPromptConfirm(true);
+  };
 
   const handlePrompt = () => {
     setPromptConfirm(false);
@@ -149,11 +149,14 @@ const initPrompt = () => {
     Axios.post(`http://localhost:3001/api/tenant/issue/prompt/${id}`).then(
       (response) => {
         if (response.data.message) {
-          setSpinner(false);
         } else {
-          setSpinner(false);
-          alert("prompt failed");
+          setSnackbar({
+            status: true,
+            message: "Prompt failed. Please try again.",
+            noBar: true,
+          });
         }
+        setSpinner(false);
       }
     );
   };
@@ -184,8 +187,8 @@ const initPrompt = () => {
             <DialogTitle>{`Prompt ${issueData[0].title}?`}</DialogTitle>
             <DialogContent>
               <DialogContentText>
-                Prompting a tenant sends an email to remind them to rectify this issue. 
-                Would you like to prompt this tennant?
+                Prompting a tenant sends an email to remind them to rectify this
+                issue. Would you like to prompt this tennant?
               </DialogContentText>
             </DialogContent>
             <DialogActions>
@@ -223,7 +226,8 @@ const initPrompt = () => {
                       className={classes.buttons}
                       variant="outlined"
                       onClick={() => initPrompt()}
-                      disabled={issueDataTranslated.closed}>
+                      disabled={issueDataTranslated.closed}
+                    >
                       <NotificationImportantIcon />
                     </IconButton>
                     <Button
@@ -231,7 +235,8 @@ const initPrompt = () => {
                       className={classes.buttons}
                       variant="outlined"
                       onClick={() => handleReply()}
-                      disabled={issueDataTranslated.closed}>
+                      disabled={issueDataTranslated.closed}
+                    >
                       REPLY
                     </Button>
                   </div>
@@ -255,8 +260,8 @@ const initPrompt = () => {
             <List>
               {messageData
                 ? messageData.map((data) => (
-                  <MessageItem key={data.id} data={data} />
-                ))
+                    <MessageItem key={data.id} data={data} />
+                  ))
                 : null}
               {issueDataTranslated ? (
                 <MessageItem data={issueDataTranslated} />
