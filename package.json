@@ -5,7 +5,7 @@
     "devDependencies": {},
     "scripts": {
       "start": "npm start --prefix server",
-      "build": "cd server && npm install && cd .. && cd client && npm install && npm run build"
+      "build": "cd server && npm uninstall bcrypt && npm install bcrypt && npm install && cd .. && cd client && npm install && npm run build"
     },
     "cacheDirectories": [
       "node_modules",
