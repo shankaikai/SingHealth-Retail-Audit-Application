@@ -92,7 +92,7 @@ app.use(express.static(path.join(__dirname, "../client/build")));
 
 // only get request from react component through #fetch or redirect by node server
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "../client/build/index.html"));
+  res.sendFile("../client/build/index.html");
 });
 
 // app.get("*", (req, res) => {
