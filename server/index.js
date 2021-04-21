@@ -1,13 +1,13 @@
 const express = require("express");
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 const session = require("express-session");
-const cors = require("cors");
+// const cors = require("cors");
 const path = require("path");
 var MySQLStore = require("express-mysql-session")(session);
 const bcrypt = require("bcrypt");
 module.exports.bcrypt = bcrypt;
 var redis = require("redis");
-var RedisStore = require('connect-redis')(session);
+var RedisStore = require("connect-redis")(session);
 
 const client = redis.createClient(process.env.REDIS_URL);
 
@@ -49,7 +49,12 @@ app.use(
     resave: false,
     saveUninitialized: false,
     secret: SESS_SECRET,
-    store: new RedisStore({ host: process.env.REDIS_URL, port: 6379, client: client,ttl :  260}),
+    store: new RedisStore({
+      host: process.env.REDIS_URL,
+      port: 6379,
+      client: client,
+      ttl: 260,
+    }),
     cookie: {
       maxAge: SESS_LIFETIME,
       secure: false,
@@ -59,13 +64,13 @@ app.use(
 );
 
 // Enable cross platform information transfer
-app.use(
-  cors({
-    origin: [process.env.SERVER_HOST],
-    methods: ["GET", "POST"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: [process.env.SERVER_HOST],
+//     methods: ["GET", "POST"],
+//     credentials: true,
+//   })
+// );
 console.log(process.env.SERVER_HOST);
 // Routes
 const auth = require("./routes/Auth");
@@ -78,20 +83,22 @@ app.use("/api/tenants", tenants);
 app.use("/api/tenant", tenant);
 app.use("/api/audit", audit);
 
-// console.log("Root Directory: " + rootDir);
+console.log(
+  "Client Build Directory: " + path.join(__dirname, "../client/build")
+);
 
-// app.use(express.static(path.join(rootDir, "/client/build")));
+app.use(express.static(path.join(__dirname, "../client/build")));
 // app.use(express.static(path.join(rootDir, "/client/build/static/media")));
 
 // only get request from react component through #fetch or redirect by node server
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(rootDir + "/client/build/index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "../client/build/index.html"));
+});
 
 // app.get("*", (req, res) => {
 //   res.send(` <h2> Oops! 404 Not Found </h2> `);
 // });
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT || 5000, () => {
   console.log(`Server starting on port ${PORT}`);
 });
