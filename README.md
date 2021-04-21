@@ -7,4 +7,4 @@ Joel Ong <br>
 Phan Vu Lan 
 
 ## Project Description
-We are developing a full stack web application to digitalise audit checks for Singhealth.
+We developed a full stack application using Node, Express, React and MySQL to digitalise audits for SingHealth.
