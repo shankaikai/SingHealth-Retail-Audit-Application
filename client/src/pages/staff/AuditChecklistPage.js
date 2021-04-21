@@ -36,7 +36,7 @@ const scores_hack = require("../../assets/scores_hack.json");
 const scoresTemplate = require("../../assets/scores_template.json");
 
 // TODO: Implement real props from the tenant page
-const AuditChecklistPage = (props) => {
+const AuditChecklistPage = () => {
   const classes = useStyles();
   let history = useHistory();
 

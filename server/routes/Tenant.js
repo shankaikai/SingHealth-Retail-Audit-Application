@@ -4,6 +4,8 @@ const db = require("../config/DatabaseConfig");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const sendMail = require("../helpers/emails/EmailerPrompt");
+const sendNewTenantMail = require("../helpers/emails/EmailerNewTenant");
+var generator = require("generate-password");
 
 router.get("/:tenantID", (req, res) => {
   let details;
@@ -202,7 +204,11 @@ router.post("/create", (req, res) => {
   const type = req.body.type;
   const location = req.body.location;
   const email = req.body.email;
-  const password = req.body.password;
+  var password = generator.generate({
+    length: 10,
+    numbers: true,
+  });
+  console.log("Generate temporary password: " + password);
   const imageUrl = req.body.imageUrl;
   hashPassword(password).then((hash) => {
     db.query(
@@ -213,11 +219,13 @@ router.post("/create", (req, res) => {
           console.log(err);
         } else {
           console.log(name + " tenant created successfuly!");
+          sendNewTenantMail(email, name, password);
           res.send({ message: "Tenant registration success!" });
         }
       }
     );
   });
+  // Send email to tenant email with the username and password
 });
 
 router.post("/delete/:id", (req, res) => {

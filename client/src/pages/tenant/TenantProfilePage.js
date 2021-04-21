@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 });
 
 const TenantProfilePage = () => {
-  const { context, setContext } = useContext(LoginContext);
+  const { context, setContext, setSpinner } = useContext(LoginContext);
   let history = useHistory();
 
   const handleEdit = () => {
@@ -37,10 +37,12 @@ const TenantProfilePage = () => {
 
   // Function to handle logouts
   const handleLogout = () => {
+    setSpinner(true);
     // TODO: Release session from node
     Axios.post("http://localhost:3001/api/auth/logout", {
       withCredentials: true,
     }).then(() => {
+      setSpinner(false);
       setContext({});
     });
   };

@@ -45,7 +45,7 @@ const useStyles = makeStyles({
   },
 });
 
-const LoginPage = (props) => {
+const LoginPage = () => {
   // Create a style object
   const classes = useStyles();
   let history = useHistory();
@@ -61,24 +61,33 @@ const LoginPage = (props) => {
   // Error states
   const [error, setError] = useState(false);
 
+  function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
   // Function to handle a login request
   const handleLogin = () => {
-    setSpinner(true);
-    Axios.post(
-      "http://localhost:3001/api/auth/login",
-      {
-        email,
-        password,
-      },
-      { withCredentials: true }
-    ).then((res) => {
-      if (res.data.login_status) {
-        setContext(res.data);
-      } else {
-        setError(true);
-      }
-      setSpinner(false);
-    });
+    if (validateEmail(email)) {
+      setSpinner(true);
+      Axios.post(
+        "http://localhost:3001/api/auth/login",
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      ).then((res) => {
+        if (res.data.login_status) {
+          setContext(res.data);
+        } else {
+          setError(true);
+        }
+        setSpinner(false);
+      });
+    } else {
+      setError(true);
+    }
   };
 
   const handleForgetPassword = () => {

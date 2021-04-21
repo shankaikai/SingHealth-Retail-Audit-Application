@@ -60,7 +60,6 @@ const AddTenantPage = () => {
     name: "",
     location: "",
     email: "",
-    password: "",
     type: "",
     cluster: "",
   });
@@ -189,15 +188,6 @@ const AddTenantPage = () => {
             fullWidth
             variant="filled"
             label="Email Address"
-            onChange={handleChange}
-          />
-          <TextField
-            id="password"
-            value={values.password}
-            className={classes.field}
-            fullWidth
-            variant="filled"
-            label="Password"
             onChange={handleChange}
           />
           <Button
