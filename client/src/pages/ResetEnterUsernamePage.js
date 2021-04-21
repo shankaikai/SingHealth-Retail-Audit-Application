@@ -13,6 +13,7 @@ import { LoginContext } from "../context/LoginContext";
 import Axios from "axios";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { useHistory } from "react-router-dom";
+import config from "../App.config";
 
 require("dotenv/config");
 
@@ -70,7 +71,7 @@ const ResetEnterUsernamePage = (props) => {
   // Send email that contains link that redirect to * a new tab * that shows the enterpassword component
   const handleSendResetLink = (e) => {
     if (validateEmail(email)) {
-      Axios.post("http://localhost:3001/api/auth/sendemailresetpassword", {
+      Axios.post(`${config.SERVERURL}/api/auth/sendemailresetpassword`, {
         email,
       })
         .then((res) => {

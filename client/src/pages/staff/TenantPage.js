@@ -18,6 +18,7 @@ import HeaderViewTenant from "../../components/tenantView/HeaderViewTenant";
 import Axios from "axios";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { LoginContext } from "../../context/LoginContext";
+import config from "../../App.config";
 
 const useStyles = makeStyles({
   root: {
@@ -73,7 +74,7 @@ const TenantPage = () => {
       setToExport(false);
       setEmail("");
       Axios.get(
-        `http://localhost:3001/api/audit/export/${exportData.id}/${email}`
+        `${config.SERVERURL}/api/audit/export/${exportData.id}/${email}`
       ).then((response) => {
         if (response.data.message) {
           setSnackbar(true);
@@ -87,7 +88,7 @@ const TenantPage = () => {
   const handleDelete = () => {
     setDeleteConfirm(false);
     setSpinner(true);
-    Axios.post(`http://localhost:3001/api/tenant/delete/${id}`).then(
+    Axios.post(`${config.SERVERURL}/api/tenant/delete/${id}`).then(
       (response) => {
         if (response.data.message) {
           setSpinner(false);
@@ -107,7 +108,7 @@ const TenantPage = () => {
 
   // add axios function to get the tenant details using the id
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/tenant/${id}`).then((response) => {
+    Axios.get(`${config.SERVERURL}/api/tenant/${id}`).then((response) => {
       setData(response.data);
       setLoaded(true);
     });

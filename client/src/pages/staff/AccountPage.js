@@ -15,6 +15,7 @@ import Navbar from "../../components/common/Navbar";
 import { LoginContext } from "../../context/LoginContext";
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
+import config from "../../App.config";
 
 const useStyles = makeStyles({
   root: {
@@ -58,7 +59,7 @@ const AccountPage = () => {
   const handleLogout = () => {
     setSpinner(true);
     // TODO: Release session from node
-    Axios.post("http://localhost:3001/api/auth/logout", {
+    Axios.post(`${config.SERVERURL}/api/auth/logout`, {
       withCredentials: true,
     }).then((response) => {
       if (!response.data.login_status) {
@@ -78,7 +79,7 @@ const AccountPage = () => {
       setAddStaff(false);
       setNewStaffEmail("");
       Axios.get(
-        `http://localhost:3001/api/auth/newstaff/${newStaffEmail}`
+        `${config.SERVERURL}/api/auth/newstaff/${newStaffEmail}`
       ).then((response) => {
         if (response.data.message) {
           setSnackbar({

@@ -14,6 +14,7 @@ import { useParams, useHistory } from "react-router-dom";
 import Header from "../components/common/Header";
 import Axios from "axios";
 import { LoginContext } from "../context/LoginContext";
+import config from "../App.config";
 require("dotenv/config");
 
 const useStyle = makeStyles({
@@ -52,7 +53,7 @@ const RegisterPage = () => {
   // Function to handle update password
   const handleResetPassword = () => {
     if (password === repeatPassword) {
-      Axios.post("http://localhost:3001/api/auth/resetpassword", {
+      Axios.post(`${config.SERVERURL}/api/auth/resetpassword`, {
         email,
         password,
       })

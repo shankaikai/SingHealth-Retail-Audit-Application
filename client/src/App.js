@@ -16,6 +16,7 @@ import { useEffect, useState, useMemo } from "react";
 import LoadingOverlay from "react-loading-overlay";
 import ResetEnterUsernamePage from "./pages/ResetEnterUsernamePage";
 import ResetEnterNewPasswordPage from "./pages/ResetEnterNewPasswordPage";
+import config from "./App.config";
 
 // Creating a custom theme
 const theme = createMuiTheme({
@@ -49,7 +50,7 @@ const App = () => {
   );
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/api/auth/login", {
+    Axios.get(`${config.SERVERURL}/api/auth/login`, {
       withCredentials: true,
     }).then((response) => {
       if (response.data.login_status) {

@@ -8,6 +8,7 @@ import { useHistory, useParams } from "react-router-dom";
 import Axios from "axios";
 import { LoginContext } from "../../context/LoginContext";
 import Skeleton from "@material-ui/lab/Skeleton";
+import config from "../../App.config";
 
 const useStyles = makeStyles({
   root: {
@@ -99,7 +100,7 @@ const AuditChecklistPage = () => {
 
   // Grab tenant data from database to update UI
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/tenant/${tenantID}`).then(
+    Axios.get(`${config.SERVERURL}/api/tenant/${tenantID}`).then(
       (response) => {
         setTenantData(response.data);
         setLoaded(true);
@@ -111,7 +112,7 @@ const AuditChecklistPage = () => {
   useEffect(() => {
     if (onGoingAuditID) {
       Axios.get(
-        `http://localhost:3001/api/audit/ongoing/${onGoingAuditID}`
+        `${config.SERVERURL}/api/audit/ongoing/${onGoingAuditID}`
       ).then((response) => {
         const res = response.data;
         setScores(JSON.parse(res.scores));
@@ -172,7 +173,7 @@ const AuditChecklistPage = () => {
     };
     // new to complete insert
     if (complete && !onGoingAuditID) {
-      Axios.post("http://localhost:3001/api/audit/newcomplete", toUpload).then(
+      Axios.post(`${config.SERVERURL}/api/audit/newcomplete`, toUpload).then(
         (response) => {
           console.log(response.data);
           setSpinner(false);
@@ -186,7 +187,7 @@ const AuditChecklistPage = () => {
       );
       // new to partial insert
     } else if (!complete && !onGoingAuditID) {
-      Axios.post("http://localhost:3001/api/audit/newpartial", toUpload).then(
+      Axios.post(`${config.SERVERURL}/api/audit/newpartial`, toUpload).then(
         (response) => {
           console.log(response.data);
           setSpinner(false);
@@ -196,7 +197,7 @@ const AuditChecklistPage = () => {
       );
       // partial to partial update
     } else if (!complete && onGoingAuditID) {
-      Axios.post("http://localhost:3001/api/audit/partial", toUpload).then(
+      Axios.post(`${config.SERVERURL}/api/audit/partial`, toUpload).then(
         (response) => {
           console.log(response.data);
           setSpinner(false);
@@ -207,7 +208,7 @@ const AuditChecklistPage = () => {
       // partial to complete update
     } else if (complete && onGoingAuditID) {
       Axios.post(
-        "http://localhost:3001/api/audit/partialcomplete",
+        `${config.SERVERURL}/api/audit/partialcomplete`,
         toUpload
       ).then((response) => {
         console.log(response.data);

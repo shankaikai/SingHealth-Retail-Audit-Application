@@ -21,6 +21,7 @@ import Axios from "axios";
 import MessageItem from "../../components/issueHandling/MessageItem";
 import Skeleton from "@material-ui/lab/Skeleton";
 import NotificationImportantIcon from "@material-ui/icons/NotificationImportant";
+import config from "../../App.config";
 
 const useStyles = makeStyles({
   root: {
@@ -105,7 +106,7 @@ const AddIssuePage = () => {
   let history = useHistory();
 
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/tenant/issue/${id}`).then(
+    Axios.get(`${config.SERVERURL}/api/tenant/issue/${id}`).then(
       (response) => {
         setIssueData(response.data.issue);
         setMessageData(response.data.messages.reverse());
@@ -146,7 +147,7 @@ const AddIssuePage = () => {
   const handlePrompt = () => {
     setPromptConfirm(false);
     setSpinner(true);
-    Axios.post(`http://localhost:3001/api/tenant/issue/prompt/${id}`).then(
+    Axios.post(`${config.SERVERURL}/api/tenant/issue/prompt/${id}`).then(
       (response) => {
         if (response.data.message) {
         } else {
@@ -162,7 +163,7 @@ const AddIssuePage = () => {
   };
 
   const handleClose = () => {
-    Axios.post(`http://localhost:3001/api/tenant/issue/${id}`, {
+    Axios.post(`${config.SERVERURL}/api/tenant/issue/${id}`, {
       closed: "1",
     }).then((response) => {
       console.log(response.data);

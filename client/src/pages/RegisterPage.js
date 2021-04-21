@@ -19,6 +19,7 @@ import Header from "../components/common/Header";
 import Axios from "axios";
 import { LoginContext } from "../context/LoginContext";
 import Skeleton from "@material-ui/lab/Skeleton";
+import config from "../App.config";
 
 const useStyle = makeStyles({
   root: {
@@ -133,7 +134,7 @@ const RegisterPage = () => {
       return;
     }
     // Axios post
-    Axios.post(`http://localhost:3001/api/auth/register/`, values).then(
+    Axios.post(`${config.SERVERURL}/api/auth/register/`, values).then(
       (response) => {
         setSpinner(false);
         if (response.data.register_status) {

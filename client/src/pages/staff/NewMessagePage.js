@@ -5,6 +5,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import { useState, useContext } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { LoginContext } from "../../context/LoginContext";
+import config from "../../App.config";
 
 const useStyles = makeStyles({
   root: {
@@ -103,7 +104,7 @@ const AddIssuePage = () => {
 
   // Submit handler
   const handleSubmit = () => {
-    Axios.post("http://localhost:3001/api/tenant/issue/reply", values).then(
+    Axios.post(`${config.SERVERURL}/api/tenant/issue/reply`, values).then(
       (response) => {
         console.log(response);
         history.goBack();

@@ -14,6 +14,7 @@ import Axios from "axios";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { LoginContext } from "../../context/LoginContext";
 import { useHistory } from "react-router-dom";
+import config from "../../App.config";
 
 const useStyles = makeStyles({
   root: {
@@ -74,7 +75,7 @@ const EditTenantProfilePage = () => {
     //TODO: Axios post req
     console.log("Editing tenant");
 
-    Axios.post(`http://localhost:3001/api/tenant/edit/${context.id}`, values, {
+    Axios.post(`${config.SERVERURL}/api/tenant/edit/${context.id}`, values, {
       withCredentials: true,
     }).then((response) => {
       console.log(response.data);
@@ -114,7 +115,7 @@ const EditTenantProfilePage = () => {
 
   useEffect(() => {
     setSpinner(true);
-    Axios.get(`http://localhost:3001/api/tenant/edit/${context.id}`, {
+    Axios.get(`${config.SERVERURL}/api/tenant/edit/${context.id}`, {
       withCredentials: true,
     }).then((response) => {
       setValues({

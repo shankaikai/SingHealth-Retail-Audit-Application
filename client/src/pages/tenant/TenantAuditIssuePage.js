@@ -6,6 +6,7 @@ import { useContext } from "react";
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import MessageItem from "../../components/issueHandling/MessageItem";
+import config from "../../App.config";
 
 const useStyles = makeStyles({
   root: {
@@ -50,7 +51,7 @@ const TenantAuditIssuePage = () => {
   const [issueDataTranslated, setIssueDataTranslated] = useState(0);
 
   useEffect(() => {
-    Axios.get(`http://localhost:3001/tenant/issue/${id}`).then((response) => {
+    Axios.get(`${config.SERVERURL}/tenant/issue/${id}`).then((response) => {
       setIssueData(response.data.issue);
       setMessageData(response.data.messages.reverse());
       console.log(response.data.issue);

@@ -7,6 +7,7 @@ import { Fab, makeStyles } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import Skeleton from "@material-ui/lab/Skeleton";
 import Axios from "axios";
+import config from "../../App.config";
 
 const useStyles = makeStyles({
   fab: {
@@ -37,7 +38,7 @@ const TenantsPage = () => {
   const [cluster, setCluster] = useState("");
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/api/tenants/all").then((response) => {
+    Axios.get(`${config.SERVERURL}/api/tenants/all`).then((response) => {
       setData(response.data);
       setLoaded(true);
     });

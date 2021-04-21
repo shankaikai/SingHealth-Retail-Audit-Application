@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core";
 import OutstandingList from "../../components/outstanding/OutstandingList";
 import Axios from "axios";
 import Skeleton from "@material-ui/lab/Skeleton";
+import config from "../../App.config";
 
 const useStyles = makeStyles({
   root: {
@@ -34,7 +35,7 @@ const OutstandingPage = () => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/api/tenants/outstanding").then(
+    Axios.get(`${config.SERVERURL}/api/tenants/outstanding`).then(
       (response) => {
         setData(response.data);
         setLoaded(true);

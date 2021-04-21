@@ -19,6 +19,7 @@ import Header from "../../components/common/Header";
 import Axios from "axios";
 import { LoginContext } from "../../context/LoginContext";
 import Skeleton from "@material-ui/lab/Skeleton";
+import config from "../../App.config";
 
 const useStyle = makeStyles({
   root: {
@@ -120,7 +121,7 @@ const EditProfilePage = () => {
     setSpinner(true);
     // Axios post
     Axios.post(
-      `http://localhost:3001/api/auth/edit/${context.id}`,
+      `${config.SERVERURL}/api/auth/edit/${context.id}`,
       values
     ).then((response) => {
       console.log(response.data);
@@ -136,7 +137,7 @@ const EditProfilePage = () => {
 
   useEffect(() => {
     setSpinner(true);
-    Axios.get(`http://localhost:3001/api/auth/edit/${context.id}`).then(
+    Axios.get(`${config.SERVERURL}/api/auth/edit/${context.id}`).then(
       (response) => {
         setValues({
           name: response.data.name,

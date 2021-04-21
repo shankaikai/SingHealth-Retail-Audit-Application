@@ -115,7 +115,7 @@ const EditTenantPage = () => {
 
   useEffect(() => {
     setSpinner(true);
-    Axios.get(`http://localhost:3001/api/tenant/edit/${id}`, {
+    Axios.get(`${config.SERVERURL}/api/tenant/edit/${id}`, {
       withCredentials: true,
     }).then((response) => {
       setSpinner(false);

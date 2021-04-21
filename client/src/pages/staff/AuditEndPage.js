@@ -6,6 +6,7 @@ import AuditResults from "../../components/checklist/AuditResults";
 import { useHistory, useParams } from "react-router-dom";
 import Axios from "axios";
 import Skeleton from "@material-ui/lab/Skeleton";
+import config from "../../App.config";
 
 const useStyles = makeStyles({
   root: {
@@ -35,9 +36,9 @@ export default function AuditEndPage() {
   // Display loading screen when the data is not loaded yet
 
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/audit/${auditID}`).then((res) => {
+    Axios.get(`${config.SERVERURL}/api/audit/${auditID}`).then((res) => {
       setData(res.data);
-      Axios.get(`http://localhost:3001/api/tenant/${tenantID}`).then(
+      Axios.get(`${config.SERVERURL}/api/tenant/${tenantID}`).then(
         (response) => {
           setTenantData(response.data);
           console.log(response.data);

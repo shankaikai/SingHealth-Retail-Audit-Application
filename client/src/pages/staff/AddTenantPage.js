@@ -13,6 +13,7 @@ import { useHistory } from "react-router-dom";
 import { LoginContext } from "../../context/LoginContext";
 import Axios from "axios";
 import Skeleton from "@material-ui/lab/Skeleton";
+import config from "../../App.config";
 
 const useStyles = makeStyles({
   root: {
@@ -71,7 +72,7 @@ const AddTenantPage = () => {
   // Submit handler
   const handleSubmit = () => {
     setSpinner(true);
-    Axios.post("http://localhost:3001/api/tenant/create", values).then(
+    Axios.post(`${config.SERVERURL}/api/tenant/create`, values).then(
       (response) => {
         setSpinner(false);
         if (response.data.message) {

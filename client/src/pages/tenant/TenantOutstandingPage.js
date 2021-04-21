@@ -6,6 +6,7 @@ import OutstandingList from "../../components/tenantView/OutstandingList";
 import Axios from "axios";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { LoginContext } from "../../context/LoginContext";
+import config from "../../App.config";
 
 const useStyles = makeStyles({
   root: {
@@ -37,7 +38,7 @@ const TenantOutstandingPage = () => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/tenant/${context.id}`).then(
+    Axios.get(`${config.SERVERURL}/api/tenant/${context.id}`).then(
       (response) => {
         console.log(response.data);
         setData(response.data);
