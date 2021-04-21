@@ -35,7 +35,7 @@ const TWO_HOURS = 1000 * 60 * 60 * 2;
 
 const {
   PORT = 3001,
-  NODE_ENV = "development",
+  NODE_ENV = "production",
   SESS_NAME = "SID",
   SESS_SECRET = "sutdsux",
   SESS_LIFETIME = TWO_HOURS,
