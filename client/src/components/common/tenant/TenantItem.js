@@ -7,6 +7,10 @@ import Box from "@material-ui/core/Box";
 import Avatar from "@material-ui/core/Avatar";
 import logo from "../../../assets/koufu.jpg";
 import tick from "../../../assets/tick.svg";
+import { green } from '@material-ui/core/colors';
+import { red } from '@material-ui/core/colors';
+import DoneIcon from '@material-ui/icons/Done';
+import ClearIcon from '@material-ui/icons/Clear';
 import { useHistory } from "react-router-dom";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 
@@ -59,8 +63,7 @@ const TenantItem = (props) => {
                 style={{ marginBottom: "0" }}
                 className={classes.title}
                 display="inline"
-                gutterBottom
-              >
+                gutterBottom>
                 <Box fontWeight="fontWeightBold" m={1}>
                   {storeName} • {cluster}
                 </Box>
@@ -78,7 +81,7 @@ const TenantItem = (props) => {
                 >
                   {completedDate
                     ? "Last Audit: " +
-                      new Date(completedDate.slice(0, 10)).toDateString()
+                    new Date(completedDate.slice(0, 10)).toDateString()
                     : "No audits done yet"}
                 </Box>
               </Typography>
@@ -88,17 +91,14 @@ const TenantItem = (props) => {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "flex-end",
+                alignItems: "center",
+                minWidth: "49px",
               }}
-            >
-              <img
-                alt="check"
-                src={tick}
-                style={{
-                  display: "block",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                }}
-              />
+            >{score>=95?
+              <DoneIcon style={{color:green[500]}}/>:
+            <ClearIcon style={{color:red[500]}}/>
+            }
+              
               <Typography
                 className={classes.subTitle}
                 color="textSecondary"
