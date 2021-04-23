@@ -89,6 +89,7 @@ router.post("/newcomplete", (req, res) => {
   const tenantID = req.body.tenantID;
   const staffID = req.body.staffID;
   const dateStarted = req.body.dateStarted;
+  console.log(dateStarted);
   const data = req.body.data;
   const dateCompleted = req.body.dateCompleted;
   const scores = req.body.scores;
@@ -118,7 +119,7 @@ router.post("/newcomplete", (req, res) => {
           tenantID,
           auditID,
           staffID,
-          new Date(Date.now())
+          new Date(Date.now()).toISOString()
         );
         db.query(
           "UPDATE scratch_tenants SET onGoingAuditID = ? WHERE id = ?",
@@ -202,7 +203,7 @@ router.post("/newpartial", (req, res) => {
           tenantID,
           auditID,
           staffID,
-          new Date(Date.now())
+          new Date(Date.now()).toISOString()
         );
         // console.log(issues);
         db.query(
@@ -275,7 +276,7 @@ router.post("/partial", (req, res) => {
           tenantID,
           auditID,
           staffID,
-          new Date(Date.now())
+          new Date(Date.now()).toISOString()
         );
 
         if (issues) {
@@ -329,7 +330,7 @@ router.post("/partialcomplete", (req, res) => {
           tenantID,
           auditID,
           staffID,
-          new Date(Date.now())
+          new Date(Date.now()).toISOString()
         );
         db.query(
           "UPDATE scratch_tenants SET onGoingAuditID = ? WHERE id = ?",
