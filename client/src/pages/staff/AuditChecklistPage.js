@@ -67,7 +67,9 @@ const AuditChecklistPage = () => {
   const [currentScore, setCurrentScore] = useState(0);
 
   // Holder for date started
-  const [dateStarted, setDateStarted] = useState(new Date(Date.now()));
+  const [dateStarted, setDateStarted] = useState(
+    new Date(Date.now()).toISOString()
+  );
 
   // Holder for all the issues during this audit
   const [issues, setIssues] = useState([]);
@@ -100,26 +102,24 @@ const AuditChecklistPage = () => {
 
   // Grab tenant data from database to update UI
   useEffect(() => {
-    Axios.get(`${config.SERVERURL}/api/tenant/${tenantID}`).then(
-      (response) => {
-        setTenantData(response.data);
-        setLoaded(true);
-      }
-    );
+    Axios.get(`${config.SERVERURL}/api/tenant/${tenantID}`).then((response) => {
+      setTenantData(response.data);
+      setLoaded(true);
+    });
   }, [tenantID]);
 
   // Conditional grabbing of ongoing audit data if there is any
   useEffect(() => {
     if (onGoingAuditID) {
-      Axios.get(
-        `${config.SERVERURL}/api/audit/ongoing/${onGoingAuditID}`
-      ).then((response) => {
-        const res = response.data;
-        setScores(JSON.parse(res.scores));
-        setAuditCheckList(JSON.parse(res.data));
-        setCurrentScore(res.score);
-        setDateStarted(new Date(res.dateStarted));
-      });
+      Axios.get(`${config.SERVERURL}/api/audit/ongoing/${onGoingAuditID}`).then(
+        (response) => {
+          const res = response.data;
+          setScores(JSON.parse(res.scores));
+          setAuditCheckList(JSON.parse(res.data));
+          setCurrentScore(res.score);
+          setDateStarted(new Date(res.dateStarted).toISOString());
+        }
+      );
     }
   }, [onGoingAuditID]);
 
@@ -165,7 +165,7 @@ const AuditChecklistPage = () => {
       dateStarted: dateStarted,
       completed: complete ? 1 : 0,
       data: auditChecklist,
-      dateCompleted: complete ? new Date(Date.now()) : null,
+      dateCompleted: complete ? new Date(Date.now()).toISOString() : null,
       scores: scores,
       score: currentScore,
       issues: issues,
@@ -285,7 +285,7 @@ const AuditChecklistPage = () => {
           </Button>
           <Header
             back
-            title={"Audit - " + dateStarted.toDateString()}
+            title={"Audit - " + new Date(dateStarted).toDateString()}
             noDivider
             backHandler={handleBackPress}
           />
