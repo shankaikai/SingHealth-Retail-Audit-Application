@@ -141,7 +141,7 @@ router.get("/issue/:issueID", (req, res) => {
 
 router.post("/issue/reply", (req, res) => {
   let insert = req.body;
-  insert.dateSent = new Date(Date.now());
+  insert.dateSent = new Date(Date.now()).toISOString();
   const messages = [];
   messages.push(
     insert.issueID,
