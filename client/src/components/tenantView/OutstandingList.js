@@ -30,7 +30,7 @@ const OutstandingList = (props) => {
           props.outstanding.map((issue) => (
             <div key={issue.id}>
               <IssueItem
-                dueDate={issue.date}
+                dueDate={issue.deadline}
                 issueID={issue.id}
                 issueName={issue.title}
               />

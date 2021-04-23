@@ -229,15 +229,17 @@ const AddIssuePage = () => {
                 </div>
                 <div className={classes.subheaderButtons}>
                   <div className={classes.buttonGroup}>
-                    <IconButton
-                      color="primary"
-                      className={classes.buttons}
-                      variant="outlined"
-                      onClick={() => initPrompt()}
-                      disabled={issueDataTranslated.closed}
-                    >
-                      <NotificationImportantIcon />
-                    </IconButton>
+                    {context.type === "staff" ? (
+                      <IconButton
+                        color="primary"
+                        className={classes.buttons}
+                        variant="outlined"
+                        onClick={() => initPrompt()}
+                        disabled={issueDataTranslated.closed}
+                      >
+                        <NotificationImportantIcon />
+                      </IconButton>
+                    ) : null}
                     <Button
                       color="primary"
                       className={classes.buttons}
