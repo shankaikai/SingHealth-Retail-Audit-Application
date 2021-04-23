@@ -167,7 +167,7 @@ const AddIssuePage = () => {
     }).then((response) => {
       console.log(response.data);
       if (response.data.message) {
-        setIssueDataTranslated({ ...issueData, closed: 1 });
+        setIssueDataTranslated({ ...issueDataTranslated, closed: 1 });
       }
     });
   };
