@@ -106,32 +106,31 @@ const AddIssuePage = () => {
   let history = useHistory();
 
   useEffect(() => {
-    Axios.get(`${config.SERVERURL}/api/tenant/issue/${id}`).then(
-      (response) => {
-        setIssueData(response.data.issue);
-        setMessageData(response.data.messages.reverse());
-        console.log(response.data);
+    Axios.get(`${config.SERVERURL}/api/tenant/issue/${id}`).then((response) => {
+      setIssueData(response.data.issue);
+      setMessageData(response.data.messages.reverse());
+      console.log(response.data);
 
-        let closed;
-        if (response.data.issue[0].closed === 0) {
-          closed = false;
-        } else {
-          closed = true;
-        }
-
-        let issueMessageTranslate = {
-          staffName: response.data.issue[0].staffName,
-          dateSent: response.data.issue[0].date,
-          body: response.data.issue[0].description,
-          photoUrl: response.data.issue[0].imageUrl,
-          location: response.data.issue[0].location,
-          closed: closed,
-        };
-
-        // setUserNames(users);
-        setIssueDataTranslated(issueMessageTranslate);
+      let closed;
+      if (response.data.issue[0].closed === 0) {
+        closed = false;
+      } else {
+        closed = true;
       }
-    );
+
+      let issueMessageTranslate = {
+        staffName: response.data.issue[0].staffName,
+        dateSent: response.data.issue[0].date,
+        deadline: response.data.issue[0].deadline,
+        body: response.data.issue[0].description,
+        photoUrl: response.data.issue[0].imageUrl,
+        location: response.data.issue[0].location,
+        closed: closed,
+      };
+
+      // setUserNames(users);
+      setIssueDataTranslated(issueMessageTranslate);
+    });
   }, [id]);
 
   const handleReply = () => {
@@ -207,14 +206,22 @@ const AddIssuePage = () => {
               <div className={classes.subheader}>
                 <div className={classes.subheaderText}>
                   <Typography color="textPrimary">
-                    <Box fontSize={16} style={{ marginBottom: "10px" }}>
+                    <Box fontSize={16} style={{ marginBottom: "5px" }}>
                       Location: {issueDataTranslated.location}
                     </Box>
                   </Typography>
                   <Typography color="textPrimary">
-                    <Box fontSize={16}>
+                    <Box fontSize={16} style={{ marginBottom: "5px" }}>
                       Issue Date:{" "}
                       {new Date(issueDataTranslated.dateSent)
+                        .toDateString()
+                        .slice(4)}
+                    </Box>
+                  </Typography>
+                  <Typography color="textPrimary">
+                    <Box fontSize={16}>
+                      Deadline:{" "}
+                      {new Date(issueDataTranslated.deadline)
                         .toDateString()
                         .slice(4)}
                     </Box>
@@ -222,15 +229,17 @@ const AddIssuePage = () => {
                 </div>
                 <div className={classes.subheaderButtons}>
                   <div className={classes.buttonGroup}>
-                    <IconButton
-                      color="primary"
-                      className={classes.buttons}
-                      variant="outlined"
-                      onClick={() => initPrompt()}
-                      disabled={issueDataTranslated.closed}
-                    >
-                      <NotificationImportantIcon />
-                    </IconButton>
+                    {context.type === "staff" ? (
+                      <IconButton
+                        color="primary"
+                        className={classes.buttons}
+                        variant="outlined"
+                        onClick={() => initPrompt()}
+                        disabled={issueDataTranslated.closed}
+                      >
+                        <NotificationImportantIcon />
+                      </IconButton>
+                    ) : null}
                     <Button
                       color="primary"
                       className={classes.buttons}
