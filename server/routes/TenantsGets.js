@@ -49,7 +49,7 @@ const groupByTenants = (res) => {
       out[index].issues.push({
         issueID: item.issueID,
         title: item.title,
-        date: item.date,
+        deadline: item.deadline,
       });
     }
   });
@@ -66,7 +66,7 @@ router.get("/outstanding", (req, res) => {
   y.type,
   y.location,
   x.title,
-  x.date,
+  x.deadline,
   x.id as issueID
   FROM (SELECT * 
   FROM escdb.scratch_issues

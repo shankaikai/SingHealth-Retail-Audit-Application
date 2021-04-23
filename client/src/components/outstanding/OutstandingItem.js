@@ -65,6 +65,8 @@ const OutstandingItem = (props) => {
     });
   };
 
+  console.log(props.data);
+
   return (
     <div className={classes.root}>
       <Accordion square>
@@ -94,8 +96,7 @@ const OutstandingItem = (props) => {
                   className={classes.issueDescription}
                   onClick={() => handleIssueClick(issue.issueID)}
                 >
-                  {issue.title} •{" "}
-                  {new Date(issue.date.slice(0, 10)).toDateString()}
+                  {issue.title} • {new Date(issue.deadline).toDateString()}
                 </Typography>
               </div>
             ))}

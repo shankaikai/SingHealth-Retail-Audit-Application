@@ -77,6 +77,7 @@ const createIssuesArray = (
       issue.issueName,
       issue.description,
       issue.imageUrl,
+      issue.deadline,
     ]);
   }
   return out;
@@ -134,7 +135,7 @@ router.post("/newcomplete", (req, res) => {
               );
               if (issues) {
                 db.query(
-                  "INSERT INTO scratch_issues (tenantID, auditID, staffID, date, location, closed, title, description, imageUrl) VALUES ?",
+                  "INSERT INTO scratch_issues (tenantID, auditID, staffID, date, location, closed, title, description, imageUrl, deadline) VALUES ?",
                   [issues],
                   (err, result) => {
                     if (err) {
@@ -218,7 +219,7 @@ router.post("/newpartial", (req, res) => {
               );
               if (issues) {
                 db.query(
-                  "INSERT INTO scratch_issues (tenantID, auditID, staffID, date, location, closed, title, description, imageUrl) VALUES ?",
+                  "INSERT INTO scratch_issues (tenantID, auditID, staffID, date, location, closed, title, description, imageUrl, deadline) VALUES ?",
                   [issues],
                   (err, result) => {
                     if (err) {
@@ -279,7 +280,7 @@ router.post("/partial", (req, res) => {
 
         if (issues) {
           db.query(
-            "INSERT INTO scratch_issues (tenantID, auditID, staffID, date, location, closed, title, description, imageUrl) VALUES ?",
+            "INSERT INTO scratch_issues (tenantID, auditID, staffID, date, location, closed, title, description, imageUrl, deadline) VALUES ?",
             [issues],
             (err, result) => {
               console.log(
@@ -342,7 +343,7 @@ router.post("/partialcomplete", (req, res) => {
               );
               if (issues) {
                 db.query(
-                  "INSERT INTO scratch_issues (tenantID, auditID, staffID, date, location, closed, title, description, imageUrl) VALUES ?",
+                  "INSERT INTO scratch_issues (tenantID, auditID, staffID, date, location, closed, title, description, imageUrl, deadline) VALUES ?",
                   [issues],
                   (err, result) => {
                     if (err) {

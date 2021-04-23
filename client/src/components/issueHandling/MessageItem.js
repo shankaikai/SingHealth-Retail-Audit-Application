@@ -47,45 +47,45 @@ const MessageItem = (props) => {
     return false;
   };
 
-    return (
-        <div className={classes.root}>
-            <div className={classes.inner}>
-                <div className={classes.header}>
-                    <Typography color="textPrimary">
-                        <Box fontWeight="fontWeightBold" fontSize={20}>
-                            {data.staffName ? 
-                            data.staffName :
-                            data.tenantName?
-                            data.tenantName:
-                            "Deleted User"}
-                        </Box>
-                    </Typography>
-                    <Typography color="textSecondary" style={{ paddingLeft: "20px" }}>
-                        <Box fontSize={14}>
-                            {data.dateSent && isToday(data.dateSent) ?
-                                new Date(data.dateSent).toTimeString().slice(0, 5) :
-                                data.dateSent && !isToday(data.dateSent) ?
-                                    new Date(data.dateSent).toDateString().slice(4)
-                                    : null}
-                        </Box>
-                    </Typography>
-                </div>
-                {data.photoUrl ? (
-                    <div className={classes.imageHolder}>
-                        <img
-                            alt="issue"
-                            className={classes.image}
-                            src={data.photoUrl}
-                        ></img>
-                    </div>
-                ): null}
-                <Typography color="textPrimary" style={{marginTop:"15px"}}>
-                    <Box fontSize={15} style={{wrap:"pre-wrap"}}>
-                        {data.body}
-                    </Box>
-                </Typography>
-            </div>
-            <Divider />
+  return (
+    <div className={classes.root}>
+      <div className={classes.inner}>
+        <div className={classes.header}>
+          <Typography color="textPrimary">
+            <Box fontWeight="fontWeightBold" fontSize={20}>
+              {data.staffName
+                ? data.staffName
+                : data.tenantName
+                ? data.tenantName
+                : "Deleted User"}
+            </Box>
+          </Typography>
+          <Typography color="textSecondary" style={{ paddingLeft: "20px" }}>
+            <Box fontSize={14}>
+              {data.dateSent && isToday(data.dateSent)
+                ? new Date(data.dateSent).toTimeString().slice(0, 5)
+                : data.dateSent && !isToday(data.dateSent)
+                ? new Date(data.dateSent).toDateString().slice(4)
+                : null}
+            </Box>
+          </Typography>
+        </div>
+        {data.photoUrl ? (
+          <div className={classes.imageHolder}>
+            <img
+              alt="issue"
+              className={classes.image}
+              src={data.photoUrl}
+            ></img>
+          </div>
+        ) : null}
+        <Typography color="textPrimary" style={{ marginTop: "15px" }}>
+          <Box fontSize={15} style={{ wrap: "pre-wrap" }}>
+            {data.body}
+          </Box>
+        </Typography>
+      </div>
+      <Divider />
     </div>
   );
 };
