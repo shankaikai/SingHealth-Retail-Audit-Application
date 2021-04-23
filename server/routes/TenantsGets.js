@@ -40,7 +40,7 @@ const groupByTenants = (res) => {
           {
             issueID: item.issueID,
             title: item.title,
-            date: item.date,
+            deadline: item.deadline,
           },
         ],
       };
