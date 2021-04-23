@@ -11,7 +11,8 @@ Phan Vu Lan
 
 ### Project Description
 
-We developed a full stack application using Node, Express, React and MySQL to digitalise audits for SingHealth.
+A full stack application made using Node, Express, React and MySQL to digitalise audits for SingHealth.
+UI was created using Material UI.
 
 ### Screenshots
 
